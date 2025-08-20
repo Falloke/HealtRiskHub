@@ -1,5 +1,5 @@
 services:
-  healriskhub:
+  healtriskhub:
     build: .
     container_name: healtriskhub-web
     ports:
@@ -9,9 +9,9 @@ services:
       - NEXTAUTH_URL=http://localhost:3000
       - DATABASE_URL=postgres://postgres:password@db:5432/mydatabase
     depends_on:
-      - healriskhub-db
+      - healtriskhub-db
 
-  healriskhub-db:
+  healtriskhub-db:
     image: postgres:15-alpine
     container_name: healtriskhub-db
     restart: always
@@ -24,9 +24,5 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-
 volumes:
   postgres_data:
-
-
-    
