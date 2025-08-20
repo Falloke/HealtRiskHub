@@ -6,7 +6,12 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "primary-pink": "#F523AC", // ใช้ในปุ่มและหัวข้อ
+        "primary-yellow-main": "#E89623", // สีที่คุณใช้ใน picker
+      },
+    },
   },
   plugins: [],
 };
