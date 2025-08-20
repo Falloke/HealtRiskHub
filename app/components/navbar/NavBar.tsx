@@ -1,16 +1,21 @@
 "use client";
-
 import { useState } from "react";
+import { useEffect } from "react";
 import { ChevronDown, LogOut, Search, Settings, User } from "lucide-react";
 import Link from "next/link";
 import { useAuthStore } from "@/store/useAuthStore"; // Assuming you have an auth store to get user info
 
 const Navbar = () => {
-  const [open, setOpen] = useState(true);
-  const { user } = useAuthStore();
-  const name = user?.name ?? "ผู้ใช้งาน";
-  const { setUser } = useAuthStore();
-  setUser({ name: "Pimonpan Doungtip", email: "pimonpandt@gmail.com" });
+  const [open, setOpen] = useState(false);
+  const name = () => {
+    return "Pimonpan Doungtip";
+  };
+  // <-- สร้าง state
+  // const { setUser } = useAuthStore();
+
+  // useEffect(() => {
+  //   setUser({ name: "Pimonpan Doungtip", email: "pimonpandt@gmail.com" });
+  // }, [setUser]);
 
   return (
     <nav className="flex items-center justify-between bg-pink-200 px-6 py-4 shadow-md">
@@ -28,17 +33,17 @@ const Navbar = () => {
       </div>
 
       {/* โปรไฟล์ Dropdown */}
-      <div className="relative">
+      <div className="relative z-50">
         <button
           onClick={() => setOpen(!open)}
           className="flex items-center gap-2 rounded-md border bg-white px-4 py-2"
         >
-          <span className="text-sm font-medium">{name}</span>
+          <span className="text-sm font-medium">{name()}</span>
           <ChevronDown className="h-4 w-4" />
         </button>
 
         {open && (
-          <div className="absolute right-0 z-20 mt-2 w-60 rounded border bg-white shadow-lg">
+          <div className="absolute right-0 z-50 mt-2 w-60 rounded border bg-white shadow-lg">
             <Link
               href="/profile"
               className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-pink-100"

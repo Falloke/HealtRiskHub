@@ -1,7 +1,16 @@
 "use client";
 
-import HomeMap from "./HomeMap";
 import { Button } from "@/app/components/ui/button";
+
+import dynamic from "next/dynamic";
+
+// dynamic import ไม่ให้ SSR เพื่อหลีกเลี่ยง window is not defined
+const HomeMap = dynamic(
+  () => import("@/app/features/main/homePage/component/MapClient"),
+  {
+    ssr: false,
+  }
+);
 
 const PageDescription = () => {
   return (
