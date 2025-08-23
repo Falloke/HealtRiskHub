@@ -9,7 +9,7 @@ datasource db {
 }
 
 model User {
-  id            String          @id @default(cuid())
+  id            Int             @id @default(autoincrement())
   first_name    String
   last_name     String
   role          String          @default("user")
@@ -17,22 +17,20 @@ model User {
   position      String
   province      String
   email         String          @unique
-  sessions      Session[]
-  // Optional for WebAuthn support
+  password      String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
   Authenticator Authenticator[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  sessions      Session[]
 }
 
 model Session {
   sessionToken String   @unique
-  userId       String
   expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  userId       Int
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model VerificationToken {
@@ -43,35 +41,31 @@ model VerificationToken {
   @@id([identifier, token])
 }
 
-// Optional for WebAuthn support
 model Authenticator {
   credentialID         String  @unique
-  userId               String
   providerAccountId    String
   credentialPublicKey  String
   counter              Int
   credentialDeviceType String
   credentialBackedUp   Boolean
   transports           String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId               Int
+  user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, credentialID])
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-// model influenzadata2567 {
-//   disease        String? @db.VarChar(50)
-//   gender         String? @db.VarChar(50)
-//   age_y          Int?
-//   nationality    String? @db.VarChar(50)
-//   occupation     String? @db.VarChar(255)
-//   province       String? @db.VarChar(50)
-//   district       String? @db.VarChar(50)
-//   onset_date     String? @db.VarChar(50)
-//   treated_date   String? @db.VarChar(50)
-//   diagnosis_date String? @db.VarChar(50)
-//   death_date     String? @db.VarChar(50)
-
-//   @@ignore
-// }
+model influenzadata2567 {
+  id             Int     @id @default(autoincrement())
+  disease        String? @db.VarChar(50)
+  gender         String? @db.VarChar(50)
+  age_y          Int?
+  nationality    String? @db.VarChar(50)
+  occupation     String? @db.VarChar(255)
+  province       String? @db.VarChar(50)
+  district       String? @db.VarChar(50)
+  onset_date     String? @db.VarChar(50)
+  treated_date   String? @db.VarChar(50)
+  diagnosis_date String? @db.VarChar(50)
+  death_date     String? @db.VarChar(50)
+}

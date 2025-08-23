@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { ChevronDown, LogOut, Search, Settings, User } from "lucide-react";
 import Link from "next/link";
 import { useAuthStore } from "@/store/useAuthStore"; // Assuming you have an auth store to get user info
+import { signOut } from "next-auth/react";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -66,13 +67,14 @@ const Navbar = () => {
               สร้างรูปแบบการค้นหา
             </Link>
             <div className="my-1 border-t" />
-            <Link
-              href="/logout"
+            <button
+              type="button"
               className="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-pink-100"
+              onClick={() => signOut()}
             >
               <LogOut className="h-4 w-4" />
               ออกจากระบบ
-            </Link>
+            </button>
           </div>
         )}
       </div>

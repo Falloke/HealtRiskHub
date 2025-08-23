@@ -8,8 +8,55 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model User {
+  id            Int             @id @default(autoincrement())
+  first_name    String
+  last_name     String
+  role          String          @default("user")
+  brith_date    DateTime
+  position      String
+  province      String
+  email         String          @unique
+  password      String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  Authenticator Authenticator[]
+  sessions      Session[]
+}
+
+model Session {
+  sessionToken String   @unique
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+model Authenticator {
+  credentialID         String  @unique
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+  userId               Int
+  user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
+}
+
 model influenzadata2567 {
+  id             Int     @id @default(autoincrement())
   disease        String? @db.VarChar(50)
   gender         String? @db.VarChar(50)
   age_y          Int?
@@ -21,6 +68,4 @@ model influenzadata2567 {
   treated_date   String? @db.VarChar(50)
   diagnosis_date String? @db.VarChar(50)
   death_date     String? @db.VarChar(50)
-
-  @@ignore
 }
