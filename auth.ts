@@ -1,7 +1,6 @@
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 
-
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
@@ -21,7 +20,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
 
       authorize: async (credentials) => {
-        const user = null
+        // const user = 1;
 
         // logic to salt and hash password
         // const pwHash = saltAndHashPassword(credentials.password)
@@ -29,40 +28,48 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         // // logic to verify if the user exists
         // user = await getUserFromDb(credentials.email, pwHash)
 
-        if (!user) {
-          // No user found, so this is their first attempt to login
-          // Optionally, this is also the place you could do a user registration
-          throw new Error("Invalid credentials.")
+        // if (!user) {
+        //   // No user found, so this is their first attempt to login
+        //   // Optionally, this is also the place you could do a user registration
+        //   throw new Error("Invalid credentials.")
+        // }
+
+        const user = {
+          id: '1'
+        }
+        if (credentials.email === 'admin@admin.com' && credentials.password === '1234') {
+          // throw new Error("Invalid credentials.")
+          return user
         }
 
         // return user object with their profile data
-        return user
+        return null
       },
     }),
   ],
 
-  callbacks: {
-    async jwt({ token, user, account }) {
+  // callbacks: {
+  //   async jwt({ token, user, account }) {
 
-      if (account?.provider === "credentials" && user) {
-        token.id = user.id;
-        token.first_name = user.first_name;
-        token.last_name = user.last_name;
-        token.role = user.role;
-      }
-      return token;
-    },
+  //     if (account?.provider === "credentials" && user) {
+  //       token.id = user.id;
+  //       token.first_name = user.first_name;
+  //       token.last_name = user.last_name;
+  //       token.role = user.role;
+  //     }
+  //     return token;
+  //   },
 
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.id;
-        session.user.first_name = token.first_name;
-        session.user.last_name = token.last_name;
-        session.user.role = token.role;
-      }
-      return session;
-    },
-  },
+  //   async session({ session, token }) {
+  //     if (session.user) {
+  //       session.user.id = token.id;
+  //       session.user.first_name = token.first_name;
+  //       session.user.last_name = token.last_name;
+  //       session.user.role = token.role;
+  //     }
+  //     return session;
+  //   },
+  // },
 
   secret: process.env.AUTH_SECRET,
 })
