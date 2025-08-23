@@ -33,7 +33,7 @@ export default function RegisterPage() {
             src="/images/register.png"
             alt="Register"
             width={400}
-            height={400}
+            height{400}
           />
         </div>
         <div className="w-1/2 p-10">
