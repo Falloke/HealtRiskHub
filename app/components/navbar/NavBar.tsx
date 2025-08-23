@@ -36,7 +36,7 @@ const Navbar = () => {
       <div className="relative z-50">
         <button
           onClick={() => setOpen(!open)}
-          className="flex items-center gap-2 rounded-md border bg-white px-4 py-2"
+          className="flex items-center gap-2 rounded-md border bg-white px-4 py-2 cursor-pointer"
         >
           <span className="text-sm font-medium">{name()}</span>
           <ChevronDown className="h-4 w-4" />

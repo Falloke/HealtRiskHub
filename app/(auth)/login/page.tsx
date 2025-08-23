@@ -4,10 +4,16 @@ import Image from "next/image";
 import { Input } from "@/app/components/ui/input";
 import { Button } from "@/app/components/ui/button";
 import { useAuthStore } from "@/store/useAuthStore"; // Assuming you have an auth store to manage user state
+import { useState } from "react";
 
 export default function LoginPage() {
   const { setUser } = useAuthStore();
   setUser({ name: "Pimonpan Doungtip", email: "pimonpandt@gmail.com" });
+
+  const [formData, setFormData] = useState({
+    email:"",
+    password:""
+  })
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-pink-100">
@@ -21,7 +27,7 @@ export default function LoginPage() {
           </h2>
           <form className="space-y-6">
             <Input placeholder="Email" type="email" />
-            <Input placeholder="Password" type="password" />
+            <Input placeholder="Password" type="password" value={formData.email} onChange={(e) => setFormData({...formData, email:e.currentTarget.value})}/>
             <div className="text-center">
               <Button className="bg-primary-pink w-full text-white hover:bg-pink-500">
                 สมัครสมาชิก
