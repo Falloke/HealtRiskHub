@@ -7,7 +7,8 @@ services:
     environment:
       - NODE_ENV=production
       - NEXTAUTH_URL=http://localhost:3000
-      - DATABASE_URL=postgres://postgres:password@db:5432/mydatabase
+      - DATABASE_URL="postgresql://postgres:password@100.89.220.85:5432/postgres"
+
     depends_on:
       - healtriskhub-db
 
