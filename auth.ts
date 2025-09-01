@@ -1,6 +1,6 @@
-import NextAuth from "next-auth"
-import Credentials from "next-auth/providers/credentials"
-import { PrismaClient, Prisma } from '@/generated/prisma/client'
+import NextAuth from "next-auth";
+import Credentials from "next-auth/providers/credentials";
+import { PrismaClient, Prisma } from "@/generated/prisma/client";
 import bcrypt from "bcryptjs";
 const prisma = new PrismaClient();
 
@@ -15,7 +15,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
 
       authorize: async (credentials) => {
-
         if (!credentials?.email || !credentials?.password) return null;
 
         try {
@@ -31,30 +30,31 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               password: true,
               email: true,
             },
-          })
+          });
 
-          console.log('log user', user);
+          console.log("log user", user);
 
           if (user) {
-            const passwordCorrect = bcrypt.compareSync(credentials.password, user.password);
+            const passwordCorrect = bcrypt.compareSync(
+              credentials.password,
+              user.password
+            );
             if (passwordCorrect) {
               return user;
             }
           }
-
         } catch (error) {
           console.error("Authorize error:", error);
           return null;
         }
 
-        return null
+        return null;
       },
     }),
   ],
 
   callbacks: {
     async jwt({ token, user, account }) {
-
       if (account?.provider === "credentials" && user) {
         token.id = user.id;
         token.first_name = user.first_name;
@@ -80,9 +80,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // }
 
       return session;
-
     },
   },
 
   secret: process.env.AUTH_SECRET,
-})
+});

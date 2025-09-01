@@ -147,7 +147,7 @@ export default function RegisterPage() {
             />
             <Input
               placeholder="ยืนยัน Password"
-              type="confirmPassword"
+              type="password"
               value={form.confirmPassword}
               onChange={(event) =>
                 setForm({ ...form, confirmPassword: event.currentTarget.value })
