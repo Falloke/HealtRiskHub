@@ -7,7 +7,7 @@ import { useAuthStore } from "@/store/useAuthStore"; // Assuming you have an aut
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react"
 
-const Navbar = () => {
+const AuthNavBar = () => {
   const { data: session } = useSession()
   const [open, setOpen] = useState(false);
   const name = () => {
@@ -84,4 +84,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default AuthNavBar;

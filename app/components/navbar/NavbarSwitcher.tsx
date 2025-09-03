@@ -7,7 +7,8 @@ import { useSession } from "next-auth/react"
 
 export default function NavbarSwitcher() {
 //  const pathname = usePathname();
-const { data: session } = useSession()
+const { data: session} = useSession()
+
 
 const isAuthPage = session?.user?.role === "admin" || session?.user?.role === "User";
 

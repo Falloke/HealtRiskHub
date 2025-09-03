@@ -13,6 +13,13 @@ export async function middleware(request: NextRequest) {
     "/register",
     "/haslogin",
     "/favicon.ico",
+    "/dashBoard",
+    "/provincPage",
+    "/comparePage",
+    "/searchTemplate",
+    "/historyPage",
+    "/profilePage",
+    "/provincialInfo",
   ];
 
   // ✅ ยกเว้น API และ static assets ไปแล้วใน matcher
