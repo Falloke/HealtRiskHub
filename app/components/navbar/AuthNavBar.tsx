@@ -1,11 +1,24 @@
 "use client";
-
 import { useState } from "react";
+import { useEffect } from "react";
 import { ChevronDown, LogOut, Search, Settings, User } from "lucide-react";
 import Link from "next/link";
+import { useAuthStore } from "@/store/useAuthStore"; // Assuming you have an auth store to get user info
+import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react"
 
-const Navbar = () => {
+const AuthNavBar = () => {
+  const { data: session } = useSession()
   const [open, setOpen] = useState(false);
+  const name = () => {
+    return session?.user?.first_name + " " + session?.user?.last_name;
+  };
+  // <-- สร้าง state
+  // const { setUser } = useAuthStore();
+
+  // useEffect(() => {
+  //   setUser({ name: "Pimonpan Doungtip", email: "pimonpandt@gmail.com" });
+  // }, [setUser]);
 
   return (
     <nav className="flex items-center justify-between bg-pink-200 px-6 py-4 shadow-md">
@@ -23,16 +36,52 @@ const Navbar = () => {
       </div>
 
       {/* โปรไฟล์ Dropdown */}
-      <div className="relative">
-        <div className="flex">
-          <div className="flex-col-2 flex">
-            <button>เข้าสู่ระบบ</button>
-            <button>สมัครสมาชิก</button>
+      <div className="relative z-50">
+        <button
+          onClick={() => setOpen(!open)}
+          className="flex items-center gap-2 rounded-md border bg-white px-4 py-2 cursor-pointer"
+        >
+          <span className="text-sm font-medium">{name()}</span>
+          <ChevronDown className="h-4 w-4" />
+        </button>
+
+        {open && (
+          <div className="absolute right-0 z-50 mt-2 w-60 rounded border bg-white shadow-lg">
+            <Link
+              href="/profile"
+              className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-pink-100"
+            >
+              <User className="h-4 w-4" />
+              โปรไฟล์ของฉัน
+            </Link>
+            <Link
+              href="/history"
+              className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-pink-100"
+            >
+              <Search className="h-4 w-4" />
+              ประวัติการค้นหา
+            </Link>
+            <Link
+              href="/search-template"
+              className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-pink-100"
+            >
+              <Settings className="h-4 w-4" />
+              สร้างรูปแบบการค้นหา
+            </Link>
+            <div className="my-1 border-t" />
+            <button
+              type="button"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-pink-100"
+              onClick={() => signOut()}
+            >
+              <LogOut className="h-4 w-4" />
+              ออกจากระบบ
+            </button>
           </div>
-        </div>
+        )}
       </div>
     </nav>
   );
 };
 
-export default Navbar;
+export default AuthNavBar;
