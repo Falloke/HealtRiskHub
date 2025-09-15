@@ -32,7 +32,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             },
           });
 
-          console.log("log user", user);
 
           if (user) {
             const passwordCorrect = bcrypt.compareSync(
@@ -73,6 +72,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.first_name = token.first_name;
         session.user.last_name = token.last_name;
         session.user.role = token.role;
+        
       }
 
       // if (new Date(session.expires) < new Date('2026-09-22T20:54:41.484Z')) {

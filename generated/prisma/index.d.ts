@@ -38,6 +38,16 @@ export type Authenticator = $Result.DefaultSelection<Prisma.$AuthenticatorPayloa
  * 
  */
 export type influenzadata2567 = $Result.DefaultSelection<Prisma.$influenzadata2567Payload>
+/**
+ * Model d01_influenza
+ * This table is a partition table and requires additional setup for migrations. Visit https://pris.ly/d/partition-tables for more info.
+ */
+export type d01_influenza = $Result.DefaultSelection<Prisma.$d01_influenzaPayload>
+/**
+ * Model diseases
+ * 
+ */
+export type diseases = $Result.DefaultSelection<Prisma.$diseasesPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -206,6 +216,26 @@ export class PrismaClient<
     * ```
     */
   get influenzadata2567(): Prisma.influenzadata2567Delegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.d01_influenza`: Exposes CRUD operations for the **d01_influenza** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more D01_influenzas
+    * const d01_influenzas = await prisma.d01_influenza.findMany()
+    * ```
+    */
+  get d01_influenza(): Prisma.d01_influenzaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.diseases`: Exposes CRUD operations for the **diseases** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Diseases
+    * const diseases = await prisma.diseases.findMany()
+    * ```
+    */
+  get diseases(): Prisma.diseasesDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -650,7 +680,9 @@ export namespace Prisma {
     Session: 'Session',
     VerificationToken: 'VerificationToken',
     Authenticator: 'Authenticator',
-    influenzadata2567: 'influenzadata2567'
+    influenzadata2567: 'influenzadata2567',
+    d01_influenza: 'd01_influenza',
+    diseases: 'diseases'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -669,7 +701,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "session" | "verificationToken" | "authenticator" | "influenzadata2567"
+      modelProps: "user" | "session" | "verificationToken" | "authenticator" | "influenzadata2567" | "d01_influenza" | "diseases"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1043,6 +1075,154 @@ export namespace Prisma {
           }
         }
       }
+      d01_influenza: {
+        payload: Prisma.$d01_influenzaPayload<ExtArgs>
+        fields: Prisma.d01_influenzaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.d01_influenzaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$d01_influenzaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.d01_influenzaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$d01_influenzaPayload>
+          }
+          findFirst: {
+            args: Prisma.d01_influenzaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$d01_influenzaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.d01_influenzaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$d01_influenzaPayload>
+          }
+          findMany: {
+            args: Prisma.d01_influenzaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$d01_influenzaPayload>[]
+          }
+          create: {
+            args: Prisma.d01_influenzaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$d01_influenzaPayload>
+          }
+          createMany: {
+            args: Prisma.d01_influenzaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.d01_influenzaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$d01_influenzaPayload>[]
+          }
+          delete: {
+            args: Prisma.d01_influenzaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$d01_influenzaPayload>
+          }
+          update: {
+            args: Prisma.d01_influenzaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$d01_influenzaPayload>
+          }
+          deleteMany: {
+            args: Prisma.d01_influenzaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.d01_influenzaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.d01_influenzaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$d01_influenzaPayload>[]
+          }
+          upsert: {
+            args: Prisma.d01_influenzaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$d01_influenzaPayload>
+          }
+          aggregate: {
+            args: Prisma.D01_influenzaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateD01_influenza>
+          }
+          groupBy: {
+            args: Prisma.d01_influenzaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<D01_influenzaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.d01_influenzaCountArgs<ExtArgs>
+            result: $Utils.Optional<D01_influenzaCountAggregateOutputType> | number
+          }
+        }
+      }
+      diseases: {
+        payload: Prisma.$diseasesPayload<ExtArgs>
+        fields: Prisma.diseasesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.diseasesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$diseasesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.diseasesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$diseasesPayload>
+          }
+          findFirst: {
+            args: Prisma.diseasesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$diseasesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.diseasesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$diseasesPayload>
+          }
+          findMany: {
+            args: Prisma.diseasesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$diseasesPayload>[]
+          }
+          create: {
+            args: Prisma.diseasesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$diseasesPayload>
+          }
+          createMany: {
+            args: Prisma.diseasesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.diseasesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$diseasesPayload>[]
+          }
+          delete: {
+            args: Prisma.diseasesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$diseasesPayload>
+          }
+          update: {
+            args: Prisma.diseasesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$diseasesPayload>
+          }
+          deleteMany: {
+            args: Prisma.diseasesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.diseasesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.diseasesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$diseasesPayload>[]
+          }
+          upsert: {
+            args: Prisma.diseasesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$diseasesPayload>
+          }
+          aggregate: {
+            args: Prisma.DiseasesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDiseases>
+          }
+          groupBy: {
+            args: Prisma.diseasesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DiseasesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.diseasesCountArgs<ExtArgs>
+            result: $Utils.Optional<DiseasesCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1140,6 +1320,8 @@ export namespace Prisma {
     verificationToken?: VerificationTokenOmit
     authenticator?: AuthenticatorOmit
     influenzadata2567?: influenzadata2567Omit
+    d01_influenza?: d01_influenzaOmit
+    diseases?: diseasesOmit
   }
 
   /* Types for Logging */
@@ -1291,6 +1473,7 @@ export namespace Prisma {
     password: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1305,6 +1488,7 @@ export namespace Prisma {
     password: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1319,6 +1503,7 @@ export namespace Prisma {
     password: number
     createdAt: number
     updatedAt: number
+    deletedAt: number
     _all: number
   }
 
@@ -1343,6 +1528,7 @@ export namespace Prisma {
     password?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1357,6 +1543,7 @@ export namespace Prisma {
     password?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1371,6 +1558,7 @@ export namespace Prisma {
     password?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
     _all?: true
   }
 
@@ -1472,6 +1660,7 @@ export namespace Prisma {
     password: string
     createdAt: Date
     updatedAt: Date
+    deletedAt: Date | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -1505,6 +1694,7 @@ export namespace Prisma {
     password?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
     Authenticator?: boolean | User$AuthenticatorArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1522,6 +1712,7 @@ export namespace Prisma {
     password?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1536,6 +1727,7 @@ export namespace Prisma {
     password?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1550,9 +1742,10 @@ export namespace Prisma {
     password?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "first_name" | "last_name" | "role" | "brith_date" | "position" | "province" | "email" | "password" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "first_name" | "last_name" | "role" | "brith_date" | "position" | "province" | "email" | "password" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Authenticator?: boolean | User$AuthenticatorArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -1579,6 +1772,7 @@ export namespace Prisma {
       password: string
       createdAt: Date
       updatedAt: Date
+      deletedAt: Date | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2015,6 +2209,7 @@ export namespace Prisma {
     readonly password: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly deletedAt: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -6790,6 +6985,2151 @@ export namespace Prisma {
 
 
   /**
+   * Model d01_influenza
+   */
+
+  export type AggregateD01_influenza = {
+    _count: D01_influenzaCountAggregateOutputType | null
+    _avg: D01_influenzaAvgAggregateOutputType | null
+    _sum: D01_influenzaSumAggregateOutputType | null
+    _min: D01_influenzaMinAggregateOutputType | null
+    _max: D01_influenzaMaxAggregateOutputType | null
+  }
+
+  export type D01_influenzaAvgAggregateOutputType = {
+    id: number | null
+    age_y: number | null
+  }
+
+  export type D01_influenzaSumAggregateOutputType = {
+    id: number | null
+    age_y: number | null
+  }
+
+  export type D01_influenzaMinAggregateOutputType = {
+    id: number | null
+    disease_code: string | null
+    gender: string | null
+    age_y: number | null
+    nationality: string | null
+    occupation: string | null
+    province: string | null
+    district: string | null
+    onset_date: string | null
+    treated_date: string | null
+    diagnosis_date: string | null
+    death_date: string | null
+    onset_date_parsed: Date | null
+    treated_date_parsed: Date | null
+    diagnosis_date_parsed: Date | null
+    death_date_parsed: Date | null
+  }
+
+  export type D01_influenzaMaxAggregateOutputType = {
+    id: number | null
+    disease_code: string | null
+    gender: string | null
+    age_y: number | null
+    nationality: string | null
+    occupation: string | null
+    province: string | null
+    district: string | null
+    onset_date: string | null
+    treated_date: string | null
+    diagnosis_date: string | null
+    death_date: string | null
+    onset_date_parsed: Date | null
+    treated_date_parsed: Date | null
+    diagnosis_date_parsed: Date | null
+    death_date_parsed: Date | null
+  }
+
+  export type D01_influenzaCountAggregateOutputType = {
+    id: number
+    disease_code: number
+    gender: number
+    age_y: number
+    nationality: number
+    occupation: number
+    province: number
+    district: number
+    onset_date: number
+    treated_date: number
+    diagnosis_date: number
+    death_date: number
+    onset_date_parsed: number
+    treated_date_parsed: number
+    diagnosis_date_parsed: number
+    death_date_parsed: number
+    _all: number
+  }
+
+
+  export type D01_influenzaAvgAggregateInputType = {
+    id?: true
+    age_y?: true
+  }
+
+  export type D01_influenzaSumAggregateInputType = {
+    id?: true
+    age_y?: true
+  }
+
+  export type D01_influenzaMinAggregateInputType = {
+    id?: true
+    disease_code?: true
+    gender?: true
+    age_y?: true
+    nationality?: true
+    occupation?: true
+    province?: true
+    district?: true
+    onset_date?: true
+    treated_date?: true
+    diagnosis_date?: true
+    death_date?: true
+    onset_date_parsed?: true
+    treated_date_parsed?: true
+    diagnosis_date_parsed?: true
+    death_date_parsed?: true
+  }
+
+  export type D01_influenzaMaxAggregateInputType = {
+    id?: true
+    disease_code?: true
+    gender?: true
+    age_y?: true
+    nationality?: true
+    occupation?: true
+    province?: true
+    district?: true
+    onset_date?: true
+    treated_date?: true
+    diagnosis_date?: true
+    death_date?: true
+    onset_date_parsed?: true
+    treated_date_parsed?: true
+    diagnosis_date_parsed?: true
+    death_date_parsed?: true
+  }
+
+  export type D01_influenzaCountAggregateInputType = {
+    id?: true
+    disease_code?: true
+    gender?: true
+    age_y?: true
+    nationality?: true
+    occupation?: true
+    province?: true
+    district?: true
+    onset_date?: true
+    treated_date?: true
+    diagnosis_date?: true
+    death_date?: true
+    onset_date_parsed?: true
+    treated_date_parsed?: true
+    diagnosis_date_parsed?: true
+    death_date_parsed?: true
+    _all?: true
+  }
+
+  export type D01_influenzaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which d01_influenza to aggregate.
+     */
+    where?: d01_influenzaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of d01_influenzas to fetch.
+     */
+    orderBy?: d01_influenzaOrderByWithRelationInput | d01_influenzaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: d01_influenzaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` d01_influenzas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` d01_influenzas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned d01_influenzas
+    **/
+    _count?: true | D01_influenzaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: D01_influenzaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: D01_influenzaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: D01_influenzaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: D01_influenzaMaxAggregateInputType
+  }
+
+  export type GetD01_influenzaAggregateType<T extends D01_influenzaAggregateArgs> = {
+        [P in keyof T & keyof AggregateD01_influenza]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateD01_influenza[P]>
+      : GetScalarType<T[P], AggregateD01_influenza[P]>
+  }
+
+
+
+
+  export type d01_influenzaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: d01_influenzaWhereInput
+    orderBy?: d01_influenzaOrderByWithAggregationInput | d01_influenzaOrderByWithAggregationInput[]
+    by: D01_influenzaScalarFieldEnum[] | D01_influenzaScalarFieldEnum
+    having?: d01_influenzaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: D01_influenzaCountAggregateInputType | true
+    _avg?: D01_influenzaAvgAggregateInputType
+    _sum?: D01_influenzaSumAggregateInputType
+    _min?: D01_influenzaMinAggregateInputType
+    _max?: D01_influenzaMaxAggregateInputType
+  }
+
+  export type D01_influenzaGroupByOutputType = {
+    id: number
+    disease_code: string
+    gender: string | null
+    age_y: number | null
+    nationality: string | null
+    occupation: string | null
+    province: string | null
+    district: string | null
+    onset_date: string | null
+    treated_date: string | null
+    diagnosis_date: string | null
+    death_date: string | null
+    onset_date_parsed: Date
+    treated_date_parsed: Date | null
+    diagnosis_date_parsed: Date | null
+    death_date_parsed: Date | null
+    _count: D01_influenzaCountAggregateOutputType | null
+    _avg: D01_influenzaAvgAggregateOutputType | null
+    _sum: D01_influenzaSumAggregateOutputType | null
+    _min: D01_influenzaMinAggregateOutputType | null
+    _max: D01_influenzaMaxAggregateOutputType | null
+  }
+
+  type GetD01_influenzaGroupByPayload<T extends d01_influenzaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<D01_influenzaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof D01_influenzaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], D01_influenzaGroupByOutputType[P]>
+            : GetScalarType<T[P], D01_influenzaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type d01_influenzaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    disease_code?: boolean
+    gender?: boolean
+    age_y?: boolean
+    nationality?: boolean
+    occupation?: boolean
+    province?: boolean
+    district?: boolean
+    onset_date?: boolean
+    treated_date?: boolean
+    diagnosis_date?: boolean
+    death_date?: boolean
+    onset_date_parsed?: boolean
+    treated_date_parsed?: boolean
+    diagnosis_date_parsed?: boolean
+    death_date_parsed?: boolean
+  }, ExtArgs["result"]["d01_influenza"]>
+
+  export type d01_influenzaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    disease_code?: boolean
+    gender?: boolean
+    age_y?: boolean
+    nationality?: boolean
+    occupation?: boolean
+    province?: boolean
+    district?: boolean
+    onset_date?: boolean
+    treated_date?: boolean
+    diagnosis_date?: boolean
+    death_date?: boolean
+    onset_date_parsed?: boolean
+    treated_date_parsed?: boolean
+    diagnosis_date_parsed?: boolean
+    death_date_parsed?: boolean
+  }, ExtArgs["result"]["d01_influenza"]>
+
+  export type d01_influenzaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    disease_code?: boolean
+    gender?: boolean
+    age_y?: boolean
+    nationality?: boolean
+    occupation?: boolean
+    province?: boolean
+    district?: boolean
+    onset_date?: boolean
+    treated_date?: boolean
+    diagnosis_date?: boolean
+    death_date?: boolean
+    onset_date_parsed?: boolean
+    treated_date_parsed?: boolean
+    diagnosis_date_parsed?: boolean
+    death_date_parsed?: boolean
+  }, ExtArgs["result"]["d01_influenza"]>
+
+  export type d01_influenzaSelectScalar = {
+    id?: boolean
+    disease_code?: boolean
+    gender?: boolean
+    age_y?: boolean
+    nationality?: boolean
+    occupation?: boolean
+    province?: boolean
+    district?: boolean
+    onset_date?: boolean
+    treated_date?: boolean
+    diagnosis_date?: boolean
+    death_date?: boolean
+    onset_date_parsed?: boolean
+    treated_date_parsed?: boolean
+    diagnosis_date_parsed?: boolean
+    death_date_parsed?: boolean
+  }
+
+  export type d01_influenzaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "disease_code" | "gender" | "age_y" | "nationality" | "occupation" | "province" | "district" | "onset_date" | "treated_date" | "diagnosis_date" | "death_date" | "onset_date_parsed" | "treated_date_parsed" | "diagnosis_date_parsed" | "death_date_parsed", ExtArgs["result"]["d01_influenza"]>
+
+  export type $d01_influenzaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "d01_influenza"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      disease_code: string
+      gender: string | null
+      age_y: number | null
+      nationality: string | null
+      occupation: string | null
+      province: string | null
+      district: string | null
+      onset_date: string | null
+      treated_date: string | null
+      diagnosis_date: string | null
+      death_date: string | null
+      onset_date_parsed: Date
+      treated_date_parsed: Date | null
+      diagnosis_date_parsed: Date | null
+      death_date_parsed: Date | null
+    }, ExtArgs["result"]["d01_influenza"]>
+    composites: {}
+  }
+
+  type d01_influenzaGetPayload<S extends boolean | null | undefined | d01_influenzaDefaultArgs> = $Result.GetResult<Prisma.$d01_influenzaPayload, S>
+
+  type d01_influenzaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<d01_influenzaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: D01_influenzaCountAggregateInputType | true
+    }
+
+  export interface d01_influenzaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['d01_influenza'], meta: { name: 'd01_influenza' } }
+    /**
+     * Find zero or one D01_influenza that matches the filter.
+     * @param {d01_influenzaFindUniqueArgs} args - Arguments to find a D01_influenza
+     * @example
+     * // Get one D01_influenza
+     * const d01_influenza = await prisma.d01_influenza.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends d01_influenzaFindUniqueArgs>(args: SelectSubset<T, d01_influenzaFindUniqueArgs<ExtArgs>>): Prisma__d01_influenzaClient<$Result.GetResult<Prisma.$d01_influenzaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one D01_influenza that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {d01_influenzaFindUniqueOrThrowArgs} args - Arguments to find a D01_influenza
+     * @example
+     * // Get one D01_influenza
+     * const d01_influenza = await prisma.d01_influenza.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends d01_influenzaFindUniqueOrThrowArgs>(args: SelectSubset<T, d01_influenzaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__d01_influenzaClient<$Result.GetResult<Prisma.$d01_influenzaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first D01_influenza that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {d01_influenzaFindFirstArgs} args - Arguments to find a D01_influenza
+     * @example
+     * // Get one D01_influenza
+     * const d01_influenza = await prisma.d01_influenza.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends d01_influenzaFindFirstArgs>(args?: SelectSubset<T, d01_influenzaFindFirstArgs<ExtArgs>>): Prisma__d01_influenzaClient<$Result.GetResult<Prisma.$d01_influenzaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first D01_influenza that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {d01_influenzaFindFirstOrThrowArgs} args - Arguments to find a D01_influenza
+     * @example
+     * // Get one D01_influenza
+     * const d01_influenza = await prisma.d01_influenza.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends d01_influenzaFindFirstOrThrowArgs>(args?: SelectSubset<T, d01_influenzaFindFirstOrThrowArgs<ExtArgs>>): Prisma__d01_influenzaClient<$Result.GetResult<Prisma.$d01_influenzaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more D01_influenzas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {d01_influenzaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all D01_influenzas
+     * const d01_influenzas = await prisma.d01_influenza.findMany()
+     * 
+     * // Get first 10 D01_influenzas
+     * const d01_influenzas = await prisma.d01_influenza.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const d01_influenzaWithIdOnly = await prisma.d01_influenza.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends d01_influenzaFindManyArgs>(args?: SelectSubset<T, d01_influenzaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$d01_influenzaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a D01_influenza.
+     * @param {d01_influenzaCreateArgs} args - Arguments to create a D01_influenza.
+     * @example
+     * // Create one D01_influenza
+     * const D01_influenza = await prisma.d01_influenza.create({
+     *   data: {
+     *     // ... data to create a D01_influenza
+     *   }
+     * })
+     * 
+     */
+    create<T extends d01_influenzaCreateArgs>(args: SelectSubset<T, d01_influenzaCreateArgs<ExtArgs>>): Prisma__d01_influenzaClient<$Result.GetResult<Prisma.$d01_influenzaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many D01_influenzas.
+     * @param {d01_influenzaCreateManyArgs} args - Arguments to create many D01_influenzas.
+     * @example
+     * // Create many D01_influenzas
+     * const d01_influenza = await prisma.d01_influenza.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends d01_influenzaCreateManyArgs>(args?: SelectSubset<T, d01_influenzaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many D01_influenzas and returns the data saved in the database.
+     * @param {d01_influenzaCreateManyAndReturnArgs} args - Arguments to create many D01_influenzas.
+     * @example
+     * // Create many D01_influenzas
+     * const d01_influenza = await prisma.d01_influenza.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many D01_influenzas and only return the `id`
+     * const d01_influenzaWithIdOnly = await prisma.d01_influenza.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends d01_influenzaCreateManyAndReturnArgs>(args?: SelectSubset<T, d01_influenzaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$d01_influenzaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a D01_influenza.
+     * @param {d01_influenzaDeleteArgs} args - Arguments to delete one D01_influenza.
+     * @example
+     * // Delete one D01_influenza
+     * const D01_influenza = await prisma.d01_influenza.delete({
+     *   where: {
+     *     // ... filter to delete one D01_influenza
+     *   }
+     * })
+     * 
+     */
+    delete<T extends d01_influenzaDeleteArgs>(args: SelectSubset<T, d01_influenzaDeleteArgs<ExtArgs>>): Prisma__d01_influenzaClient<$Result.GetResult<Prisma.$d01_influenzaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one D01_influenza.
+     * @param {d01_influenzaUpdateArgs} args - Arguments to update one D01_influenza.
+     * @example
+     * // Update one D01_influenza
+     * const d01_influenza = await prisma.d01_influenza.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends d01_influenzaUpdateArgs>(args: SelectSubset<T, d01_influenzaUpdateArgs<ExtArgs>>): Prisma__d01_influenzaClient<$Result.GetResult<Prisma.$d01_influenzaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more D01_influenzas.
+     * @param {d01_influenzaDeleteManyArgs} args - Arguments to filter D01_influenzas to delete.
+     * @example
+     * // Delete a few D01_influenzas
+     * const { count } = await prisma.d01_influenza.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends d01_influenzaDeleteManyArgs>(args?: SelectSubset<T, d01_influenzaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more D01_influenzas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {d01_influenzaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many D01_influenzas
+     * const d01_influenza = await prisma.d01_influenza.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends d01_influenzaUpdateManyArgs>(args: SelectSubset<T, d01_influenzaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more D01_influenzas and returns the data updated in the database.
+     * @param {d01_influenzaUpdateManyAndReturnArgs} args - Arguments to update many D01_influenzas.
+     * @example
+     * // Update many D01_influenzas
+     * const d01_influenza = await prisma.d01_influenza.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more D01_influenzas and only return the `id`
+     * const d01_influenzaWithIdOnly = await prisma.d01_influenza.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends d01_influenzaUpdateManyAndReturnArgs>(args: SelectSubset<T, d01_influenzaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$d01_influenzaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one D01_influenza.
+     * @param {d01_influenzaUpsertArgs} args - Arguments to update or create a D01_influenza.
+     * @example
+     * // Update or create a D01_influenza
+     * const d01_influenza = await prisma.d01_influenza.upsert({
+     *   create: {
+     *     // ... data to create a D01_influenza
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the D01_influenza we want to update
+     *   }
+     * })
+     */
+    upsert<T extends d01_influenzaUpsertArgs>(args: SelectSubset<T, d01_influenzaUpsertArgs<ExtArgs>>): Prisma__d01_influenzaClient<$Result.GetResult<Prisma.$d01_influenzaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of D01_influenzas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {d01_influenzaCountArgs} args - Arguments to filter D01_influenzas to count.
+     * @example
+     * // Count the number of D01_influenzas
+     * const count = await prisma.d01_influenza.count({
+     *   where: {
+     *     // ... the filter for the D01_influenzas we want to count
+     *   }
+     * })
+    **/
+    count<T extends d01_influenzaCountArgs>(
+      args?: Subset<T, d01_influenzaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], D01_influenzaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a D01_influenza.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {D01_influenzaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends D01_influenzaAggregateArgs>(args: Subset<T, D01_influenzaAggregateArgs>): Prisma.PrismaPromise<GetD01_influenzaAggregateType<T>>
+
+    /**
+     * Group by D01_influenza.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {d01_influenzaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends d01_influenzaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: d01_influenzaGroupByArgs['orderBy'] }
+        : { orderBy?: d01_influenzaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, d01_influenzaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetD01_influenzaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the d01_influenza model
+   */
+  readonly fields: d01_influenzaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for d01_influenza.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__d01_influenzaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the d01_influenza model
+   */
+  interface d01_influenzaFieldRefs {
+    readonly id: FieldRef<"d01_influenza", 'Int'>
+    readonly disease_code: FieldRef<"d01_influenza", 'String'>
+    readonly gender: FieldRef<"d01_influenza", 'String'>
+    readonly age_y: FieldRef<"d01_influenza", 'Int'>
+    readonly nationality: FieldRef<"d01_influenza", 'String'>
+    readonly occupation: FieldRef<"d01_influenza", 'String'>
+    readonly province: FieldRef<"d01_influenza", 'String'>
+    readonly district: FieldRef<"d01_influenza", 'String'>
+    readonly onset_date: FieldRef<"d01_influenza", 'String'>
+    readonly treated_date: FieldRef<"d01_influenza", 'String'>
+    readonly diagnosis_date: FieldRef<"d01_influenza", 'String'>
+    readonly death_date: FieldRef<"d01_influenza", 'String'>
+    readonly onset_date_parsed: FieldRef<"d01_influenza", 'DateTime'>
+    readonly treated_date_parsed: FieldRef<"d01_influenza", 'DateTime'>
+    readonly diagnosis_date_parsed: FieldRef<"d01_influenza", 'DateTime'>
+    readonly death_date_parsed: FieldRef<"d01_influenza", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * d01_influenza findUnique
+   */
+  export type d01_influenzaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the d01_influenza
+     */
+    select?: d01_influenzaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the d01_influenza
+     */
+    omit?: d01_influenzaOmit<ExtArgs> | null
+    /**
+     * Filter, which d01_influenza to fetch.
+     */
+    where: d01_influenzaWhereUniqueInput
+  }
+
+  /**
+   * d01_influenza findUniqueOrThrow
+   */
+  export type d01_influenzaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the d01_influenza
+     */
+    select?: d01_influenzaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the d01_influenza
+     */
+    omit?: d01_influenzaOmit<ExtArgs> | null
+    /**
+     * Filter, which d01_influenza to fetch.
+     */
+    where: d01_influenzaWhereUniqueInput
+  }
+
+  /**
+   * d01_influenza findFirst
+   */
+  export type d01_influenzaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the d01_influenza
+     */
+    select?: d01_influenzaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the d01_influenza
+     */
+    omit?: d01_influenzaOmit<ExtArgs> | null
+    /**
+     * Filter, which d01_influenza to fetch.
+     */
+    where?: d01_influenzaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of d01_influenzas to fetch.
+     */
+    orderBy?: d01_influenzaOrderByWithRelationInput | d01_influenzaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for d01_influenzas.
+     */
+    cursor?: d01_influenzaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` d01_influenzas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` d01_influenzas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of d01_influenzas.
+     */
+    distinct?: D01_influenzaScalarFieldEnum | D01_influenzaScalarFieldEnum[]
+  }
+
+  /**
+   * d01_influenza findFirstOrThrow
+   */
+  export type d01_influenzaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the d01_influenza
+     */
+    select?: d01_influenzaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the d01_influenza
+     */
+    omit?: d01_influenzaOmit<ExtArgs> | null
+    /**
+     * Filter, which d01_influenza to fetch.
+     */
+    where?: d01_influenzaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of d01_influenzas to fetch.
+     */
+    orderBy?: d01_influenzaOrderByWithRelationInput | d01_influenzaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for d01_influenzas.
+     */
+    cursor?: d01_influenzaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` d01_influenzas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` d01_influenzas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of d01_influenzas.
+     */
+    distinct?: D01_influenzaScalarFieldEnum | D01_influenzaScalarFieldEnum[]
+  }
+
+  /**
+   * d01_influenza findMany
+   */
+  export type d01_influenzaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the d01_influenza
+     */
+    select?: d01_influenzaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the d01_influenza
+     */
+    omit?: d01_influenzaOmit<ExtArgs> | null
+    /**
+     * Filter, which d01_influenzas to fetch.
+     */
+    where?: d01_influenzaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of d01_influenzas to fetch.
+     */
+    orderBy?: d01_influenzaOrderByWithRelationInput | d01_influenzaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing d01_influenzas.
+     */
+    cursor?: d01_influenzaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` d01_influenzas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` d01_influenzas.
+     */
+    skip?: number
+    distinct?: D01_influenzaScalarFieldEnum | D01_influenzaScalarFieldEnum[]
+  }
+
+  /**
+   * d01_influenza create
+   */
+  export type d01_influenzaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the d01_influenza
+     */
+    select?: d01_influenzaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the d01_influenza
+     */
+    omit?: d01_influenzaOmit<ExtArgs> | null
+    /**
+     * The data needed to create a d01_influenza.
+     */
+    data: XOR<d01_influenzaCreateInput, d01_influenzaUncheckedCreateInput>
+  }
+
+  /**
+   * d01_influenza createMany
+   */
+  export type d01_influenzaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many d01_influenzas.
+     */
+    data: d01_influenzaCreateManyInput | d01_influenzaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * d01_influenza createManyAndReturn
+   */
+  export type d01_influenzaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the d01_influenza
+     */
+    select?: d01_influenzaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the d01_influenza
+     */
+    omit?: d01_influenzaOmit<ExtArgs> | null
+    /**
+     * The data used to create many d01_influenzas.
+     */
+    data: d01_influenzaCreateManyInput | d01_influenzaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * d01_influenza update
+   */
+  export type d01_influenzaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the d01_influenza
+     */
+    select?: d01_influenzaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the d01_influenza
+     */
+    omit?: d01_influenzaOmit<ExtArgs> | null
+    /**
+     * The data needed to update a d01_influenza.
+     */
+    data: XOR<d01_influenzaUpdateInput, d01_influenzaUncheckedUpdateInput>
+    /**
+     * Choose, which d01_influenza to update.
+     */
+    where: d01_influenzaWhereUniqueInput
+  }
+
+  /**
+   * d01_influenza updateMany
+   */
+  export type d01_influenzaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update d01_influenzas.
+     */
+    data: XOR<d01_influenzaUpdateManyMutationInput, d01_influenzaUncheckedUpdateManyInput>
+    /**
+     * Filter which d01_influenzas to update
+     */
+    where?: d01_influenzaWhereInput
+    /**
+     * Limit how many d01_influenzas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * d01_influenza updateManyAndReturn
+   */
+  export type d01_influenzaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the d01_influenza
+     */
+    select?: d01_influenzaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the d01_influenza
+     */
+    omit?: d01_influenzaOmit<ExtArgs> | null
+    /**
+     * The data used to update d01_influenzas.
+     */
+    data: XOR<d01_influenzaUpdateManyMutationInput, d01_influenzaUncheckedUpdateManyInput>
+    /**
+     * Filter which d01_influenzas to update
+     */
+    where?: d01_influenzaWhereInput
+    /**
+     * Limit how many d01_influenzas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * d01_influenza upsert
+   */
+  export type d01_influenzaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the d01_influenza
+     */
+    select?: d01_influenzaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the d01_influenza
+     */
+    omit?: d01_influenzaOmit<ExtArgs> | null
+    /**
+     * The filter to search for the d01_influenza to update in case it exists.
+     */
+    where: d01_influenzaWhereUniqueInput
+    /**
+     * In case the d01_influenza found by the `where` argument doesn't exist, create a new d01_influenza with this data.
+     */
+    create: XOR<d01_influenzaCreateInput, d01_influenzaUncheckedCreateInput>
+    /**
+     * In case the d01_influenza was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<d01_influenzaUpdateInput, d01_influenzaUncheckedUpdateInput>
+  }
+
+  /**
+   * d01_influenza delete
+   */
+  export type d01_influenzaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the d01_influenza
+     */
+    select?: d01_influenzaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the d01_influenza
+     */
+    omit?: d01_influenzaOmit<ExtArgs> | null
+    /**
+     * Filter which d01_influenza to delete.
+     */
+    where: d01_influenzaWhereUniqueInput
+  }
+
+  /**
+   * d01_influenza deleteMany
+   */
+  export type d01_influenzaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which d01_influenzas to delete
+     */
+    where?: d01_influenzaWhereInput
+    /**
+     * Limit how many d01_influenzas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * d01_influenza without action
+   */
+  export type d01_influenzaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the d01_influenza
+     */
+    select?: d01_influenzaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the d01_influenza
+     */
+    omit?: d01_influenzaOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model diseases
+   */
+
+  export type AggregateDiseases = {
+    _count: DiseasesCountAggregateOutputType | null
+    _min: DiseasesMinAggregateOutputType | null
+    _max: DiseasesMaxAggregateOutputType | null
+  }
+
+  export type DiseasesMinAggregateOutputType = {
+    code: string | null
+    name_th: string | null
+    name_en: string | null
+  }
+
+  export type DiseasesMaxAggregateOutputType = {
+    code: string | null
+    name_th: string | null
+    name_en: string | null
+  }
+
+  export type DiseasesCountAggregateOutputType = {
+    code: number
+    name_th: number
+    name_en: number
+    _all: number
+  }
+
+
+  export type DiseasesMinAggregateInputType = {
+    code?: true
+    name_th?: true
+    name_en?: true
+  }
+
+  export type DiseasesMaxAggregateInputType = {
+    code?: true
+    name_th?: true
+    name_en?: true
+  }
+
+  export type DiseasesCountAggregateInputType = {
+    code?: true
+    name_th?: true
+    name_en?: true
+    _all?: true
+  }
+
+  export type DiseasesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which diseases to aggregate.
+     */
+    where?: diseasesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of diseases to fetch.
+     */
+    orderBy?: diseasesOrderByWithRelationInput | diseasesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: diseasesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` diseases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` diseases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned diseases
+    **/
+    _count?: true | DiseasesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DiseasesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DiseasesMaxAggregateInputType
+  }
+
+  export type GetDiseasesAggregateType<T extends DiseasesAggregateArgs> = {
+        [P in keyof T & keyof AggregateDiseases]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDiseases[P]>
+      : GetScalarType<T[P], AggregateDiseases[P]>
+  }
+
+
+
+
+  export type diseasesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: diseasesWhereInput
+    orderBy?: diseasesOrderByWithAggregationInput | diseasesOrderByWithAggregationInput[]
+    by: DiseasesScalarFieldEnum[] | DiseasesScalarFieldEnum
+    having?: diseasesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DiseasesCountAggregateInputType | true
+    _min?: DiseasesMinAggregateInputType
+    _max?: DiseasesMaxAggregateInputType
+  }
+
+  export type DiseasesGroupByOutputType = {
+    code: string
+    name_th: string
+    name_en: string
+    _count: DiseasesCountAggregateOutputType | null
+    _min: DiseasesMinAggregateOutputType | null
+    _max: DiseasesMaxAggregateOutputType | null
+  }
+
+  type GetDiseasesGroupByPayload<T extends diseasesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DiseasesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DiseasesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DiseasesGroupByOutputType[P]>
+            : GetScalarType<T[P], DiseasesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type diseasesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    code?: boolean
+    name_th?: boolean
+    name_en?: boolean
+  }, ExtArgs["result"]["diseases"]>
+
+  export type diseasesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    code?: boolean
+    name_th?: boolean
+    name_en?: boolean
+  }, ExtArgs["result"]["diseases"]>
+
+  export type diseasesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    code?: boolean
+    name_th?: boolean
+    name_en?: boolean
+  }, ExtArgs["result"]["diseases"]>
+
+  export type diseasesSelectScalar = {
+    code?: boolean
+    name_th?: boolean
+    name_en?: boolean
+  }
+
+  export type diseasesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"code" | "name_th" | "name_en", ExtArgs["result"]["diseases"]>
+
+  export type $diseasesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "diseases"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      code: string
+      name_th: string
+      name_en: string
+    }, ExtArgs["result"]["diseases"]>
+    composites: {}
+  }
+
+  type diseasesGetPayload<S extends boolean | null | undefined | diseasesDefaultArgs> = $Result.GetResult<Prisma.$diseasesPayload, S>
+
+  type diseasesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<diseasesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DiseasesCountAggregateInputType | true
+    }
+
+  export interface diseasesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['diseases'], meta: { name: 'diseases' } }
+    /**
+     * Find zero or one Diseases that matches the filter.
+     * @param {diseasesFindUniqueArgs} args - Arguments to find a Diseases
+     * @example
+     * // Get one Diseases
+     * const diseases = await prisma.diseases.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends diseasesFindUniqueArgs>(args: SelectSubset<T, diseasesFindUniqueArgs<ExtArgs>>): Prisma__diseasesClient<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Diseases that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {diseasesFindUniqueOrThrowArgs} args - Arguments to find a Diseases
+     * @example
+     * // Get one Diseases
+     * const diseases = await prisma.diseases.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends diseasesFindUniqueOrThrowArgs>(args: SelectSubset<T, diseasesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__diseasesClient<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Diseases that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {diseasesFindFirstArgs} args - Arguments to find a Diseases
+     * @example
+     * // Get one Diseases
+     * const diseases = await prisma.diseases.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends diseasesFindFirstArgs>(args?: SelectSubset<T, diseasesFindFirstArgs<ExtArgs>>): Prisma__diseasesClient<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Diseases that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {diseasesFindFirstOrThrowArgs} args - Arguments to find a Diseases
+     * @example
+     * // Get one Diseases
+     * const diseases = await prisma.diseases.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends diseasesFindFirstOrThrowArgs>(args?: SelectSubset<T, diseasesFindFirstOrThrowArgs<ExtArgs>>): Prisma__diseasesClient<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Diseases that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {diseasesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Diseases
+     * const diseases = await prisma.diseases.findMany()
+     * 
+     * // Get first 10 Diseases
+     * const diseases = await prisma.diseases.findMany({ take: 10 })
+     * 
+     * // Only select the `code`
+     * const diseasesWithCodeOnly = await prisma.diseases.findMany({ select: { code: true } })
+     * 
+     */
+    findMany<T extends diseasesFindManyArgs>(args?: SelectSubset<T, diseasesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Diseases.
+     * @param {diseasesCreateArgs} args - Arguments to create a Diseases.
+     * @example
+     * // Create one Diseases
+     * const Diseases = await prisma.diseases.create({
+     *   data: {
+     *     // ... data to create a Diseases
+     *   }
+     * })
+     * 
+     */
+    create<T extends diseasesCreateArgs>(args: SelectSubset<T, diseasesCreateArgs<ExtArgs>>): Prisma__diseasesClient<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Diseases.
+     * @param {diseasesCreateManyArgs} args - Arguments to create many Diseases.
+     * @example
+     * // Create many Diseases
+     * const diseases = await prisma.diseases.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends diseasesCreateManyArgs>(args?: SelectSubset<T, diseasesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Diseases and returns the data saved in the database.
+     * @param {diseasesCreateManyAndReturnArgs} args - Arguments to create many Diseases.
+     * @example
+     * // Create many Diseases
+     * const diseases = await prisma.diseases.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Diseases and only return the `code`
+     * const diseasesWithCodeOnly = await prisma.diseases.createManyAndReturn({
+     *   select: { code: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends diseasesCreateManyAndReturnArgs>(args?: SelectSubset<T, diseasesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Diseases.
+     * @param {diseasesDeleteArgs} args - Arguments to delete one Diseases.
+     * @example
+     * // Delete one Diseases
+     * const Diseases = await prisma.diseases.delete({
+     *   where: {
+     *     // ... filter to delete one Diseases
+     *   }
+     * })
+     * 
+     */
+    delete<T extends diseasesDeleteArgs>(args: SelectSubset<T, diseasesDeleteArgs<ExtArgs>>): Prisma__diseasesClient<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Diseases.
+     * @param {diseasesUpdateArgs} args - Arguments to update one Diseases.
+     * @example
+     * // Update one Diseases
+     * const diseases = await prisma.diseases.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends diseasesUpdateArgs>(args: SelectSubset<T, diseasesUpdateArgs<ExtArgs>>): Prisma__diseasesClient<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Diseases.
+     * @param {diseasesDeleteManyArgs} args - Arguments to filter Diseases to delete.
+     * @example
+     * // Delete a few Diseases
+     * const { count } = await prisma.diseases.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends diseasesDeleteManyArgs>(args?: SelectSubset<T, diseasesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Diseases.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {diseasesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Diseases
+     * const diseases = await prisma.diseases.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends diseasesUpdateManyArgs>(args: SelectSubset<T, diseasesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Diseases and returns the data updated in the database.
+     * @param {diseasesUpdateManyAndReturnArgs} args - Arguments to update many Diseases.
+     * @example
+     * // Update many Diseases
+     * const diseases = await prisma.diseases.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Diseases and only return the `code`
+     * const diseasesWithCodeOnly = await prisma.diseases.updateManyAndReturn({
+     *   select: { code: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends diseasesUpdateManyAndReturnArgs>(args: SelectSubset<T, diseasesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Diseases.
+     * @param {diseasesUpsertArgs} args - Arguments to update or create a Diseases.
+     * @example
+     * // Update or create a Diseases
+     * const diseases = await prisma.diseases.upsert({
+     *   create: {
+     *     // ... data to create a Diseases
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Diseases we want to update
+     *   }
+     * })
+     */
+    upsert<T extends diseasesUpsertArgs>(args: SelectSubset<T, diseasesUpsertArgs<ExtArgs>>): Prisma__diseasesClient<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Diseases.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {diseasesCountArgs} args - Arguments to filter Diseases to count.
+     * @example
+     * // Count the number of Diseases
+     * const count = await prisma.diseases.count({
+     *   where: {
+     *     // ... the filter for the Diseases we want to count
+     *   }
+     * })
+    **/
+    count<T extends diseasesCountArgs>(
+      args?: Subset<T, diseasesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DiseasesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Diseases.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiseasesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DiseasesAggregateArgs>(args: Subset<T, DiseasesAggregateArgs>): Prisma.PrismaPromise<GetDiseasesAggregateType<T>>
+
+    /**
+     * Group by Diseases.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {diseasesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends diseasesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: diseasesGroupByArgs['orderBy'] }
+        : { orderBy?: diseasesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, diseasesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDiseasesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the diseases model
+   */
+  readonly fields: diseasesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for diseases.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__diseasesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the diseases model
+   */
+  interface diseasesFieldRefs {
+    readonly code: FieldRef<"diseases", 'String'>
+    readonly name_th: FieldRef<"diseases", 'String'>
+    readonly name_en: FieldRef<"diseases", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * diseases findUnique
+   */
+  export type diseasesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the diseases
+     */
+    select?: diseasesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the diseases
+     */
+    omit?: diseasesOmit<ExtArgs> | null
+    /**
+     * Filter, which diseases to fetch.
+     */
+    where: diseasesWhereUniqueInput
+  }
+
+  /**
+   * diseases findUniqueOrThrow
+   */
+  export type diseasesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the diseases
+     */
+    select?: diseasesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the diseases
+     */
+    omit?: diseasesOmit<ExtArgs> | null
+    /**
+     * Filter, which diseases to fetch.
+     */
+    where: diseasesWhereUniqueInput
+  }
+
+  /**
+   * diseases findFirst
+   */
+  export type diseasesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the diseases
+     */
+    select?: diseasesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the diseases
+     */
+    omit?: diseasesOmit<ExtArgs> | null
+    /**
+     * Filter, which diseases to fetch.
+     */
+    where?: diseasesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of diseases to fetch.
+     */
+    orderBy?: diseasesOrderByWithRelationInput | diseasesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for diseases.
+     */
+    cursor?: diseasesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` diseases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` diseases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of diseases.
+     */
+    distinct?: DiseasesScalarFieldEnum | DiseasesScalarFieldEnum[]
+  }
+
+  /**
+   * diseases findFirstOrThrow
+   */
+  export type diseasesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the diseases
+     */
+    select?: diseasesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the diseases
+     */
+    omit?: diseasesOmit<ExtArgs> | null
+    /**
+     * Filter, which diseases to fetch.
+     */
+    where?: diseasesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of diseases to fetch.
+     */
+    orderBy?: diseasesOrderByWithRelationInput | diseasesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for diseases.
+     */
+    cursor?: diseasesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` diseases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` diseases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of diseases.
+     */
+    distinct?: DiseasesScalarFieldEnum | DiseasesScalarFieldEnum[]
+  }
+
+  /**
+   * diseases findMany
+   */
+  export type diseasesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the diseases
+     */
+    select?: diseasesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the diseases
+     */
+    omit?: diseasesOmit<ExtArgs> | null
+    /**
+     * Filter, which diseases to fetch.
+     */
+    where?: diseasesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of diseases to fetch.
+     */
+    orderBy?: diseasesOrderByWithRelationInput | diseasesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing diseases.
+     */
+    cursor?: diseasesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` diseases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` diseases.
+     */
+    skip?: number
+    distinct?: DiseasesScalarFieldEnum | DiseasesScalarFieldEnum[]
+  }
+
+  /**
+   * diseases create
+   */
+  export type diseasesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the diseases
+     */
+    select?: diseasesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the diseases
+     */
+    omit?: diseasesOmit<ExtArgs> | null
+    /**
+     * The data needed to create a diseases.
+     */
+    data: XOR<diseasesCreateInput, diseasesUncheckedCreateInput>
+  }
+
+  /**
+   * diseases createMany
+   */
+  export type diseasesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many diseases.
+     */
+    data: diseasesCreateManyInput | diseasesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * diseases createManyAndReturn
+   */
+  export type diseasesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the diseases
+     */
+    select?: diseasesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the diseases
+     */
+    omit?: diseasesOmit<ExtArgs> | null
+    /**
+     * The data used to create many diseases.
+     */
+    data: diseasesCreateManyInput | diseasesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * diseases update
+   */
+  export type diseasesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the diseases
+     */
+    select?: diseasesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the diseases
+     */
+    omit?: diseasesOmit<ExtArgs> | null
+    /**
+     * The data needed to update a diseases.
+     */
+    data: XOR<diseasesUpdateInput, diseasesUncheckedUpdateInput>
+    /**
+     * Choose, which diseases to update.
+     */
+    where: diseasesWhereUniqueInput
+  }
+
+  /**
+   * diseases updateMany
+   */
+  export type diseasesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update diseases.
+     */
+    data: XOR<diseasesUpdateManyMutationInput, diseasesUncheckedUpdateManyInput>
+    /**
+     * Filter which diseases to update
+     */
+    where?: diseasesWhereInput
+    /**
+     * Limit how many diseases to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * diseases updateManyAndReturn
+   */
+  export type diseasesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the diseases
+     */
+    select?: diseasesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the diseases
+     */
+    omit?: diseasesOmit<ExtArgs> | null
+    /**
+     * The data used to update diseases.
+     */
+    data: XOR<diseasesUpdateManyMutationInput, diseasesUncheckedUpdateManyInput>
+    /**
+     * Filter which diseases to update
+     */
+    where?: diseasesWhereInput
+    /**
+     * Limit how many diseases to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * diseases upsert
+   */
+  export type diseasesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the diseases
+     */
+    select?: diseasesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the diseases
+     */
+    omit?: diseasesOmit<ExtArgs> | null
+    /**
+     * The filter to search for the diseases to update in case it exists.
+     */
+    where: diseasesWhereUniqueInput
+    /**
+     * In case the diseases found by the `where` argument doesn't exist, create a new diseases with this data.
+     */
+    create: XOR<diseasesCreateInput, diseasesUncheckedCreateInput>
+    /**
+     * In case the diseases was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<diseasesUpdateInput, diseasesUncheckedUpdateInput>
+  }
+
+  /**
+   * diseases delete
+   */
+  export type diseasesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the diseases
+     */
+    select?: diseasesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the diseases
+     */
+    omit?: diseasesOmit<ExtArgs> | null
+    /**
+     * Filter which diseases to delete.
+     */
+    where: diseasesWhereUniqueInput
+  }
+
+  /**
+   * diseases deleteMany
+   */
+  export type diseasesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which diseases to delete
+     */
+    where?: diseasesWhereInput
+    /**
+     * Limit how many diseases to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * diseases without action
+   */
+  export type diseasesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the diseases
+     */
+    select?: diseasesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the diseases
+     */
+    omit?: diseasesOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -6814,7 +9154,8 @@ export namespace Prisma {
     email: 'email',
     password: 'password',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -6870,6 +9211,37 @@ export namespace Prisma {
   };
 
   export type Influenzadata2567ScalarFieldEnum = (typeof Influenzadata2567ScalarFieldEnum)[keyof typeof Influenzadata2567ScalarFieldEnum]
+
+
+  export const D01_influenzaScalarFieldEnum: {
+    id: 'id',
+    disease_code: 'disease_code',
+    gender: 'gender',
+    age_y: 'age_y',
+    nationality: 'nationality',
+    occupation: 'occupation',
+    province: 'province',
+    district: 'district',
+    onset_date: 'onset_date',
+    treated_date: 'treated_date',
+    diagnosis_date: 'diagnosis_date',
+    death_date: 'death_date',
+    onset_date_parsed: 'onset_date_parsed',
+    treated_date_parsed: 'treated_date_parsed',
+    diagnosis_date_parsed: 'diagnosis_date_parsed',
+    death_date_parsed: 'death_date_parsed'
+  };
+
+  export type D01_influenzaScalarFieldEnum = (typeof D01_influenzaScalarFieldEnum)[keyof typeof D01_influenzaScalarFieldEnum]
+
+
+  export const DiseasesScalarFieldEnum: {
+    code: 'code',
+    name_th: 'name_th',
+    name_en: 'name_en'
+  };
+
+  export type DiseasesScalarFieldEnum = (typeof DiseasesScalarFieldEnum)[keyof typeof DiseasesScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -6982,6 +9354,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     Authenticator?: AuthenticatorListRelationFilter
     sessions?: SessionListRelationFilter
   }
@@ -6998,6 +9371,7 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     Authenticator?: AuthenticatorOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
   }
@@ -7017,6 +9391,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     Authenticator?: AuthenticatorListRelationFilter
     sessions?: SessionListRelationFilter
   }, "id" | "email">
@@ -7033,6 +9408,7 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -7055,6 +9431,7 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   }
 
   export type SessionWhereInput = {
@@ -7319,6 +9696,158 @@ export namespace Prisma {
     death_date?: StringNullableWithAggregatesFilter<"influenzadata2567"> | string | null
   }
 
+  export type d01_influenzaWhereInput = {
+    AND?: d01_influenzaWhereInput | d01_influenzaWhereInput[]
+    OR?: d01_influenzaWhereInput[]
+    NOT?: d01_influenzaWhereInput | d01_influenzaWhereInput[]
+    id?: IntFilter<"d01_influenza"> | number
+    disease_code?: StringFilter<"d01_influenza"> | string
+    gender?: StringNullableFilter<"d01_influenza"> | string | null
+    age_y?: IntNullableFilter<"d01_influenza"> | number | null
+    nationality?: StringNullableFilter<"d01_influenza"> | string | null
+    occupation?: StringNullableFilter<"d01_influenza"> | string | null
+    province?: StringNullableFilter<"d01_influenza"> | string | null
+    district?: StringNullableFilter<"d01_influenza"> | string | null
+    onset_date?: StringNullableFilter<"d01_influenza"> | string | null
+    treated_date?: StringNullableFilter<"d01_influenza"> | string | null
+    diagnosis_date?: StringNullableFilter<"d01_influenza"> | string | null
+    death_date?: StringNullableFilter<"d01_influenza"> | string | null
+    onset_date_parsed?: DateTimeFilter<"d01_influenza"> | Date | string
+    treated_date_parsed?: DateTimeNullableFilter<"d01_influenza"> | Date | string | null
+    diagnosis_date_parsed?: DateTimeNullableFilter<"d01_influenza"> | Date | string | null
+    death_date_parsed?: DateTimeNullableFilter<"d01_influenza"> | Date | string | null
+  }
+
+  export type d01_influenzaOrderByWithRelationInput = {
+    id?: SortOrder
+    disease_code?: SortOrder
+    gender?: SortOrderInput | SortOrder
+    age_y?: SortOrderInput | SortOrder
+    nationality?: SortOrderInput | SortOrder
+    occupation?: SortOrderInput | SortOrder
+    province?: SortOrderInput | SortOrder
+    district?: SortOrderInput | SortOrder
+    onset_date?: SortOrderInput | SortOrder
+    treated_date?: SortOrderInput | SortOrder
+    diagnosis_date?: SortOrderInput | SortOrder
+    death_date?: SortOrderInput | SortOrder
+    onset_date_parsed?: SortOrder
+    treated_date_parsed?: SortOrderInput | SortOrder
+    diagnosis_date_parsed?: SortOrderInput | SortOrder
+    death_date_parsed?: SortOrderInput | SortOrder
+  }
+
+  export type d01_influenzaWhereUniqueInput = Prisma.AtLeast<{
+    onset_date_parsed_id?: d01_influenzaOnset_date_parsedIdCompoundUniqueInput
+    AND?: d01_influenzaWhereInput | d01_influenzaWhereInput[]
+    OR?: d01_influenzaWhereInput[]
+    NOT?: d01_influenzaWhereInput | d01_influenzaWhereInput[]
+    id?: IntFilter<"d01_influenza"> | number
+    disease_code?: StringFilter<"d01_influenza"> | string
+    gender?: StringNullableFilter<"d01_influenza"> | string | null
+    age_y?: IntNullableFilter<"d01_influenza"> | number | null
+    nationality?: StringNullableFilter<"d01_influenza"> | string | null
+    occupation?: StringNullableFilter<"d01_influenza"> | string | null
+    province?: StringNullableFilter<"d01_influenza"> | string | null
+    district?: StringNullableFilter<"d01_influenza"> | string | null
+    onset_date?: StringNullableFilter<"d01_influenza"> | string | null
+    treated_date?: StringNullableFilter<"d01_influenza"> | string | null
+    diagnosis_date?: StringNullableFilter<"d01_influenza"> | string | null
+    death_date?: StringNullableFilter<"d01_influenza"> | string | null
+    onset_date_parsed?: DateTimeFilter<"d01_influenza"> | Date | string
+    treated_date_parsed?: DateTimeNullableFilter<"d01_influenza"> | Date | string | null
+    diagnosis_date_parsed?: DateTimeNullableFilter<"d01_influenza"> | Date | string | null
+    death_date_parsed?: DateTimeNullableFilter<"d01_influenza"> | Date | string | null
+  }, "onset_date_parsed_id">
+
+  export type d01_influenzaOrderByWithAggregationInput = {
+    id?: SortOrder
+    disease_code?: SortOrder
+    gender?: SortOrderInput | SortOrder
+    age_y?: SortOrderInput | SortOrder
+    nationality?: SortOrderInput | SortOrder
+    occupation?: SortOrderInput | SortOrder
+    province?: SortOrderInput | SortOrder
+    district?: SortOrderInput | SortOrder
+    onset_date?: SortOrderInput | SortOrder
+    treated_date?: SortOrderInput | SortOrder
+    diagnosis_date?: SortOrderInput | SortOrder
+    death_date?: SortOrderInput | SortOrder
+    onset_date_parsed?: SortOrder
+    treated_date_parsed?: SortOrderInput | SortOrder
+    diagnosis_date_parsed?: SortOrderInput | SortOrder
+    death_date_parsed?: SortOrderInput | SortOrder
+    _count?: d01_influenzaCountOrderByAggregateInput
+    _avg?: d01_influenzaAvgOrderByAggregateInput
+    _max?: d01_influenzaMaxOrderByAggregateInput
+    _min?: d01_influenzaMinOrderByAggregateInput
+    _sum?: d01_influenzaSumOrderByAggregateInput
+  }
+
+  export type d01_influenzaScalarWhereWithAggregatesInput = {
+    AND?: d01_influenzaScalarWhereWithAggregatesInput | d01_influenzaScalarWhereWithAggregatesInput[]
+    OR?: d01_influenzaScalarWhereWithAggregatesInput[]
+    NOT?: d01_influenzaScalarWhereWithAggregatesInput | d01_influenzaScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"d01_influenza"> | number
+    disease_code?: StringWithAggregatesFilter<"d01_influenza"> | string
+    gender?: StringNullableWithAggregatesFilter<"d01_influenza"> | string | null
+    age_y?: IntNullableWithAggregatesFilter<"d01_influenza"> | number | null
+    nationality?: StringNullableWithAggregatesFilter<"d01_influenza"> | string | null
+    occupation?: StringNullableWithAggregatesFilter<"d01_influenza"> | string | null
+    province?: StringNullableWithAggregatesFilter<"d01_influenza"> | string | null
+    district?: StringNullableWithAggregatesFilter<"d01_influenza"> | string | null
+    onset_date?: StringNullableWithAggregatesFilter<"d01_influenza"> | string | null
+    treated_date?: StringNullableWithAggregatesFilter<"d01_influenza"> | string | null
+    diagnosis_date?: StringNullableWithAggregatesFilter<"d01_influenza"> | string | null
+    death_date?: StringNullableWithAggregatesFilter<"d01_influenza"> | string | null
+    onset_date_parsed?: DateTimeWithAggregatesFilter<"d01_influenza"> | Date | string
+    treated_date_parsed?: DateTimeNullableWithAggregatesFilter<"d01_influenza"> | Date | string | null
+    diagnosis_date_parsed?: DateTimeNullableWithAggregatesFilter<"d01_influenza"> | Date | string | null
+    death_date_parsed?: DateTimeNullableWithAggregatesFilter<"d01_influenza"> | Date | string | null
+  }
+
+  export type diseasesWhereInput = {
+    AND?: diseasesWhereInput | diseasesWhereInput[]
+    OR?: diseasesWhereInput[]
+    NOT?: diseasesWhereInput | diseasesWhereInput[]
+    code?: StringFilter<"diseases"> | string
+    name_th?: StringFilter<"diseases"> | string
+    name_en?: StringFilter<"diseases"> | string
+  }
+
+  export type diseasesOrderByWithRelationInput = {
+    code?: SortOrder
+    name_th?: SortOrder
+    name_en?: SortOrder
+  }
+
+  export type diseasesWhereUniqueInput = Prisma.AtLeast<{
+    code?: string
+    AND?: diseasesWhereInput | diseasesWhereInput[]
+    OR?: diseasesWhereInput[]
+    NOT?: diseasesWhereInput | diseasesWhereInput[]
+    name_th?: StringFilter<"diseases"> | string
+    name_en?: StringFilter<"diseases"> | string
+  }, "code">
+
+  export type diseasesOrderByWithAggregationInput = {
+    code?: SortOrder
+    name_th?: SortOrder
+    name_en?: SortOrder
+    _count?: diseasesCountOrderByAggregateInput
+    _max?: diseasesMaxOrderByAggregateInput
+    _min?: diseasesMinOrderByAggregateInput
+  }
+
+  export type diseasesScalarWhereWithAggregatesInput = {
+    AND?: diseasesScalarWhereWithAggregatesInput | diseasesScalarWhereWithAggregatesInput[]
+    OR?: diseasesScalarWhereWithAggregatesInput[]
+    NOT?: diseasesScalarWhereWithAggregatesInput | diseasesScalarWhereWithAggregatesInput[]
+    code?: StringWithAggregatesFilter<"diseases"> | string
+    name_th?: StringWithAggregatesFilter<"diseases"> | string
+    name_en?: StringWithAggregatesFilter<"diseases"> | string
+  }
+
   export type UserCreateInput = {
     first_name: string
     last_name: string
@@ -7330,6 +9859,7 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
   }
@@ -7346,6 +9876,7 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
@@ -7361,6 +9892,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
   }
@@ -7377,6 +9909,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -7393,6 +9926,7 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -7406,6 +9940,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -7420,6 +9955,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type SessionCreateInput = {
@@ -7697,6 +10233,181 @@ export namespace Prisma {
     death_date?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type d01_influenzaCreateInput = {
+    id?: number
+    disease_code: string
+    gender?: string | null
+    age_y?: number | null
+    nationality?: string | null
+    occupation?: string | null
+    province?: string | null
+    district?: string | null
+    onset_date?: string | null
+    treated_date?: string | null
+    diagnosis_date?: string | null
+    death_date?: string | null
+    onset_date_parsed: Date | string
+    treated_date_parsed?: Date | string | null
+    diagnosis_date_parsed?: Date | string | null
+    death_date_parsed?: Date | string | null
+  }
+
+  export type d01_influenzaUncheckedCreateInput = {
+    id?: number
+    disease_code: string
+    gender?: string | null
+    age_y?: number | null
+    nationality?: string | null
+    occupation?: string | null
+    province?: string | null
+    district?: string | null
+    onset_date?: string | null
+    treated_date?: string | null
+    diagnosis_date?: string | null
+    death_date?: string | null
+    onset_date_parsed: Date | string
+    treated_date_parsed?: Date | string | null
+    diagnosis_date_parsed?: Date | string | null
+    death_date_parsed?: Date | string | null
+  }
+
+  export type d01_influenzaUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    disease_code?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    age_y?: NullableIntFieldUpdateOperationsInput | number | null
+    nationality?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    onset_date?: NullableStringFieldUpdateOperationsInput | string | null
+    treated_date?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosis_date?: NullableStringFieldUpdateOperationsInput | string | null
+    death_date?: NullableStringFieldUpdateOperationsInput | string | null
+    onset_date_parsed?: DateTimeFieldUpdateOperationsInput | Date | string
+    treated_date_parsed?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    diagnosis_date_parsed?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    death_date_parsed?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type d01_influenzaUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    disease_code?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    age_y?: NullableIntFieldUpdateOperationsInput | number | null
+    nationality?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    onset_date?: NullableStringFieldUpdateOperationsInput | string | null
+    treated_date?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosis_date?: NullableStringFieldUpdateOperationsInput | string | null
+    death_date?: NullableStringFieldUpdateOperationsInput | string | null
+    onset_date_parsed?: DateTimeFieldUpdateOperationsInput | Date | string
+    treated_date_parsed?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    diagnosis_date_parsed?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    death_date_parsed?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type d01_influenzaCreateManyInput = {
+    id?: number
+    disease_code: string
+    gender?: string | null
+    age_y?: number | null
+    nationality?: string | null
+    occupation?: string | null
+    province?: string | null
+    district?: string | null
+    onset_date?: string | null
+    treated_date?: string | null
+    diagnosis_date?: string | null
+    death_date?: string | null
+    onset_date_parsed: Date | string
+    treated_date_parsed?: Date | string | null
+    diagnosis_date_parsed?: Date | string | null
+    death_date_parsed?: Date | string | null
+  }
+
+  export type d01_influenzaUpdateManyMutationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    disease_code?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    age_y?: NullableIntFieldUpdateOperationsInput | number | null
+    nationality?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    onset_date?: NullableStringFieldUpdateOperationsInput | string | null
+    treated_date?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosis_date?: NullableStringFieldUpdateOperationsInput | string | null
+    death_date?: NullableStringFieldUpdateOperationsInput | string | null
+    onset_date_parsed?: DateTimeFieldUpdateOperationsInput | Date | string
+    treated_date_parsed?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    diagnosis_date_parsed?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    death_date_parsed?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type d01_influenzaUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    disease_code?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    age_y?: NullableIntFieldUpdateOperationsInput | number | null
+    nationality?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    onset_date?: NullableStringFieldUpdateOperationsInput | string | null
+    treated_date?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosis_date?: NullableStringFieldUpdateOperationsInput | string | null
+    death_date?: NullableStringFieldUpdateOperationsInput | string | null
+    onset_date_parsed?: DateTimeFieldUpdateOperationsInput | Date | string
+    treated_date_parsed?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    diagnosis_date_parsed?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    death_date_parsed?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type diseasesCreateInput = {
+    code: string
+    name_th: string
+    name_en: string
+  }
+
+  export type diseasesUncheckedCreateInput = {
+    code: string
+    name_th: string
+    name_en: string
+  }
+
+  export type diseasesUpdateInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    name_th?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type diseasesUncheckedUpdateInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    name_th?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type diseasesCreateManyInput = {
+    code: string
+    name_th: string
+    name_en: string
+  }
+
+  export type diseasesUpdateManyMutationInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    name_th?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type diseasesUncheckedUpdateManyInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    name_th?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -7734,6 +10445,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type AuthenticatorListRelationFilter = {
     every?: AuthenticatorWhereInput
     some?: AuthenticatorWhereInput
@@ -7744,6 +10466,11 @@ export namespace Prisma {
     every?: SessionWhereInput
     some?: SessionWhereInput
     none?: SessionWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type AuthenticatorOrderByRelationAggregateInput = {
@@ -7766,6 +10493,7 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -7784,6 +10512,7 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -7798,6 +10527,7 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -7850,6 +10580,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type UserScalarRelationFilter = {
@@ -7930,11 +10674,6 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type AuthenticatorUserIdCredentialIDCompoundUniqueInput = {
@@ -8093,6 +10832,96 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
+  export type d01_influenzaOnset_date_parsedIdCompoundUniqueInput = {
+    onset_date_parsed: Date | string
+    id: number
+  }
+
+  export type d01_influenzaCountOrderByAggregateInput = {
+    id?: SortOrder
+    disease_code?: SortOrder
+    gender?: SortOrder
+    age_y?: SortOrder
+    nationality?: SortOrder
+    occupation?: SortOrder
+    province?: SortOrder
+    district?: SortOrder
+    onset_date?: SortOrder
+    treated_date?: SortOrder
+    diagnosis_date?: SortOrder
+    death_date?: SortOrder
+    onset_date_parsed?: SortOrder
+    treated_date_parsed?: SortOrder
+    diagnosis_date_parsed?: SortOrder
+    death_date_parsed?: SortOrder
+  }
+
+  export type d01_influenzaAvgOrderByAggregateInput = {
+    id?: SortOrder
+    age_y?: SortOrder
+  }
+
+  export type d01_influenzaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    disease_code?: SortOrder
+    gender?: SortOrder
+    age_y?: SortOrder
+    nationality?: SortOrder
+    occupation?: SortOrder
+    province?: SortOrder
+    district?: SortOrder
+    onset_date?: SortOrder
+    treated_date?: SortOrder
+    diagnosis_date?: SortOrder
+    death_date?: SortOrder
+    onset_date_parsed?: SortOrder
+    treated_date_parsed?: SortOrder
+    diagnosis_date_parsed?: SortOrder
+    death_date_parsed?: SortOrder
+  }
+
+  export type d01_influenzaMinOrderByAggregateInput = {
+    id?: SortOrder
+    disease_code?: SortOrder
+    gender?: SortOrder
+    age_y?: SortOrder
+    nationality?: SortOrder
+    occupation?: SortOrder
+    province?: SortOrder
+    district?: SortOrder
+    onset_date?: SortOrder
+    treated_date?: SortOrder
+    diagnosis_date?: SortOrder
+    death_date?: SortOrder
+    onset_date_parsed?: SortOrder
+    treated_date_parsed?: SortOrder
+    diagnosis_date_parsed?: SortOrder
+    death_date_parsed?: SortOrder
+  }
+
+  export type d01_influenzaSumOrderByAggregateInput = {
+    id?: SortOrder
+    age_y?: SortOrder
+  }
+
+  export type diseasesCountOrderByAggregateInput = {
+    code?: SortOrder
+    name_th?: SortOrder
+    name_en?: SortOrder
+  }
+
+  export type diseasesMaxOrderByAggregateInput = {
+    code?: SortOrder
+    name_th?: SortOrder
+    name_en?: SortOrder
+  }
+
+  export type diseasesMinOrderByAggregateInput = {
+    code?: SortOrder
+    name_th?: SortOrder
+    name_en?: SortOrder
+  }
+
   export type AuthenticatorCreateNestedManyWithoutUserInput = {
     create?: XOR<AuthenticatorCreateWithoutUserInput, AuthenticatorUncheckedCreateWithoutUserInput> | AuthenticatorCreateWithoutUserInput[] | AuthenticatorUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AuthenticatorCreateOrConnectWithoutUserInput | AuthenticatorCreateOrConnectWithoutUserInput[]
@@ -8127,6 +10956,10 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type AuthenticatorUpdateManyWithoutUserNestedInput = {
@@ -8273,6 +11106,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -8331,6 +11175,31 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -8373,17 +11242,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -8535,6 +11393,7 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
   }
 
@@ -8550,6 +11409,7 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -8580,6 +11440,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
   }
 
@@ -8595,6 +11456,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -8609,6 +11471,7 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     sessions?: SessionCreateNestedManyWithoutUserInput
   }
 
@@ -8624,6 +11487,7 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -8654,6 +11518,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions?: SessionUpdateManyWithoutUserNestedInput
   }
 
@@ -8669,6 +11534,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
 

@@ -12,6 +12,7 @@ const AuthNavBar = () => {
   const [open, setOpen] = useState(false);
   const name = () => {
     return session?.user?.first_name + " " + session?.user?.last_name;
+
   };
   // <-- สร้าง state
   // const { setUser } = useAuthStore();

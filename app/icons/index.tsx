@@ -12,6 +12,7 @@ export const iconPaths = {
   Next: "/icons/next.svg",
   Reverse: "/icons/revers.svg",
   Search: "/icons/search.svg",
+  Star: "/icons/star.svg",
   Settings: "/icons/settings.svg",
   Show: "/icons/show.svg",
   User: "/icons/user.svg",

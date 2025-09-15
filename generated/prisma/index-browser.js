@@ -131,7 +131,8 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   password: 'password',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {
@@ -174,6 +175,31 @@ exports.Prisma.Influenzadata2567ScalarFieldEnum = {
   death_date: 'death_date'
 };
 
+exports.Prisma.D01_influenzaScalarFieldEnum = {
+  id: 'id',
+  disease_code: 'disease_code',
+  gender: 'gender',
+  age_y: 'age_y',
+  nationality: 'nationality',
+  occupation: 'occupation',
+  province: 'province',
+  district: 'district',
+  onset_date: 'onset_date',
+  treated_date: 'treated_date',
+  diagnosis_date: 'diagnosis_date',
+  death_date: 'death_date',
+  onset_date_parsed: 'onset_date_parsed',
+  treated_date_parsed: 'treated_date_parsed',
+  diagnosis_date_parsed: 'diagnosis_date_parsed',
+  death_date_parsed: 'death_date_parsed'
+};
+
+exports.Prisma.DiseasesScalarFieldEnum = {
+  code: 'code',
+  name_th: 'name_th',
+  name_en: 'name_en'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -195,7 +221,9 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   Authenticator: 'Authenticator',
-  influenzadata2567: 'influenzadata2567'
+  influenzadata2567: 'influenzadata2567',
+  d01_influenza: 'd01_influenza',
+  diseases: 'diseases'
 };
 
 /**

@@ -1,10 +1,10 @@
-import SearchPage from "@/app/features/main/searchTemplate/component/CreateSearch";
+import SearchPage from "@/app/features/main/searchTemplate/Index";
 
-const SearchPageRender = () => {
+const SearchRender = () => {
   return (
     <div>
       <SearchPage />
     </div>
   );
 };
-export default SearchPageRender;
+export default SearchRender;
