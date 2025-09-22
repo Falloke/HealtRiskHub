@@ -20,8 +20,12 @@ model User {
   password      String
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
+  deletedAt     DateTime?
   Authenticator Authenticator[]
   sessions      Session[]
+
+  // ⬇️ เปลี่ยนจาก saved_searches saved_searches[] เป็น:
+  savedSearches SavedSearch[] // ชื่อฟิลด์จะเป็น camelCase ก็ได้
 }
 
 model Session {
@@ -57,15 +61,172 @@ model Authenticator {
 
 model influenzadata2567 {
   id             Int     @id @default(autoincrement())
-  disease        String? @db.VarChar(50)
-  gender         String? @db.VarChar(50)
+  disease        String?
+  gender         String?
   age_y          Int?
-  nationality    String? @db.VarChar(50)
-  occupation     String? @db.VarChar(255)
-  province       String? @db.VarChar(50)
-  district       String? @db.VarChar(50)
-  onset_date     String? @db.VarChar(50)
-  treated_date   String? @db.VarChar(50)
-  diagnosis_date String? @db.VarChar(50)
-  death_date     String? @db.VarChar(50)
+  nationality    String?
+  occupation     String?
+  province       String?
+  district       String?
+  onset_date     String?
+  treated_date   String?
+  diagnosis_date String?
+  death_date     String?
+}
+
+/// This table is a partition table and requires additional setup for migrations. Visit https://pris.ly/d/partition-tables for more info.
+model d01_influenza {
+  id                    Int       @default(autoincrement())
+  disease_code          String
+  gender                String?
+  age_y                 Int?
+  nationality           String?
+  occupation            String?
+  province              String?
+  district              String?
+  onset_date            String?
+  treated_date          String?
+  diagnosis_date        String?
+  death_date            String?
+  onset_date_parsed     DateTime  @db.Date
+  treated_date_parsed   DateTime? @db.Date
+  diagnosis_date_parsed DateTime? @db.Date
+  death_date_parsed     DateTime? @db.Date
+
+  @@id([onset_date_parsed, id], map: "d01_influenza_v2_pkey")
+}
+
+/// This table is a partition table and requires additional setup for migrations. Visit https://pris.ly/d/partition-tables for more info.
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+// model d01_influenza_old {
+//   disease_code          String?
+//   gender                String?
+//   age_y                 Int?
+//   nationality           String?
+//   occupation            String?
+//   province              String?
+//   district              String?
+//   onset_date            String?
+//   treated_date          String?
+//   diagnosis_date        String?
+//   death_date            String?
+//   onset_date_parsed     DateTime  @db.Date
+//   treated_date_parsed   DateTime? @db.Date
+//   diagnosis_date_parsed DateTime? @db.Date
+//   death_date_parsed     DateTime? @db.Date
+//   diseases              diseases? @relation(fields: [disease_code], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "d01_influenza_disease_code_fkey")
+
+//   @@index([province], map: "idx_influenza_province")
+//   @@ignore
+// }
+
+// model diseases {
+//   code              String              @id
+//   name_th           String
+//   name_en           String
+//   d01_influenza_old d01_influenza_old[]
+// }
+
+/// This table is a partition table and requires additional setup for migrations. Visit https://pris.ly/d/partition-tables for more info.
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model influenza {
+  id             Int       @default(autoincrement())
+  disease        String?   @db.VarChar(100)
+  gender         String?   @db.VarChar(10)
+  age_y          Int?
+  nationality    String?   @db.VarChar(50)
+  occupation     String?
+  province       String    @db.VarChar(100)
+  district       String?   @db.VarChar(100)
+  onset_date     DateTime  @db.Date
+  treated_date   DateTime? @db.Date
+  diagnosis_date DateTime? @db.Date
+  death_date     DateTime? @db.Date
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model influenza_raw {
+  disease            String?
+  gender             String?
+  age_y              Int?
+  nationality        String?
+  occupation         String?
+  province           String?
+  district           String?
+  onset_date_raw     String?
+  treated_date_raw   String?
+  diagnosis_date_raw String?
+  death_date_raw     String?
+  onset_date         String? @db.VarChar(50)
+  treated_date       String? @db.VarChar(50)
+  diagnosis_date     String? @db.VarChar(50)
+  death_date         String? @db.VarChar(50)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model influenza_staged {
+  disease               String?
+  gender                String?
+  age_y                 Int?
+  nationality           String?
+  occupation            String?
+  province              String?
+  district              String?
+  onset_date            String?
+  treated_date          String?
+  diagnosis_date        String?
+  death_date            String?
+  onset_date_parsed     DateTime? @db.Date
+  treated_date_parsed   DateTime? @db.Date
+  diagnosis_date_parsed DateTime? @db.Date
+  death_date_parsed     DateTime? @db.Date
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model influenza_staged_2 {
+  disease               String?
+  gender                String?
+  age_y                 Int?
+  nationality           String?
+  occupation            String?
+  province              String?
+  district              String?
+  onset_date            String?
+  treated_date          String?
+  diagnosis_date        String?
+  death_date            String?
+  onset_date_parsed     DateTime? @db.Date
+  treated_date_parsed   DateTime? @db.Date
+  diagnosis_date_parsed DateTime? @db.Date
+  death_date_parsed     DateTime? @db.Date
+
+  @@ignore
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model SavedSearch {
+  id     BigInt @id @default(autoincrement())
+  userId Int    @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  searchName  String    @map("search_name")
+  diseaseName String?   @map("disease_name")
+  province    String?
+  provinceAlt String?   @map("province_alt")
+  startDate   DateTime? @map("start_date") @db.Date
+  endDate     DateTime? @map("end_date") @db.Date
+  color       String?   @db.Char(7)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  @@index([searchName], map: "idx_saved_searches_search_name")
+  @@index([userId, createdAt(sort: Desc)], map: "idx_saved_searches_user_created")
+  @@map("saved_searches") // ← ชื่อตารางจริงใน DB
 }

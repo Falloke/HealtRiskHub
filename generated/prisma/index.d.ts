@@ -44,10 +44,10 @@ export type influenzadata2567 = $Result.DefaultSelection<Prisma.$influenzadata25
  */
 export type d01_influenza = $Result.DefaultSelection<Prisma.$d01_influenzaPayload>
 /**
- * Model diseases
- * 
+ * Model SavedSearch
+ * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
  */
-export type diseases = $Result.DefaultSelection<Prisma.$diseasesPayload>
+export type SavedSearch = $Result.DefaultSelection<Prisma.$SavedSearchPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -228,14 +228,14 @@ export class PrismaClient<
   get d01_influenza(): Prisma.d01_influenzaDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.diseases`: Exposes CRUD operations for the **diseases** model.
+   * `prisma.savedSearch`: Exposes CRUD operations for the **SavedSearch** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Diseases
-    * const diseases = await prisma.diseases.findMany()
+    * // Fetch zero or more SavedSearches
+    * const savedSearches = await prisma.savedSearch.findMany()
     * ```
     */
-  get diseases(): Prisma.diseasesDelegate<ExtArgs, ClientOptions>;
+  get savedSearch(): Prisma.SavedSearchDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -682,7 +682,7 @@ export namespace Prisma {
     Authenticator: 'Authenticator',
     influenzadata2567: 'influenzadata2567',
     d01_influenza: 'd01_influenza',
-    diseases: 'diseases'
+    SavedSearch: 'SavedSearch'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -701,7 +701,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "session" | "verificationToken" | "authenticator" | "influenzadata2567" | "d01_influenza" | "diseases"
+      modelProps: "user" | "session" | "verificationToken" | "authenticator" | "influenzadata2567" | "d01_influenza" | "savedSearch"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1149,77 +1149,77 @@ export namespace Prisma {
           }
         }
       }
-      diseases: {
-        payload: Prisma.$diseasesPayload<ExtArgs>
-        fields: Prisma.diseasesFieldRefs
+      SavedSearch: {
+        payload: Prisma.$SavedSearchPayload<ExtArgs>
+        fields: Prisma.SavedSearchFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.diseasesFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$diseasesPayload> | null
+            args: Prisma.SavedSearchFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.diseasesFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$diseasesPayload>
+            args: Prisma.SavedSearchFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload>
           }
           findFirst: {
-            args: Prisma.diseasesFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$diseasesPayload> | null
+            args: Prisma.SavedSearchFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.diseasesFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$diseasesPayload>
+            args: Prisma.SavedSearchFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload>
           }
           findMany: {
-            args: Prisma.diseasesFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$diseasesPayload>[]
+            args: Prisma.SavedSearchFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload>[]
           }
           create: {
-            args: Prisma.diseasesCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$diseasesPayload>
+            args: Prisma.SavedSearchCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload>
           }
           createMany: {
-            args: Prisma.diseasesCreateManyArgs<ExtArgs>
+            args: Prisma.SavedSearchCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.diseasesCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$diseasesPayload>[]
+            args: Prisma.SavedSearchCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload>[]
           }
           delete: {
-            args: Prisma.diseasesDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$diseasesPayload>
+            args: Prisma.SavedSearchDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload>
           }
           update: {
-            args: Prisma.diseasesUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$diseasesPayload>
+            args: Prisma.SavedSearchUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload>
           }
           deleteMany: {
-            args: Prisma.diseasesDeleteManyArgs<ExtArgs>
+            args: Prisma.SavedSearchDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.diseasesUpdateManyArgs<ExtArgs>
+            args: Prisma.SavedSearchUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.diseasesUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$diseasesPayload>[]
+            args: Prisma.SavedSearchUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload>[]
           }
           upsert: {
-            args: Prisma.diseasesUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$diseasesPayload>
+            args: Prisma.SavedSearchUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload>
           }
           aggregate: {
-            args: Prisma.DiseasesAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateDiseases>
+            args: Prisma.SavedSearchAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSavedSearch>
           }
           groupBy: {
-            args: Prisma.diseasesGroupByArgs<ExtArgs>
-            result: $Utils.Optional<DiseasesGroupByOutputType>[]
+            args: Prisma.SavedSearchGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SavedSearchGroupByOutputType>[]
           }
           count: {
-            args: Prisma.diseasesCountArgs<ExtArgs>
-            result: $Utils.Optional<DiseasesCountAggregateOutputType> | number
+            args: Prisma.SavedSearchCountArgs<ExtArgs>
+            result: $Utils.Optional<SavedSearchCountAggregateOutputType> | number
           }
         }
       }
@@ -1321,7 +1321,7 @@ export namespace Prisma {
     authenticator?: AuthenticatorOmit
     influenzadata2567?: influenzadata2567Omit
     d01_influenza?: d01_influenzaOmit
-    diseases?: diseasesOmit
+    savedSearch?: SavedSearchOmit
   }
 
   /* Types for Logging */
@@ -1404,11 +1404,13 @@ export namespace Prisma {
   export type UserCountOutputType = {
     Authenticator: number
     sessions: number
+    savedSearches: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Authenticator?: boolean | UserCountOutputTypeCountAuthenticatorArgs
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+    savedSearches?: boolean | UserCountOutputTypeCountSavedSearchesArgs
   }
 
   // Custom InputTypes
@@ -1434,6 +1436,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SessionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSavedSearchesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SavedSearchWhereInput
   }
 
 
@@ -1697,6 +1706,7 @@ export namespace Prisma {
     deletedAt?: boolean
     Authenticator?: boolean | User$AuthenticatorArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
+    savedSearches?: boolean | User$savedSearchesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1749,6 +1759,7 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Authenticator?: boolean | User$AuthenticatorArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
+    savedSearches?: boolean | User$savedSearchesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1759,6 +1770,7 @@ export namespace Prisma {
     objects: {
       Authenticator: Prisma.$AuthenticatorPayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
+      savedSearches: Prisma.$SavedSearchPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2169,6 +2181,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     Authenticator<T extends User$AuthenticatorArgs<ExtArgs> = {}>(args?: Subset<T, User$AuthenticatorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuthenticatorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    savedSearches<T extends User$savedSearchesArgs<ExtArgs> = {}>(args?: Subset<T, User$savedSearchesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2643,6 +2656,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
+  }
+
+  /**
+   * User.savedSearches
+   */
+  export type User$savedSearchesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedSearch
+     */
+    select?: SavedSearchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedSearch
+     */
+    omit?: SavedSearchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedSearchInclude<ExtArgs> | null
+    where?: SavedSearchWhereInput
+    orderBy?: SavedSearchOrderByWithRelationInput | SavedSearchOrderByWithRelationInput[]
+    cursor?: SavedSearchWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SavedSearchScalarFieldEnum | SavedSearchScalarFieldEnum[]
   }
 
   /**
@@ -8161,313 +8198,461 @@ export namespace Prisma {
 
 
   /**
-   * Model diseases
+   * Model SavedSearch
    */
 
-  export type AggregateDiseases = {
-    _count: DiseasesCountAggregateOutputType | null
-    _min: DiseasesMinAggregateOutputType | null
-    _max: DiseasesMaxAggregateOutputType | null
+  export type AggregateSavedSearch = {
+    _count: SavedSearchCountAggregateOutputType | null
+    _avg: SavedSearchAvgAggregateOutputType | null
+    _sum: SavedSearchSumAggregateOutputType | null
+    _min: SavedSearchMinAggregateOutputType | null
+    _max: SavedSearchMaxAggregateOutputType | null
   }
 
-  export type DiseasesMinAggregateOutputType = {
-    code: string | null
-    name_th: string | null
-    name_en: string | null
+  export type SavedSearchAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
   }
 
-  export type DiseasesMaxAggregateOutputType = {
-    code: string | null
-    name_th: string | null
-    name_en: string | null
+  export type SavedSearchSumAggregateOutputType = {
+    id: bigint | null
+    userId: number | null
   }
 
-  export type DiseasesCountAggregateOutputType = {
-    code: number
-    name_th: number
-    name_en: number
+  export type SavedSearchMinAggregateOutputType = {
+    id: bigint | null
+    userId: number | null
+    searchName: string | null
+    diseaseName: string | null
+    province: string | null
+    provinceAlt: string | null
+    startDate: Date | null
+    endDate: Date | null
+    color: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SavedSearchMaxAggregateOutputType = {
+    id: bigint | null
+    userId: number | null
+    searchName: string | null
+    diseaseName: string | null
+    province: string | null
+    provinceAlt: string | null
+    startDate: Date | null
+    endDate: Date | null
+    color: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SavedSearchCountAggregateOutputType = {
+    id: number
+    userId: number
+    searchName: number
+    diseaseName: number
+    province: number
+    provinceAlt: number
+    startDate: number
+    endDate: number
+    color: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
 
-  export type DiseasesMinAggregateInputType = {
-    code?: true
-    name_th?: true
-    name_en?: true
+  export type SavedSearchAvgAggregateInputType = {
+    id?: true
+    userId?: true
   }
 
-  export type DiseasesMaxAggregateInputType = {
-    code?: true
-    name_th?: true
-    name_en?: true
+  export type SavedSearchSumAggregateInputType = {
+    id?: true
+    userId?: true
   }
 
-  export type DiseasesCountAggregateInputType = {
-    code?: true
-    name_th?: true
-    name_en?: true
+  export type SavedSearchMinAggregateInputType = {
+    id?: true
+    userId?: true
+    searchName?: true
+    diseaseName?: true
+    province?: true
+    provinceAlt?: true
+    startDate?: true
+    endDate?: true
+    color?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SavedSearchMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    searchName?: true
+    diseaseName?: true
+    province?: true
+    provinceAlt?: true
+    startDate?: true
+    endDate?: true
+    color?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SavedSearchCountAggregateInputType = {
+    id?: true
+    userId?: true
+    searchName?: true
+    diseaseName?: true
+    province?: true
+    provinceAlt?: true
+    startDate?: true
+    endDate?: true
+    color?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
-  export type DiseasesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SavedSearchAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which diseases to aggregate.
+     * Filter which SavedSearch to aggregate.
      */
-    where?: diseasesWhereInput
+    where?: SavedSearchWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of diseases to fetch.
+     * Determine the order of SavedSearches to fetch.
      */
-    orderBy?: diseasesOrderByWithRelationInput | diseasesOrderByWithRelationInput[]
+    orderBy?: SavedSearchOrderByWithRelationInput | SavedSearchOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: diseasesWhereUniqueInput
+    cursor?: SavedSearchWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` diseases from the position of the cursor.
+     * Take `±n` SavedSearches from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` diseases.
+     * Skip the first `n` SavedSearches.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned diseases
+     * Count returned SavedSearches
     **/
-    _count?: true | DiseasesCountAggregateInputType
+    _count?: true | SavedSearchCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SavedSearchAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SavedSearchSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: DiseasesMinAggregateInputType
+    _min?: SavedSearchMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: DiseasesMaxAggregateInputType
+    _max?: SavedSearchMaxAggregateInputType
   }
 
-  export type GetDiseasesAggregateType<T extends DiseasesAggregateArgs> = {
-        [P in keyof T & keyof AggregateDiseases]: P extends '_count' | 'count'
+  export type GetSavedSearchAggregateType<T extends SavedSearchAggregateArgs> = {
+        [P in keyof T & keyof AggregateSavedSearch]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateDiseases[P]>
-      : GetScalarType<T[P], AggregateDiseases[P]>
+        : GetScalarType<T[P], AggregateSavedSearch[P]>
+      : GetScalarType<T[P], AggregateSavedSearch[P]>
   }
 
 
 
 
-  export type diseasesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: diseasesWhereInput
-    orderBy?: diseasesOrderByWithAggregationInput | diseasesOrderByWithAggregationInput[]
-    by: DiseasesScalarFieldEnum[] | DiseasesScalarFieldEnum
-    having?: diseasesScalarWhereWithAggregatesInput
+  export type SavedSearchGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SavedSearchWhereInput
+    orderBy?: SavedSearchOrderByWithAggregationInput | SavedSearchOrderByWithAggregationInput[]
+    by: SavedSearchScalarFieldEnum[] | SavedSearchScalarFieldEnum
+    having?: SavedSearchScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: DiseasesCountAggregateInputType | true
-    _min?: DiseasesMinAggregateInputType
-    _max?: DiseasesMaxAggregateInputType
+    _count?: SavedSearchCountAggregateInputType | true
+    _avg?: SavedSearchAvgAggregateInputType
+    _sum?: SavedSearchSumAggregateInputType
+    _min?: SavedSearchMinAggregateInputType
+    _max?: SavedSearchMaxAggregateInputType
   }
 
-  export type DiseasesGroupByOutputType = {
-    code: string
-    name_th: string
-    name_en: string
-    _count: DiseasesCountAggregateOutputType | null
-    _min: DiseasesMinAggregateOutputType | null
-    _max: DiseasesMaxAggregateOutputType | null
+  export type SavedSearchGroupByOutputType = {
+    id: bigint
+    userId: number
+    searchName: string
+    diseaseName: string | null
+    province: string | null
+    provinceAlt: string | null
+    startDate: Date | null
+    endDate: Date | null
+    color: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: SavedSearchCountAggregateOutputType | null
+    _avg: SavedSearchAvgAggregateOutputType | null
+    _sum: SavedSearchSumAggregateOutputType | null
+    _min: SavedSearchMinAggregateOutputType | null
+    _max: SavedSearchMaxAggregateOutputType | null
   }
 
-  type GetDiseasesGroupByPayload<T extends diseasesGroupByArgs> = Prisma.PrismaPromise<
+  type GetSavedSearchGroupByPayload<T extends SavedSearchGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<DiseasesGroupByOutputType, T['by']> &
+      PickEnumerable<SavedSearchGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof DiseasesGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof SavedSearchGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], DiseasesGroupByOutputType[P]>
-            : GetScalarType<T[P], DiseasesGroupByOutputType[P]>
+              : GetScalarType<T[P], SavedSearchGroupByOutputType[P]>
+            : GetScalarType<T[P], SavedSearchGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type diseasesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    code?: boolean
-    name_th?: boolean
-    name_en?: boolean
-  }, ExtArgs["result"]["diseases"]>
+  export type SavedSearchSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    searchName?: boolean
+    diseaseName?: boolean
+    province?: boolean
+    provinceAlt?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    color?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["savedSearch"]>
 
-  export type diseasesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    code?: boolean
-    name_th?: boolean
-    name_en?: boolean
-  }, ExtArgs["result"]["diseases"]>
+  export type SavedSearchSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    searchName?: boolean
+    diseaseName?: boolean
+    province?: boolean
+    provinceAlt?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    color?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["savedSearch"]>
 
-  export type diseasesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    code?: boolean
-    name_th?: boolean
-    name_en?: boolean
-  }, ExtArgs["result"]["diseases"]>
+  export type SavedSearchSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    searchName?: boolean
+    diseaseName?: boolean
+    province?: boolean
+    provinceAlt?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    color?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["savedSearch"]>
 
-  export type diseasesSelectScalar = {
-    code?: boolean
-    name_th?: boolean
-    name_en?: boolean
+  export type SavedSearchSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    searchName?: boolean
+    diseaseName?: boolean
+    province?: boolean
+    provinceAlt?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    color?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type diseasesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"code" | "name_th" | "name_en", ExtArgs["result"]["diseases"]>
+  export type SavedSearchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "searchName" | "diseaseName" | "province" | "provinceAlt" | "startDate" | "endDate" | "color" | "createdAt" | "updatedAt", ExtArgs["result"]["savedSearch"]>
+  export type SavedSearchInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type SavedSearchIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type SavedSearchIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
 
-  export type $diseasesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "diseases"
-    objects: {}
+  export type $SavedSearchPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SavedSearch"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
-      code: string
-      name_th: string
-      name_en: string
-    }, ExtArgs["result"]["diseases"]>
+      id: bigint
+      userId: number
+      searchName: string
+      diseaseName: string | null
+      province: string | null
+      provinceAlt: string | null
+      startDate: Date | null
+      endDate: Date | null
+      color: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["savedSearch"]>
     composites: {}
   }
 
-  type diseasesGetPayload<S extends boolean | null | undefined | diseasesDefaultArgs> = $Result.GetResult<Prisma.$diseasesPayload, S>
+  type SavedSearchGetPayload<S extends boolean | null | undefined | SavedSearchDefaultArgs> = $Result.GetResult<Prisma.$SavedSearchPayload, S>
 
-  type diseasesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<diseasesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: DiseasesCountAggregateInputType | true
+  type SavedSearchCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SavedSearchFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SavedSearchCountAggregateInputType | true
     }
 
-  export interface diseasesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['diseases'], meta: { name: 'diseases' } }
+  export interface SavedSearchDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SavedSearch'], meta: { name: 'SavedSearch' } }
     /**
-     * Find zero or one Diseases that matches the filter.
-     * @param {diseasesFindUniqueArgs} args - Arguments to find a Diseases
+     * Find zero or one SavedSearch that matches the filter.
+     * @param {SavedSearchFindUniqueArgs} args - Arguments to find a SavedSearch
      * @example
-     * // Get one Diseases
-     * const diseases = await prisma.diseases.findUnique({
+     * // Get one SavedSearch
+     * const savedSearch = await prisma.savedSearch.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends diseasesFindUniqueArgs>(args: SelectSubset<T, diseasesFindUniqueArgs<ExtArgs>>): Prisma__diseasesClient<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends SavedSearchFindUniqueArgs>(args: SelectSubset<T, SavedSearchFindUniqueArgs<ExtArgs>>): Prisma__SavedSearchClient<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Diseases that matches the filter or throw an error with `error.code='P2025'`
+     * Find one SavedSearch that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {diseasesFindUniqueOrThrowArgs} args - Arguments to find a Diseases
+     * @param {SavedSearchFindUniqueOrThrowArgs} args - Arguments to find a SavedSearch
      * @example
-     * // Get one Diseases
-     * const diseases = await prisma.diseases.findUniqueOrThrow({
+     * // Get one SavedSearch
+     * const savedSearch = await prisma.savedSearch.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends diseasesFindUniqueOrThrowArgs>(args: SelectSubset<T, diseasesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__diseasesClient<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends SavedSearchFindUniqueOrThrowArgs>(args: SelectSubset<T, SavedSearchFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SavedSearchClient<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Diseases that matches the filter.
+     * Find the first SavedSearch that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {diseasesFindFirstArgs} args - Arguments to find a Diseases
+     * @param {SavedSearchFindFirstArgs} args - Arguments to find a SavedSearch
      * @example
-     * // Get one Diseases
-     * const diseases = await prisma.diseases.findFirst({
+     * // Get one SavedSearch
+     * const savedSearch = await prisma.savedSearch.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends diseasesFindFirstArgs>(args?: SelectSubset<T, diseasesFindFirstArgs<ExtArgs>>): Prisma__diseasesClient<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends SavedSearchFindFirstArgs>(args?: SelectSubset<T, SavedSearchFindFirstArgs<ExtArgs>>): Prisma__SavedSearchClient<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Diseases that matches the filter or
+     * Find the first SavedSearch that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {diseasesFindFirstOrThrowArgs} args - Arguments to find a Diseases
+     * @param {SavedSearchFindFirstOrThrowArgs} args - Arguments to find a SavedSearch
      * @example
-     * // Get one Diseases
-     * const diseases = await prisma.diseases.findFirstOrThrow({
+     * // Get one SavedSearch
+     * const savedSearch = await prisma.savedSearch.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends diseasesFindFirstOrThrowArgs>(args?: SelectSubset<T, diseasesFindFirstOrThrowArgs<ExtArgs>>): Prisma__diseasesClient<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends SavedSearchFindFirstOrThrowArgs>(args?: SelectSubset<T, SavedSearchFindFirstOrThrowArgs<ExtArgs>>): Prisma__SavedSearchClient<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Diseases that matches the filter.
+     * Find zero or more SavedSearches that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {diseasesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {SavedSearchFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Diseases
-     * const diseases = await prisma.diseases.findMany()
+     * // Get all SavedSearches
+     * const savedSearches = await prisma.savedSearch.findMany()
      * 
-     * // Get first 10 Diseases
-     * const diseases = await prisma.diseases.findMany({ take: 10 })
+     * // Get first 10 SavedSearches
+     * const savedSearches = await prisma.savedSearch.findMany({ take: 10 })
      * 
-     * // Only select the `code`
-     * const diseasesWithCodeOnly = await prisma.diseases.findMany({ select: { code: true } })
+     * // Only select the `id`
+     * const savedSearchWithIdOnly = await prisma.savedSearch.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends diseasesFindManyArgs>(args?: SelectSubset<T, diseasesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends SavedSearchFindManyArgs>(args?: SelectSubset<T, SavedSearchFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Diseases.
-     * @param {diseasesCreateArgs} args - Arguments to create a Diseases.
+     * Create a SavedSearch.
+     * @param {SavedSearchCreateArgs} args - Arguments to create a SavedSearch.
      * @example
-     * // Create one Diseases
-     * const Diseases = await prisma.diseases.create({
+     * // Create one SavedSearch
+     * const SavedSearch = await prisma.savedSearch.create({
      *   data: {
-     *     // ... data to create a Diseases
+     *     // ... data to create a SavedSearch
      *   }
      * })
      * 
      */
-    create<T extends diseasesCreateArgs>(args: SelectSubset<T, diseasesCreateArgs<ExtArgs>>): Prisma__diseasesClient<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends SavedSearchCreateArgs>(args: SelectSubset<T, SavedSearchCreateArgs<ExtArgs>>): Prisma__SavedSearchClient<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Diseases.
-     * @param {diseasesCreateManyArgs} args - Arguments to create many Diseases.
+     * Create many SavedSearches.
+     * @param {SavedSearchCreateManyArgs} args - Arguments to create many SavedSearches.
      * @example
-     * // Create many Diseases
-     * const diseases = await prisma.diseases.createMany({
+     * // Create many SavedSearches
+     * const savedSearch = await prisma.savedSearch.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends diseasesCreateManyArgs>(args?: SelectSubset<T, diseasesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends SavedSearchCreateManyArgs>(args?: SelectSubset<T, SavedSearchCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Diseases and returns the data saved in the database.
-     * @param {diseasesCreateManyAndReturnArgs} args - Arguments to create many Diseases.
+     * Create many SavedSearches and returns the data saved in the database.
+     * @param {SavedSearchCreateManyAndReturnArgs} args - Arguments to create many SavedSearches.
      * @example
-     * // Create many Diseases
-     * const diseases = await prisma.diseases.createManyAndReturn({
+     * // Create many SavedSearches
+     * const savedSearch = await prisma.savedSearch.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Diseases and only return the `code`
-     * const diseasesWithCodeOnly = await prisma.diseases.createManyAndReturn({
-     *   select: { code: true },
+     * // Create many SavedSearches and only return the `id`
+     * const savedSearchWithIdOnly = await prisma.savedSearch.createManyAndReturn({
+     *   select: { id: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -8476,28 +8661,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends diseasesCreateManyAndReturnArgs>(args?: SelectSubset<T, diseasesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends SavedSearchCreateManyAndReturnArgs>(args?: SelectSubset<T, SavedSearchCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a Diseases.
-     * @param {diseasesDeleteArgs} args - Arguments to delete one Diseases.
+     * Delete a SavedSearch.
+     * @param {SavedSearchDeleteArgs} args - Arguments to delete one SavedSearch.
      * @example
-     * // Delete one Diseases
-     * const Diseases = await prisma.diseases.delete({
+     * // Delete one SavedSearch
+     * const SavedSearch = await prisma.savedSearch.delete({
      *   where: {
-     *     // ... filter to delete one Diseases
+     *     // ... filter to delete one SavedSearch
      *   }
      * })
      * 
      */
-    delete<T extends diseasesDeleteArgs>(args: SelectSubset<T, diseasesDeleteArgs<ExtArgs>>): Prisma__diseasesClient<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends SavedSearchDeleteArgs>(args: SelectSubset<T, SavedSearchDeleteArgs<ExtArgs>>): Prisma__SavedSearchClient<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Diseases.
-     * @param {diseasesUpdateArgs} args - Arguments to update one Diseases.
+     * Update one SavedSearch.
+     * @param {SavedSearchUpdateArgs} args - Arguments to update one SavedSearch.
      * @example
-     * // Update one Diseases
-     * const diseases = await prisma.diseases.update({
+     * // Update one SavedSearch
+     * const savedSearch = await prisma.savedSearch.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -8507,30 +8692,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends diseasesUpdateArgs>(args: SelectSubset<T, diseasesUpdateArgs<ExtArgs>>): Prisma__diseasesClient<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends SavedSearchUpdateArgs>(args: SelectSubset<T, SavedSearchUpdateArgs<ExtArgs>>): Prisma__SavedSearchClient<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Diseases.
-     * @param {diseasesDeleteManyArgs} args - Arguments to filter Diseases to delete.
+     * Delete zero or more SavedSearches.
+     * @param {SavedSearchDeleteManyArgs} args - Arguments to filter SavedSearches to delete.
      * @example
-     * // Delete a few Diseases
-     * const { count } = await prisma.diseases.deleteMany({
+     * // Delete a few SavedSearches
+     * const { count } = await prisma.savedSearch.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends diseasesDeleteManyArgs>(args?: SelectSubset<T, diseasesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends SavedSearchDeleteManyArgs>(args?: SelectSubset<T, SavedSearchDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Diseases.
+     * Update zero or more SavedSearches.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {diseasesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {SavedSearchUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Diseases
-     * const diseases = await prisma.diseases.updateMany({
+     * // Update many SavedSearches
+     * const savedSearch = await prisma.savedSearch.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -8540,14 +8725,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends diseasesUpdateManyArgs>(args: SelectSubset<T, diseasesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends SavedSearchUpdateManyArgs>(args: SelectSubset<T, SavedSearchUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Diseases and returns the data updated in the database.
-     * @param {diseasesUpdateManyAndReturnArgs} args - Arguments to update many Diseases.
+     * Update zero or more SavedSearches and returns the data updated in the database.
+     * @param {SavedSearchUpdateManyAndReturnArgs} args - Arguments to update many SavedSearches.
      * @example
-     * // Update many Diseases
-     * const diseases = await prisma.diseases.updateManyAndReturn({
+     * // Update many SavedSearches
+     * const savedSearch = await prisma.savedSearch.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -8556,9 +8741,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Diseases and only return the `code`
-     * const diseasesWithCodeOnly = await prisma.diseases.updateManyAndReturn({
-     *   select: { code: true },
+     * // Update zero or more SavedSearches and only return the `id`
+     * const savedSearchWithIdOnly = await prisma.savedSearch.updateManyAndReturn({
+     *   select: { id: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -8570,56 +8755,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends diseasesUpdateManyAndReturnArgs>(args: SelectSubset<T, diseasesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends SavedSearchUpdateManyAndReturnArgs>(args: SelectSubset<T, SavedSearchUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one Diseases.
-     * @param {diseasesUpsertArgs} args - Arguments to update or create a Diseases.
+     * Create or update one SavedSearch.
+     * @param {SavedSearchUpsertArgs} args - Arguments to update or create a SavedSearch.
      * @example
-     * // Update or create a Diseases
-     * const diseases = await prisma.diseases.upsert({
+     * // Update or create a SavedSearch
+     * const savedSearch = await prisma.savedSearch.upsert({
      *   create: {
-     *     // ... data to create a Diseases
+     *     // ... data to create a SavedSearch
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Diseases we want to update
+     *     // ... the filter for the SavedSearch we want to update
      *   }
      * })
      */
-    upsert<T extends diseasesUpsertArgs>(args: SelectSubset<T, diseasesUpsertArgs<ExtArgs>>): Prisma__diseasesClient<$Result.GetResult<Prisma.$diseasesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends SavedSearchUpsertArgs>(args: SelectSubset<T, SavedSearchUpsertArgs<ExtArgs>>): Prisma__SavedSearchClient<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of Diseases.
+     * Count the number of SavedSearches.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {diseasesCountArgs} args - Arguments to filter Diseases to count.
+     * @param {SavedSearchCountArgs} args - Arguments to filter SavedSearches to count.
      * @example
-     * // Count the number of Diseases
-     * const count = await prisma.diseases.count({
+     * // Count the number of SavedSearches
+     * const count = await prisma.savedSearch.count({
      *   where: {
-     *     // ... the filter for the Diseases we want to count
+     *     // ... the filter for the SavedSearches we want to count
      *   }
      * })
     **/
-    count<T extends diseasesCountArgs>(
-      args?: Subset<T, diseasesCountArgs>,
+    count<T extends SavedSearchCountArgs>(
+      args?: Subset<T, SavedSearchCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], DiseasesCountAggregateOutputType>
+          : GetScalarType<T['select'], SavedSearchCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Diseases.
+     * Allows you to perform aggregations operations on a SavedSearch.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {DiseasesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {SavedSearchAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -8639,13 +8824,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends DiseasesAggregateArgs>(args: Subset<T, DiseasesAggregateArgs>): Prisma.PrismaPromise<GetDiseasesAggregateType<T>>
+    aggregate<T extends SavedSearchAggregateArgs>(args: Subset<T, SavedSearchAggregateArgs>): Prisma.PrismaPromise<GetSavedSearchAggregateType<T>>
 
     /**
-     * Group by Diseases.
+     * Group by SavedSearch.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {diseasesGroupByArgs} args - Group by arguments.
+     * @param {SavedSearchGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -8660,14 +8845,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends diseasesGroupByArgs,
+      T extends SavedSearchGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: diseasesGroupByArgs['orderBy'] }
-        : { orderBy?: diseasesGroupByArgs['orderBy'] },
+        ? { orderBy: SavedSearchGroupByArgs['orderBy'] }
+        : { orderBy?: SavedSearchGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -8716,21 +8901,22 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, diseasesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDiseasesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, SavedSearchGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSavedSearchGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the diseases model
+   * Fields of the SavedSearch model
    */
-  readonly fields: diseasesFieldRefs;
+  readonly fields: SavedSearchFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for diseases.
+   * The delegate class that acts as a "Promise-like" for SavedSearch.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__diseasesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__SavedSearchClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8757,375 +8943,431 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the diseases model
+   * Fields of the SavedSearch model
    */
-  interface diseasesFieldRefs {
-    readonly code: FieldRef<"diseases", 'String'>
-    readonly name_th: FieldRef<"diseases", 'String'>
-    readonly name_en: FieldRef<"diseases", 'String'>
+  interface SavedSearchFieldRefs {
+    readonly id: FieldRef<"SavedSearch", 'BigInt'>
+    readonly userId: FieldRef<"SavedSearch", 'Int'>
+    readonly searchName: FieldRef<"SavedSearch", 'String'>
+    readonly diseaseName: FieldRef<"SavedSearch", 'String'>
+    readonly province: FieldRef<"SavedSearch", 'String'>
+    readonly provinceAlt: FieldRef<"SavedSearch", 'String'>
+    readonly startDate: FieldRef<"SavedSearch", 'DateTime'>
+    readonly endDate: FieldRef<"SavedSearch", 'DateTime'>
+    readonly color: FieldRef<"SavedSearch", 'String'>
+    readonly createdAt: FieldRef<"SavedSearch", 'DateTime'>
+    readonly updatedAt: FieldRef<"SavedSearch", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * diseases findUnique
+   * SavedSearch findUnique
    */
-  export type diseasesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SavedSearchFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the diseases
+     * Select specific fields to fetch from the SavedSearch
      */
-    select?: diseasesSelect<ExtArgs> | null
+    select?: SavedSearchSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the diseases
+     * Omit specific fields from the SavedSearch
      */
-    omit?: diseasesOmit<ExtArgs> | null
+    omit?: SavedSearchOmit<ExtArgs> | null
     /**
-     * Filter, which diseases to fetch.
+     * Choose, which related nodes to fetch as well
      */
-    where: diseasesWhereUniqueInput
+    include?: SavedSearchInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedSearch to fetch.
+     */
+    where: SavedSearchWhereUniqueInput
   }
 
   /**
-   * diseases findUniqueOrThrow
+   * SavedSearch findUniqueOrThrow
    */
-  export type diseasesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SavedSearchFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the diseases
+     * Select specific fields to fetch from the SavedSearch
      */
-    select?: diseasesSelect<ExtArgs> | null
+    select?: SavedSearchSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the diseases
+     * Omit specific fields from the SavedSearch
      */
-    omit?: diseasesOmit<ExtArgs> | null
+    omit?: SavedSearchOmit<ExtArgs> | null
     /**
-     * Filter, which diseases to fetch.
+     * Choose, which related nodes to fetch as well
      */
-    where: diseasesWhereUniqueInput
+    include?: SavedSearchInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedSearch to fetch.
+     */
+    where: SavedSearchWhereUniqueInput
   }
 
   /**
-   * diseases findFirst
+   * SavedSearch findFirst
    */
-  export type diseasesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SavedSearchFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the diseases
+     * Select specific fields to fetch from the SavedSearch
      */
-    select?: diseasesSelect<ExtArgs> | null
+    select?: SavedSearchSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the diseases
+     * Omit specific fields from the SavedSearch
      */
-    omit?: diseasesOmit<ExtArgs> | null
+    omit?: SavedSearchOmit<ExtArgs> | null
     /**
-     * Filter, which diseases to fetch.
+     * Choose, which related nodes to fetch as well
      */
-    where?: diseasesWhereInput
+    include?: SavedSearchInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedSearch to fetch.
+     */
+    where?: SavedSearchWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of diseases to fetch.
+     * Determine the order of SavedSearches to fetch.
      */
-    orderBy?: diseasesOrderByWithRelationInput | diseasesOrderByWithRelationInput[]
+    orderBy?: SavedSearchOrderByWithRelationInput | SavedSearchOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for diseases.
+     * Sets the position for searching for SavedSearches.
      */
-    cursor?: diseasesWhereUniqueInput
+    cursor?: SavedSearchWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` diseases from the position of the cursor.
+     * Take `±n` SavedSearches from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` diseases.
+     * Skip the first `n` SavedSearches.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of diseases.
+     * Filter by unique combinations of SavedSearches.
      */
-    distinct?: DiseasesScalarFieldEnum | DiseasesScalarFieldEnum[]
+    distinct?: SavedSearchScalarFieldEnum | SavedSearchScalarFieldEnum[]
   }
 
   /**
-   * diseases findFirstOrThrow
+   * SavedSearch findFirstOrThrow
    */
-  export type diseasesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SavedSearchFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the diseases
+     * Select specific fields to fetch from the SavedSearch
      */
-    select?: diseasesSelect<ExtArgs> | null
+    select?: SavedSearchSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the diseases
+     * Omit specific fields from the SavedSearch
      */
-    omit?: diseasesOmit<ExtArgs> | null
+    omit?: SavedSearchOmit<ExtArgs> | null
     /**
-     * Filter, which diseases to fetch.
+     * Choose, which related nodes to fetch as well
      */
-    where?: diseasesWhereInput
+    include?: SavedSearchInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedSearch to fetch.
+     */
+    where?: SavedSearchWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of diseases to fetch.
+     * Determine the order of SavedSearches to fetch.
      */
-    orderBy?: diseasesOrderByWithRelationInput | diseasesOrderByWithRelationInput[]
+    orderBy?: SavedSearchOrderByWithRelationInput | SavedSearchOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for diseases.
+     * Sets the position for searching for SavedSearches.
      */
-    cursor?: diseasesWhereUniqueInput
+    cursor?: SavedSearchWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` diseases from the position of the cursor.
+     * Take `±n` SavedSearches from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` diseases.
+     * Skip the first `n` SavedSearches.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of diseases.
+     * Filter by unique combinations of SavedSearches.
      */
-    distinct?: DiseasesScalarFieldEnum | DiseasesScalarFieldEnum[]
+    distinct?: SavedSearchScalarFieldEnum | SavedSearchScalarFieldEnum[]
   }
 
   /**
-   * diseases findMany
+   * SavedSearch findMany
    */
-  export type diseasesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SavedSearchFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the diseases
+     * Select specific fields to fetch from the SavedSearch
      */
-    select?: diseasesSelect<ExtArgs> | null
+    select?: SavedSearchSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the diseases
+     * Omit specific fields from the SavedSearch
      */
-    omit?: diseasesOmit<ExtArgs> | null
+    omit?: SavedSearchOmit<ExtArgs> | null
     /**
-     * Filter, which diseases to fetch.
+     * Choose, which related nodes to fetch as well
      */
-    where?: diseasesWhereInput
+    include?: SavedSearchInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedSearches to fetch.
+     */
+    where?: SavedSearchWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of diseases to fetch.
+     * Determine the order of SavedSearches to fetch.
      */
-    orderBy?: diseasesOrderByWithRelationInput | diseasesOrderByWithRelationInput[]
+    orderBy?: SavedSearchOrderByWithRelationInput | SavedSearchOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing diseases.
+     * Sets the position for listing SavedSearches.
      */
-    cursor?: diseasesWhereUniqueInput
+    cursor?: SavedSearchWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` diseases from the position of the cursor.
+     * Take `±n` SavedSearches from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` diseases.
+     * Skip the first `n` SavedSearches.
      */
     skip?: number
-    distinct?: DiseasesScalarFieldEnum | DiseasesScalarFieldEnum[]
+    distinct?: SavedSearchScalarFieldEnum | SavedSearchScalarFieldEnum[]
   }
 
   /**
-   * diseases create
+   * SavedSearch create
    */
-  export type diseasesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SavedSearchCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the diseases
+     * Select specific fields to fetch from the SavedSearch
      */
-    select?: diseasesSelect<ExtArgs> | null
+    select?: SavedSearchSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the diseases
+     * Omit specific fields from the SavedSearch
      */
-    omit?: diseasesOmit<ExtArgs> | null
+    omit?: SavedSearchOmit<ExtArgs> | null
     /**
-     * The data needed to create a diseases.
+     * Choose, which related nodes to fetch as well
      */
-    data: XOR<diseasesCreateInput, diseasesUncheckedCreateInput>
+    include?: SavedSearchInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SavedSearch.
+     */
+    data: XOR<SavedSearchCreateInput, SavedSearchUncheckedCreateInput>
   }
 
   /**
-   * diseases createMany
+   * SavedSearch createMany
    */
-  export type diseasesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SavedSearchCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many diseases.
+     * The data used to create many SavedSearches.
      */
-    data: diseasesCreateManyInput | diseasesCreateManyInput[]
+    data: SavedSearchCreateManyInput | SavedSearchCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * diseases createManyAndReturn
+   * SavedSearch createManyAndReturn
    */
-  export type diseasesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SavedSearchCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the diseases
+     * Select specific fields to fetch from the SavedSearch
      */
-    select?: diseasesSelectCreateManyAndReturn<ExtArgs> | null
+    select?: SavedSearchSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the diseases
+     * Omit specific fields from the SavedSearch
      */
-    omit?: diseasesOmit<ExtArgs> | null
+    omit?: SavedSearchOmit<ExtArgs> | null
     /**
-     * The data used to create many diseases.
+     * The data used to create many SavedSearches.
      */
-    data: diseasesCreateManyInput | diseasesCreateManyInput[]
+    data: SavedSearchCreateManyInput | SavedSearchCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedSearchIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * diseases update
+   * SavedSearch update
    */
-  export type diseasesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SavedSearchUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the diseases
+     * Select specific fields to fetch from the SavedSearch
      */
-    select?: diseasesSelect<ExtArgs> | null
+    select?: SavedSearchSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the diseases
+     * Omit specific fields from the SavedSearch
      */
-    omit?: diseasesOmit<ExtArgs> | null
+    omit?: SavedSearchOmit<ExtArgs> | null
     /**
-     * The data needed to update a diseases.
+     * Choose, which related nodes to fetch as well
      */
-    data: XOR<diseasesUpdateInput, diseasesUncheckedUpdateInput>
+    include?: SavedSearchInclude<ExtArgs> | null
     /**
-     * Choose, which diseases to update.
+     * The data needed to update a SavedSearch.
      */
-    where: diseasesWhereUniqueInput
+    data: XOR<SavedSearchUpdateInput, SavedSearchUncheckedUpdateInput>
+    /**
+     * Choose, which SavedSearch to update.
+     */
+    where: SavedSearchWhereUniqueInput
   }
 
   /**
-   * diseases updateMany
+   * SavedSearch updateMany
    */
-  export type diseasesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SavedSearchUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update diseases.
+     * The data used to update SavedSearches.
      */
-    data: XOR<diseasesUpdateManyMutationInput, diseasesUncheckedUpdateManyInput>
+    data: XOR<SavedSearchUpdateManyMutationInput, SavedSearchUncheckedUpdateManyInput>
     /**
-     * Filter which diseases to update
+     * Filter which SavedSearches to update
      */
-    where?: diseasesWhereInput
+    where?: SavedSearchWhereInput
     /**
-     * Limit how many diseases to update.
+     * Limit how many SavedSearches to update.
      */
     limit?: number
   }
 
   /**
-   * diseases updateManyAndReturn
+   * SavedSearch updateManyAndReturn
    */
-  export type diseasesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SavedSearchUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the diseases
+     * Select specific fields to fetch from the SavedSearch
      */
-    select?: diseasesSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: SavedSearchSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the diseases
+     * Omit specific fields from the SavedSearch
      */
-    omit?: diseasesOmit<ExtArgs> | null
+    omit?: SavedSearchOmit<ExtArgs> | null
     /**
-     * The data used to update diseases.
+     * The data used to update SavedSearches.
      */
-    data: XOR<diseasesUpdateManyMutationInput, diseasesUncheckedUpdateManyInput>
+    data: XOR<SavedSearchUpdateManyMutationInput, SavedSearchUncheckedUpdateManyInput>
     /**
-     * Filter which diseases to update
+     * Filter which SavedSearches to update
      */
-    where?: diseasesWhereInput
+    where?: SavedSearchWhereInput
     /**
-     * Limit how many diseases to update.
+     * Limit how many SavedSearches to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedSearchIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SavedSearch upsert
+   */
+  export type SavedSearchUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedSearch
+     */
+    select?: SavedSearchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedSearch
+     */
+    omit?: SavedSearchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedSearchInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SavedSearch to update in case it exists.
+     */
+    where: SavedSearchWhereUniqueInput
+    /**
+     * In case the SavedSearch found by the `where` argument doesn't exist, create a new SavedSearch with this data.
+     */
+    create: XOR<SavedSearchCreateInput, SavedSearchUncheckedCreateInput>
+    /**
+     * In case the SavedSearch was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SavedSearchUpdateInput, SavedSearchUncheckedUpdateInput>
+  }
+
+  /**
+   * SavedSearch delete
+   */
+  export type SavedSearchDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedSearch
+     */
+    select?: SavedSearchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedSearch
+     */
+    omit?: SavedSearchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedSearchInclude<ExtArgs> | null
+    /**
+     * Filter which SavedSearch to delete.
+     */
+    where: SavedSearchWhereUniqueInput
+  }
+
+  /**
+   * SavedSearch deleteMany
+   */
+  export type SavedSearchDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SavedSearches to delete
+     */
+    where?: SavedSearchWhereInput
+    /**
+     * Limit how many SavedSearches to delete.
      */
     limit?: number
   }
 
   /**
-   * diseases upsert
+   * SavedSearch without action
    */
-  export type diseasesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SavedSearchDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the diseases
+     * Select specific fields to fetch from the SavedSearch
      */
-    select?: diseasesSelect<ExtArgs> | null
+    select?: SavedSearchSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the diseases
+     * Omit specific fields from the SavedSearch
      */
-    omit?: diseasesOmit<ExtArgs> | null
+    omit?: SavedSearchOmit<ExtArgs> | null
     /**
-     * The filter to search for the diseases to update in case it exists.
+     * Choose, which related nodes to fetch as well
      */
-    where: diseasesWhereUniqueInput
-    /**
-     * In case the diseases found by the `where` argument doesn't exist, create a new diseases with this data.
-     */
-    create: XOR<diseasesCreateInput, diseasesUncheckedCreateInput>
-    /**
-     * In case the diseases was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<diseasesUpdateInput, diseasesUncheckedUpdateInput>
-  }
-
-  /**
-   * diseases delete
-   */
-  export type diseasesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the diseases
-     */
-    select?: diseasesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the diseases
-     */
-    omit?: diseasesOmit<ExtArgs> | null
-    /**
-     * Filter which diseases to delete.
-     */
-    where: diseasesWhereUniqueInput
-  }
-
-  /**
-   * diseases deleteMany
-   */
-  export type diseasesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which diseases to delete
-     */
-    where?: diseasesWhereInput
-    /**
-     * Limit how many diseases to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * diseases without action
-   */
-  export type diseasesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the diseases
-     */
-    select?: diseasesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the diseases
-     */
-    omit?: diseasesOmit<ExtArgs> | null
+    include?: SavedSearchInclude<ExtArgs> | null
   }
 
 
@@ -9235,13 +9477,21 @@ export namespace Prisma {
   export type D01_influenzaScalarFieldEnum = (typeof D01_influenzaScalarFieldEnum)[keyof typeof D01_influenzaScalarFieldEnum]
 
 
-  export const DiseasesScalarFieldEnum: {
-    code: 'code',
-    name_th: 'name_th',
-    name_en: 'name_en'
+  export const SavedSearchScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    searchName: 'searchName',
+    diseaseName: 'diseaseName',
+    province: 'province',
+    provinceAlt: 'provinceAlt',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    color: 'color',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
-  export type DiseasesScalarFieldEnum = (typeof DiseasesScalarFieldEnum)[keyof typeof DiseasesScalarFieldEnum]
+  export type SavedSearchScalarFieldEnum = (typeof SavedSearchScalarFieldEnum)[keyof typeof SavedSearchScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -9323,6 +9573,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'BigInt'
+   */
+  export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt[]'
+   */
+  export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -9357,6 +9621,7 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     Authenticator?: AuthenticatorListRelationFilter
     sessions?: SessionListRelationFilter
+    savedSearches?: SavedSearchListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -9374,6 +9639,7 @@ export namespace Prisma {
     deletedAt?: SortOrderInput | SortOrder
     Authenticator?: AuthenticatorOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
+    savedSearches?: SavedSearchOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -9394,6 +9660,7 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     Authenticator?: AuthenticatorListRelationFilter
     sessions?: SessionListRelationFilter
+    savedSearches?: SavedSearchListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -9806,46 +10073,91 @@ export namespace Prisma {
     death_date_parsed?: DateTimeNullableWithAggregatesFilter<"d01_influenza"> | Date | string | null
   }
 
-  export type diseasesWhereInput = {
-    AND?: diseasesWhereInput | diseasesWhereInput[]
-    OR?: diseasesWhereInput[]
-    NOT?: diseasesWhereInput | diseasesWhereInput[]
-    code?: StringFilter<"diseases"> | string
-    name_th?: StringFilter<"diseases"> | string
-    name_en?: StringFilter<"diseases"> | string
+  export type SavedSearchWhereInput = {
+    AND?: SavedSearchWhereInput | SavedSearchWhereInput[]
+    OR?: SavedSearchWhereInput[]
+    NOT?: SavedSearchWhereInput | SavedSearchWhereInput[]
+    id?: BigIntFilter<"SavedSearch"> | bigint | number
+    userId?: IntFilter<"SavedSearch"> | number
+    searchName?: StringFilter<"SavedSearch"> | string
+    diseaseName?: StringNullableFilter<"SavedSearch"> | string | null
+    province?: StringNullableFilter<"SavedSearch"> | string | null
+    provinceAlt?: StringNullableFilter<"SavedSearch"> | string | null
+    startDate?: DateTimeNullableFilter<"SavedSearch"> | Date | string | null
+    endDate?: DateTimeNullableFilter<"SavedSearch"> | Date | string | null
+    color?: StringNullableFilter<"SavedSearch"> | string | null
+    createdAt?: DateTimeFilter<"SavedSearch"> | Date | string
+    updatedAt?: DateTimeFilter<"SavedSearch"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
-  export type diseasesOrderByWithRelationInput = {
-    code?: SortOrder
-    name_th?: SortOrder
-    name_en?: SortOrder
+  export type SavedSearchOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    searchName?: SortOrder
+    diseaseName?: SortOrderInput | SortOrder
+    province?: SortOrderInput | SortOrder
+    provinceAlt?: SortOrderInput | SortOrder
+    startDate?: SortOrderInput | SortOrder
+    endDate?: SortOrderInput | SortOrder
+    color?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
   }
 
-  export type diseasesWhereUniqueInput = Prisma.AtLeast<{
-    code?: string
-    AND?: diseasesWhereInput | diseasesWhereInput[]
-    OR?: diseasesWhereInput[]
-    NOT?: diseasesWhereInput | diseasesWhereInput[]
-    name_th?: StringFilter<"diseases"> | string
-    name_en?: StringFilter<"diseases"> | string
-  }, "code">
+  export type SavedSearchWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    AND?: SavedSearchWhereInput | SavedSearchWhereInput[]
+    OR?: SavedSearchWhereInput[]
+    NOT?: SavedSearchWhereInput | SavedSearchWhereInput[]
+    userId?: IntFilter<"SavedSearch"> | number
+    searchName?: StringFilter<"SavedSearch"> | string
+    diseaseName?: StringNullableFilter<"SavedSearch"> | string | null
+    province?: StringNullableFilter<"SavedSearch"> | string | null
+    provinceAlt?: StringNullableFilter<"SavedSearch"> | string | null
+    startDate?: DateTimeNullableFilter<"SavedSearch"> | Date | string | null
+    endDate?: DateTimeNullableFilter<"SavedSearch"> | Date | string | null
+    color?: StringNullableFilter<"SavedSearch"> | string | null
+    createdAt?: DateTimeFilter<"SavedSearch"> | Date | string
+    updatedAt?: DateTimeFilter<"SavedSearch"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
 
-  export type diseasesOrderByWithAggregationInput = {
-    code?: SortOrder
-    name_th?: SortOrder
-    name_en?: SortOrder
-    _count?: diseasesCountOrderByAggregateInput
-    _max?: diseasesMaxOrderByAggregateInput
-    _min?: diseasesMinOrderByAggregateInput
+  export type SavedSearchOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    searchName?: SortOrder
+    diseaseName?: SortOrderInput | SortOrder
+    province?: SortOrderInput | SortOrder
+    provinceAlt?: SortOrderInput | SortOrder
+    startDate?: SortOrderInput | SortOrder
+    endDate?: SortOrderInput | SortOrder
+    color?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SavedSearchCountOrderByAggregateInput
+    _avg?: SavedSearchAvgOrderByAggregateInput
+    _max?: SavedSearchMaxOrderByAggregateInput
+    _min?: SavedSearchMinOrderByAggregateInput
+    _sum?: SavedSearchSumOrderByAggregateInput
   }
 
-  export type diseasesScalarWhereWithAggregatesInput = {
-    AND?: diseasesScalarWhereWithAggregatesInput | diseasesScalarWhereWithAggregatesInput[]
-    OR?: diseasesScalarWhereWithAggregatesInput[]
-    NOT?: diseasesScalarWhereWithAggregatesInput | diseasesScalarWhereWithAggregatesInput[]
-    code?: StringWithAggregatesFilter<"diseases"> | string
-    name_th?: StringWithAggregatesFilter<"diseases"> | string
-    name_en?: StringWithAggregatesFilter<"diseases"> | string
+  export type SavedSearchScalarWhereWithAggregatesInput = {
+    AND?: SavedSearchScalarWhereWithAggregatesInput | SavedSearchScalarWhereWithAggregatesInput[]
+    OR?: SavedSearchScalarWhereWithAggregatesInput[]
+    NOT?: SavedSearchScalarWhereWithAggregatesInput | SavedSearchScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"SavedSearch"> | bigint | number
+    userId?: IntWithAggregatesFilter<"SavedSearch"> | number
+    searchName?: StringWithAggregatesFilter<"SavedSearch"> | string
+    diseaseName?: StringNullableWithAggregatesFilter<"SavedSearch"> | string | null
+    province?: StringNullableWithAggregatesFilter<"SavedSearch"> | string | null
+    provinceAlt?: StringNullableWithAggregatesFilter<"SavedSearch"> | string | null
+    startDate?: DateTimeNullableWithAggregatesFilter<"SavedSearch"> | Date | string | null
+    endDate?: DateTimeNullableWithAggregatesFilter<"SavedSearch"> | Date | string | null
+    color?: StringNullableWithAggregatesFilter<"SavedSearch"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"SavedSearch"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SavedSearch"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -9862,6 +10174,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    savedSearches?: SavedSearchCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -9879,6 +10192,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    savedSearches?: SavedSearchUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -9895,6 +10209,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    savedSearches?: SavedSearchUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -9912,6 +10227,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    savedSearches?: SavedSearchUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10366,46 +10682,101 @@ export namespace Prisma {
     death_date_parsed?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type diseasesCreateInput = {
-    code: string
-    name_th: string
-    name_en: string
+  export type SavedSearchCreateInput = {
+    id?: bigint | number
+    searchName: string
+    diseaseName?: string | null
+    province?: string | null
+    provinceAlt?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutSavedSearchesInput
   }
 
-  export type diseasesUncheckedCreateInput = {
-    code: string
-    name_th: string
-    name_en: string
+  export type SavedSearchUncheckedCreateInput = {
+    id?: bigint | number
+    userId: number
+    searchName: string
+    diseaseName?: string | null
+    province?: string | null
+    provinceAlt?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type diseasesUpdateInput = {
-    code?: StringFieldUpdateOperationsInput | string
-    name_th?: StringFieldUpdateOperationsInput | string
-    name_en?: StringFieldUpdateOperationsInput | string
+  export type SavedSearchUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    searchName?: StringFieldUpdateOperationsInput | string
+    diseaseName?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSavedSearchesNestedInput
   }
 
-  export type diseasesUncheckedUpdateInput = {
-    code?: StringFieldUpdateOperationsInput | string
-    name_th?: StringFieldUpdateOperationsInput | string
-    name_en?: StringFieldUpdateOperationsInput | string
+  export type SavedSearchUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    userId?: IntFieldUpdateOperationsInput | number
+    searchName?: StringFieldUpdateOperationsInput | string
+    diseaseName?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type diseasesCreateManyInput = {
-    code: string
-    name_th: string
-    name_en: string
+  export type SavedSearchCreateManyInput = {
+    id?: bigint | number
+    userId: number
+    searchName: string
+    diseaseName?: string | null
+    province?: string | null
+    provinceAlt?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type diseasesUpdateManyMutationInput = {
-    code?: StringFieldUpdateOperationsInput | string
-    name_th?: StringFieldUpdateOperationsInput | string
-    name_en?: StringFieldUpdateOperationsInput | string
+  export type SavedSearchUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    searchName?: StringFieldUpdateOperationsInput | string
+    diseaseName?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type diseasesUncheckedUpdateManyInput = {
-    code?: StringFieldUpdateOperationsInput | string
-    name_th?: StringFieldUpdateOperationsInput | string
-    name_en?: StringFieldUpdateOperationsInput | string
+  export type SavedSearchUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    userId?: IntFieldUpdateOperationsInput | number
+    searchName?: StringFieldUpdateOperationsInput | string
+    diseaseName?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -10468,6 +10839,12 @@ export namespace Prisma {
     none?: SessionWhereInput
   }
 
+  export type SavedSearchListRelationFilter = {
+    every?: SavedSearchWhereInput
+    some?: SavedSearchWhereInput
+    none?: SavedSearchWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -10478,6 +10855,10 @@ export namespace Prisma {
   }
 
   export type SessionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SavedSearchOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10904,22 +11285,83 @@ export namespace Prisma {
     age_y?: SortOrder
   }
 
-  export type diseasesCountOrderByAggregateInput = {
-    code?: SortOrder
-    name_th?: SortOrder
-    name_en?: SortOrder
+  export type BigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
   }
 
-  export type diseasesMaxOrderByAggregateInput = {
-    code?: SortOrder
-    name_th?: SortOrder
-    name_en?: SortOrder
+  export type SavedSearchCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    searchName?: SortOrder
+    diseaseName?: SortOrder
+    province?: SortOrder
+    provinceAlt?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    color?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
-  export type diseasesMinOrderByAggregateInput = {
-    code?: SortOrder
-    name_th?: SortOrder
-    name_en?: SortOrder
+  export type SavedSearchAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type SavedSearchMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    searchName?: SortOrder
+    diseaseName?: SortOrder
+    province?: SortOrder
+    provinceAlt?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    color?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SavedSearchMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    searchName?: SortOrder
+    diseaseName?: SortOrder
+    province?: SortOrder
+    provinceAlt?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    color?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SavedSearchSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
   }
 
   export type AuthenticatorCreateNestedManyWithoutUserInput = {
@@ -10936,6 +11378,13 @@ export namespace Prisma {
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
+  export type SavedSearchCreateNestedManyWithoutUserInput = {
+    create?: XOR<SavedSearchCreateWithoutUserInput, SavedSearchUncheckedCreateWithoutUserInput> | SavedSearchCreateWithoutUserInput[] | SavedSearchUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SavedSearchCreateOrConnectWithoutUserInput | SavedSearchCreateOrConnectWithoutUserInput[]
+    createMany?: SavedSearchCreateManyUserInputEnvelope
+    connect?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
+  }
+
   export type AuthenticatorUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AuthenticatorCreateWithoutUserInput, AuthenticatorUncheckedCreateWithoutUserInput> | AuthenticatorCreateWithoutUserInput[] | AuthenticatorUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AuthenticatorCreateOrConnectWithoutUserInput | AuthenticatorCreateOrConnectWithoutUserInput[]
@@ -10948,6 +11397,13 @@ export namespace Prisma {
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
     createMany?: SessionCreateManyUserInputEnvelope
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
+  export type SavedSearchUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SavedSearchCreateWithoutUserInput, SavedSearchUncheckedCreateWithoutUserInput> | SavedSearchCreateWithoutUserInput[] | SavedSearchUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SavedSearchCreateOrConnectWithoutUserInput | SavedSearchCreateOrConnectWithoutUserInput[]
+    createMany?: SavedSearchCreateManyUserInputEnvelope
+    connect?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -10990,6 +11446,20 @@ export namespace Prisma {
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
+  export type SavedSearchUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SavedSearchCreateWithoutUserInput, SavedSearchUncheckedCreateWithoutUserInput> | SavedSearchCreateWithoutUserInput[] | SavedSearchUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SavedSearchCreateOrConnectWithoutUserInput | SavedSearchCreateOrConnectWithoutUserInput[]
+    upsert?: SavedSearchUpsertWithWhereUniqueWithoutUserInput | SavedSearchUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SavedSearchCreateManyUserInputEnvelope
+    set?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
+    disconnect?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
+    delete?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
+    connect?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
+    update?: SavedSearchUpdateWithWhereUniqueWithoutUserInput | SavedSearchUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SavedSearchUpdateManyWithWhereWithoutUserInput | SavedSearchUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SavedSearchScalarWhereInput | SavedSearchScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -11024,6 +11494,20 @@ export namespace Prisma {
     update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
+  export type SavedSearchUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SavedSearchCreateWithoutUserInput, SavedSearchUncheckedCreateWithoutUserInput> | SavedSearchCreateWithoutUserInput[] | SavedSearchUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SavedSearchCreateOrConnectWithoutUserInput | SavedSearchCreateOrConnectWithoutUserInput[]
+    upsert?: SavedSearchUpsertWithWhereUniqueWithoutUserInput | SavedSearchUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SavedSearchCreateManyUserInputEnvelope
+    set?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
+    disconnect?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
+    delete?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
+    connect?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
+    update?: SavedSearchUpdateWithWhereUniqueWithoutUserInput | SavedSearchUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SavedSearchUpdateManyWithWhereWithoutUserInput | SavedSearchUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SavedSearchScalarWhereInput | SavedSearchScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSessionsInput = {
@@ -11068,6 +11552,28 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type UserCreateNestedOneWithoutSavedSearchesInput = {
+    create?: XOR<UserCreateWithoutSavedSearchesInput, UserUncheckedCreateWithoutSavedSearchesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSavedSearchesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type BigIntFieldUpdateOperationsInput = {
+    set?: bigint | number
+    increment?: bigint | number
+    decrement?: bigint | number
+    multiply?: bigint | number
+    divide?: bigint | number
+  }
+
+  export type UserUpdateOneRequiredWithoutSavedSearchesNestedInput = {
+    create?: XOR<UserCreateWithoutSavedSearchesInput, UserUncheckedCreateWithoutSavedSearchesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSavedSearchesInput
+    upsert?: UserUpsertWithoutSavedSearchesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSavedSearchesInput, UserUpdateWithoutSavedSearchesInput>, UserUncheckedUpdateWithoutSavedSearchesInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -11271,6 +11777,33 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedBigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  }
+
+  export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
   export type AuthenticatorCreateWithoutUserInput = {
     credentialID: string
     providerAccountId: string
@@ -11322,6 +11855,42 @@ export namespace Prisma {
 
   export type SessionCreateManyUserInputEnvelope = {
     data: SessionCreateManyUserInput | SessionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SavedSearchCreateWithoutUserInput = {
+    id?: bigint | number
+    searchName: string
+    diseaseName?: string | null
+    province?: string | null
+    provinceAlt?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SavedSearchUncheckedCreateWithoutUserInput = {
+    id?: bigint | number
+    searchName: string
+    diseaseName?: string | null
+    province?: string | null
+    provinceAlt?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SavedSearchCreateOrConnectWithoutUserInput = {
+    where: SavedSearchWhereUniqueInput
+    create: XOR<SavedSearchCreateWithoutUserInput, SavedSearchUncheckedCreateWithoutUserInput>
+  }
+
+  export type SavedSearchCreateManyUserInputEnvelope = {
+    data: SavedSearchCreateManyUserInput | SavedSearchCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -11382,6 +11951,39 @@ export namespace Prisma {
     userId?: IntFilter<"Session"> | number
   }
 
+  export type SavedSearchUpsertWithWhereUniqueWithoutUserInput = {
+    where: SavedSearchWhereUniqueInput
+    update: XOR<SavedSearchUpdateWithoutUserInput, SavedSearchUncheckedUpdateWithoutUserInput>
+    create: XOR<SavedSearchCreateWithoutUserInput, SavedSearchUncheckedCreateWithoutUserInput>
+  }
+
+  export type SavedSearchUpdateWithWhereUniqueWithoutUserInput = {
+    where: SavedSearchWhereUniqueInput
+    data: XOR<SavedSearchUpdateWithoutUserInput, SavedSearchUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SavedSearchUpdateManyWithWhereWithoutUserInput = {
+    where: SavedSearchScalarWhereInput
+    data: XOR<SavedSearchUpdateManyMutationInput, SavedSearchUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type SavedSearchScalarWhereInput = {
+    AND?: SavedSearchScalarWhereInput | SavedSearchScalarWhereInput[]
+    OR?: SavedSearchScalarWhereInput[]
+    NOT?: SavedSearchScalarWhereInput | SavedSearchScalarWhereInput[]
+    id?: BigIntFilter<"SavedSearch"> | bigint | number
+    userId?: IntFilter<"SavedSearch"> | number
+    searchName?: StringFilter<"SavedSearch"> | string
+    diseaseName?: StringNullableFilter<"SavedSearch"> | string | null
+    province?: StringNullableFilter<"SavedSearch"> | string | null
+    provinceAlt?: StringNullableFilter<"SavedSearch"> | string | null
+    startDate?: DateTimeNullableFilter<"SavedSearch"> | Date | string | null
+    endDate?: DateTimeNullableFilter<"SavedSearch"> | Date | string | null
+    color?: StringNullableFilter<"SavedSearch"> | string | null
+    createdAt?: DateTimeFilter<"SavedSearch"> | Date | string
+    updatedAt?: DateTimeFilter<"SavedSearch"> | Date | string
+  }
+
   export type UserCreateWithoutSessionsInput = {
     first_name: string
     last_name: string
@@ -11395,6 +11997,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
+    savedSearches?: SavedSearchCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -11411,6 +12014,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    savedSearches?: SavedSearchUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -11442,6 +12046,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
+    savedSearches?: SavedSearchUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -11458,6 +12063,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    savedSearches?: SavedSearchUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAuthenticatorInput = {
@@ -11473,6 +12079,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     sessions?: SessionCreateNestedManyWithoutUserInput
+    savedSearches?: SavedSearchCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAuthenticatorInput = {
@@ -11489,6 +12096,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    savedSearches?: SavedSearchUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAuthenticatorInput = {
@@ -11520,6 +12128,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    savedSearches?: SavedSearchUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuthenticatorInput = {
@@ -11536,6 +12145,89 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    savedSearches?: SavedSearchUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutSavedSearchesInput = {
+    first_name: string
+    last_name: string
+    role?: string
+    brith_date: Date | string
+    position: string
+    province: string
+    email: string
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSavedSearchesInput = {
+    id?: number
+    first_name: string
+    last_name: string
+    role?: string
+    brith_date: Date | string
+    position: string
+    province: string
+    email: string
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSavedSearchesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSavedSearchesInput, UserUncheckedCreateWithoutSavedSearchesInput>
+  }
+
+  export type UserUpsertWithoutSavedSearchesInput = {
+    update: XOR<UserUpdateWithoutSavedSearchesInput, UserUncheckedUpdateWithoutSavedSearchesInput>
+    create: XOR<UserCreateWithoutSavedSearchesInput, UserUncheckedCreateWithoutSavedSearchesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSavedSearchesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSavedSearchesInput, UserUncheckedUpdateWithoutSavedSearchesInput>
+  }
+
+  export type UserUpdateWithoutSavedSearchesInput = {
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    brith_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    position?: StringFieldUpdateOperationsInput | string
+    province?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSavedSearchesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    brith_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    position?: StringFieldUpdateOperationsInput | string
+    province?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AuthenticatorCreateManyUserInput = {
@@ -11551,6 +12243,19 @@ export namespace Prisma {
   export type SessionCreateManyUserInput = {
     sessionToken: string
     expires: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SavedSearchCreateManyUserInput = {
+    id?: bigint | number
+    searchName: string
+    diseaseName?: string | null
+    province?: string | null
+    provinceAlt?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    color?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11602,6 +12307,45 @@ export namespace Prisma {
   export type SessionUncheckedUpdateManyWithoutUserInput = {
     sessionToken?: StringFieldUpdateOperationsInput | string
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavedSearchUpdateWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    searchName?: StringFieldUpdateOperationsInput | string
+    diseaseName?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavedSearchUncheckedUpdateWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    searchName?: StringFieldUpdateOperationsInput | string
+    diseaseName?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavedSearchUncheckedUpdateManyWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    searchName?: StringFieldUpdateOperationsInput | string
+    diseaseName?: NullableStringFieldUpdateOperationsInput | string | null
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

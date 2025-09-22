@@ -194,10 +194,18 @@ exports.Prisma.D01_influenzaScalarFieldEnum = {
   death_date_parsed: 'death_date_parsed'
 };
 
-exports.Prisma.DiseasesScalarFieldEnum = {
-  code: 'code',
-  name_th: 'name_th',
-  name_en: 'name_en'
+exports.Prisma.SavedSearchScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  searchName: 'searchName',
+  diseaseName: 'diseaseName',
+  province: 'province',
+  provinceAlt: 'provinceAlt',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  color: 'color',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -223,7 +231,7 @@ exports.Prisma.ModelName = {
   Authenticator: 'Authenticator',
   influenzadata2567: 'influenzadata2567',
   d01_influenza: 'd01_influenza',
-  diseases: 'diseases'
+  SavedSearch: 'SavedSearch'
 };
 
 /**

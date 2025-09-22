@@ -1,115 +1,172 @@
 "use client";
 
-import { Trash2, Search } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import { Search, Trash2 } from "lucide-react";
 
-const mockHistory = [
+type HistoryItem = {
+  id: string;
+  createdAt: string;       // ISO เช่น "2025-07-25"
+  searchName: string;      // ชื่อการค้นหา
+  disease: string;         // โรค
+  provinces: string;       // จังหวัด (อาจหลายจังหวัดคั่นด้วย " - ")
+  startDate: string;       // ISO
+  endDate: string;         // ISO
+  color?: string;          // hex เช่น "#E89623" สำหรับจุดสี
+};
+
+// ตัวอย่างข้อมูล mock (ลบออกหรือแทนที่ด้วย state จาก API ภายหลัง)
+const initialRows: HistoryItem[] = [
   {
-    date: "07/25/2025",
-    color: "bg-orange-500",
-    name: "บ้านพ่อ",
+    id: "1",
+    createdAt: "2025-07-25",
+    searchName: "บ้านพ่อ",
     disease: "โรคไข้หวัดใหญ่",
-    province: "เชียงใหม่",
-    range: "07/25/2025 - 08/01/2025",
+    provinces: "เชียงใหม่",
+    startDate: "2025-07-25",
+    endDate: "2025-08-01",
+    color: "#F97316",
   },
   {
-    date: "07/14/2025",
-    color: "bg-green-500",
-    name: "บ้านยายและบ้านแม่",
+    id: "2",
+    createdAt: "2025-07-16",
+    searchName: "บ้านนอกและบ้านแม่",
     disease: "โรคโควิด",
-    province: "เชียงใหม่ - กรุงเทพ",
-    range: "07/14/2025 - 07/24/2025",
+    provinces: "เชียงใหม่ - กรุงเทพมหานคร",
+    startDate: "2025-07-14",
+    endDate: "2025-07-24",
+    color: "#22C55E",
   },
   {
-    date: "07/07/2025",
-    color: "bg-sky-500",
-    name: "มหาลัยและบ้านญาติ",
+    id: "3",
+    createdAt: "2025-07-09",
+    searchName: "มหาสนั่นสะท้านลูกค้า",
     disease: "โรคไข้หวัดใหญ่",
-    province: "เชียงใหม่ - เชียงราย",
-    range: "07/07/2025 - 07/13/2025",
-  },
-  {
-    date: "07/01/2025",
-    color: "bg-pink-500",
-    name: "บ้านโยโย่และตลาด",
-    disease: "โรคโควิด",
-    province: "เชียงใหม่ - พัทยา",
-    range: "07/01/2025 - 07/06/2025",
-  },
-  {
-    date: "06/23/2025",
-    color: "bg-blue-600",
-    name: "บ้านรายทอง",
-    disease: "โรคโควิด",
-    province: "กรุงเทพ",
-    range: "06/23/2025 - 06/30/2025",
-  },
-  {
-    date: "06/16/2025",
-    color: "bg-red-600",
-    name: "บ้านโยโย่และบ้านหนุ่มโยโย่",
-    disease: "โรคไข้หวัดใหญ่",
-    province: "เชียงใหม่ - ชลบุรี",
-    range: "06/16/2025 - 06/22/2025",
+    provinces: "เชียงใหม่ - เชียงราย",
+    startDate: "2025-07-07",
+    endDate: "2025-07-13",
+    color: "#3B82F6",
   },
 ];
 
-const TableHistory = () => {
+function fmtMMDDYYYY(iso: string) {
+  const d = new Date(iso);
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  const yyyy = d.getFullYear();
+  return `${mm}/${dd}/${yyyy}`;
+}
+
+export default function TableHistory() {
+  const [rows, setRows] = useState<HistoryItem[]>(initialRows);
+
+  const handleDelete = (id: string) => {
+    // TODO: เรียก API ลบจริงภายหลัง
+    setRows((prev) => prev.filter((r) => r.id !== id));
+  };
+
   return (
-    <div className="p-6">
-      <h2 className="mb-4 text-3xl font-bold text-pink-600">ประวัติการค้นหา</h2>
-      <div className="overflow-x-auto rounded-md bg-white shadow-md">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-pink-50">
+    <div className="space-y-4 p-4 md:p-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-pink-600">ประวัติการค้นหา</h2>
+
+        {/* ✅ ปุ่มทางขวา: ไปหน้า “ดูการสร้าง” (Search) */}
+        <Link
+          href="/search"
+          className="rounded-md bg-pink-500 px-4 py-2 text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-300"
+        >
+          การค้นหาที่สร้างไว้
+        </Link>
+      </div>
+
+      {/* Table wrapper */}
+      <div className="overflow-hidden rounded-xl border bg-white">
+        <table className="min-w-full table-fixed">
+          <thead className="bg-pink-50 text-left text-sm text-gray-600">
             <tr>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
-                ค้นหา
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
-                วันที่ค้นหา
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
-                ชื่อการค้นหา
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
-                โรค
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
-                จังหวัด
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
-                ระยะเวลา
-              </th>
-              <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">
-                ลบ
-              </th>
+              <th className="w-16 px-4 py-3">ค้นหา</th>
+              <th className="w-36 px-4 py-3">วันที่ค้นหา</th>
+              <th className="px-4 py-3">ชื่อการค้นหา</th>
+              <th className="w-40 px-4 py-3">โรค</th>
+              <th className="w-64 px-4 py-3">จังหวัด</th>
+              <th className="w-56 px-4 py-3">ระยะเวลา</th>
+              <th className="w-16 px-4 py-3 text-right">ลบ</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100 bg-white">
-            {mockHistory.map((item, index) => (
-              <tr key={index} className="transition hover:bg-pink-50">
-                <td className="px-4 py-3">
-                  <Search className="h-5 w-5" />
-                </td>
-                <td className="px-4 py-3 text-sm">{item.date}</td>
-                <td className="flex items-center gap-2 px-4 py-3 text-sm">
-                  <span className={`h-3 w-3 rounded-full ${item.color}`}></span>
-                  {item.name}
-                </td>
-                <td className="px-4 py-3 text-sm">{item.disease}</td>
-                <td className="px-4 py-3 text-sm">{item.province}</td>
-                <td className="cursor-pointer px-4 py-3 text-sm text-blue-600 underline">
-                  {item.range}
-                </td>
-                <td className="px-4 py-3 text-center">
-                  <Trash2 className="h-5 w-5 cursor-pointer text-gray-500 hover:text-red-500" />
+
+          <tbody className="divide-y">
+            {rows.length === 0 ? (
+              <tr>
+                <td colSpan={7} className="px-4 py-10 text-center text-gray-500">
+                  ยังไม่มีประวัติการค้นหา —
+                  <Link href="/search-template" className="text-pink-600 underline underline-offset-2">
+                    สร้างการค้นหา
+                  </Link>
                 </td>
               </tr>
-            ))}
+            ) : (
+              rows.map((r) => (
+                <tr key={r.id} className="hover:bg-pink-50/40">
+                  {/* ดูรายละเอียด: พาไปหน้า /search */}
+                  <td className="px-4 py-3">
+                    <Link
+                      href={`/search`}
+                      className="inline-flex items-center justify-center rounded-full p-2 text-gray-600 hover:bg-pink-100 hover:text-pink-600"
+                      aria-label={`ดูผลการค้นหา ${r.searchName}`}
+                      title="ดูรายละเอียด"
+                    >
+                      <Search className="h-5 w-5" />
+                    </Link>
+                  </td>
+
+                  <td className="px-4 py-3 text-sm text-gray-700">
+                    {fmtMMDDYYYY(r.createdAt)}
+                  </td>
+
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="inline-block h-3 w-3 rounded-full"
+                        style={{ backgroundColor: r.color || "#9CA3AF" }}
+                        aria-hidden
+                      />
+                      <span className="truncate font-medium text-gray-800">{r.searchName}</span>
+                    </div>
+                  </td>
+
+                  <td className="px-4 py-3 text-sm text-gray-700">{r.disease}</td>
+
+                  <td className="px-4 py-3 text-sm text-gray-700">
+                    <span className="line-clamp-1">{r.provinces}</span>
+                  </td>
+
+                  <td className="px-4 py-3 text-sm">
+                    <Link
+                      href={`/search`}
+                      className="text-pink-600 hover:underline"
+                      title="เปิดดูช่วงวันที่นี้ในหน้า Search"
+                    >
+                      {fmtMMDDYYYY(r.startDate)} - {fmtMMDDYYYY(r.endDate)}
+                    </Link>
+                  </td>
+
+                  <td className="px-4 py-3">
+                    <button
+                      onClick={() => handleDelete(r.id)}
+                      className="ml-auto inline-flex rounded-full p-2 text-gray-500 hover:bg-red-50 hover:text-red-600"
+                      aria-label={`ลบ ${r.searchName}`}
+                      title="ลบ"
+                    >
+                      <Trash2 className="h-5 w-5" />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
     </div>
   );
-};
-
-export default TableHistory;
+}

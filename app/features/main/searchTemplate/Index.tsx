@@ -1,11 +1,11 @@
-import CreateSearch from "./component/CreateSearch";
+import SearchCreate  from "./component/CreateSearch";
 
-const SearchPage = () => {
+const SearchTemplate = () => {
   return (
     <div>
-      <CreateSearch />
+      <SearchCreate  />
     </div>
   );
 };
 
-export default SearchPage;
+export default SearchTemplate;
