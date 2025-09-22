@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavbarSwitcher from "./components/navbar/NavbarSwitcher";
 import Sidebar from "./components/sidebar/SideBar";
+import { SessionProvider } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,9 +27,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="th">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body 
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+        <SessionProvider>
         <NavbarSwitcher />
 
         {/* Container หลัก แบ่งซ้าย Sidebar ขวา Main Content */}
@@ -38,6 +40,7 @@ export default function RootLayout({
           <Sidebar />
           <main className="flex-1 bg-white p-6">{children}</main>
         </div>
+        </SessionProvider>
       </body>
     </html>
   );

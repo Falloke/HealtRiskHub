@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import type { GeoJsonObject, Feature } from "geojson";
 import L from "leaflet";
 
-interface ProvinceInfo {
+interface ProvinceInfo {  
   name: string;
   disease: string;
   patients: number;
