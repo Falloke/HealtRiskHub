@@ -4,6 +4,7 @@ import "./globals.css";
 import NavbarSwitcher from "./components/navbar/NavbarSwitcher";
 import Sidebar from "./components/sidebar/SideBar";
 import { SessionProvider } from "next-auth/react";
+import "leaflet/dist/leaflet.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,19 +28,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="th">
-      <body 
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-          >
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         <SessionProvider>
-        <NavbarSwitcher />
+          <NavbarSwitcher />
 
-        {/* Container หลัก แบ่งซ้าย Sidebar ขวา Main Content */}
-        <div className="flex min-h-[calc(100vh-64px)]">
-          {" "}
-          {/* สมมุติ Navbar สูง 64px */}
-          <Sidebar />
-          <main className="flex-1 bg-white p-6">{children}</main>
-        </div>
+          {/* Container หลัก แบ่งซ้าย Sidebar ขวา Main Content */}
+          <div className="flex min-h-[calc(100vh-64px)]">
+            {" "}
+            {/* สมมุติ Navbar สูง 64px */}
+            <Sidebar />
+            <main className="flex-1 bg-white p-6">{children}</main>
+          </div>
         </SessionProvider>
       </body>
     </html>
