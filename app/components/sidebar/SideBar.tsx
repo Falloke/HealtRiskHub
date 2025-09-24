@@ -1,58 +1,108 @@
-// components/Sidebar.tsx
 "use client";
 
-import { useState } from "react";
-import { CalendarIcon, Search } from "lucide-react";
+import { useState, useEffect } from "react";
+import { CalendarIcon } from "lucide-react";
+import { useSearchParams, useRouter } from "next/navigation";
+
+interface Province {
+  ProvinceNo: number;
+  ProvinceNameThai: string;
+  Region_VaccineRollout_MOPH: string;
+}
 
 const Sidebar = () => {
-  const [disease, setDisease] = useState("");
-  const [province, setProvince] = useState("กรุงเทพมหานคร");
-  const [startDate, setStartDate] = useState("2024-09-10");
-  const [endDate, setEndDate] = useState("2024-09-30");
+  const [provinces, setProvinces] = useState<Province[]>([]);
+  const [province, setProvince] = useState("");
+  const [start_date, setStartDate] = useState<string>("");
+  const [end_date, setEndDate] = useState<string>("");
+  const [isProvinceLocked, setIsProvinceLocked] = useState(false);
 
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // 🧭 โหลดค่าเริ่มต้นจาก URL
+  useEffect(() => {
+    const p = searchParams.get("province") ?? "";
+    if (!isProvinceLocked) {
+      setProvince(p);
+    }
+
+    // ส่วนนี้ยังต้องอัปเดตตามปกติ
+    const s = searchParams.get("start_date") ?? "";
+    const e = searchParams.get("end_date") ?? "";
+    setStartDate(s);
+    setEndDate(e);
+  }, [searchParams, isProvinceLocked]);
+
+  // 📍โหลดรายการจังหวัด
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      try {
+        const res = await fetch("/data/Thailand-ProvinceName.json");
+        if (!res.ok) throw new Error("Failed to load provinces");
+        const data: Province[] = await res.json();
+        setProvinces(data);
+      } catch (error) {
+        console.error("Error loading provinces:", error);
+      }
+    };
+
+    fetchProvinces();
+  }, []);
+  useEffect(() => {
+    // ดึงค่าจาก URL เฉพาะเมื่อ province ยังไม่ถูก lock
+    const s = searchParams.get("start_date") ?? "";
+    const e = searchParams.get("end_date") ?? "";
+    setStartDate(s);
+    setEndDate(e);
+
+    if (!isProvinceLocked) {
+      const p = searchParams.get("province") ?? "";
+      setProvince(p);
+    }
+  }, [searchParams, isProvinceLocked]); // 🆕 เพิ่ม dependency `isProvinceLocked`
+
+  // 📤 กดปุ่มค้นหาเพื่ออัปเดต URL
   const handleSearch = () => {
-    console.log({
-      disease,
-      province,
-      startDate,
-      endDate,
-    });
+    const params = new URLSearchParams();
+    if (start_date) params.set("start_date", start_date);
+    if (end_date) params.set("end_date", end_date);
+    if (province) params.set("province", province);
+    setIsProvinceLocked(true); // 🆕 ล็อก province
+
+    router.push(`?${params.toString()}`);
   };
 
   return (
     <aside className="flex w-full max-w-xs flex-col gap-4 bg-pink-100 px-4 py-6">
-      <div className="relative">
-        <input
-          type="text"
-          value={disease}
-          onChange={(e) => setDisease(e.target.value)}
-          placeholder="โรคไข้หวัดใหญ่"
-          className="w-full rounded-full px-4 py-2 pl-10 text-sm outline-none"
-        />
-        <Search className="absolute top-2.5 left-3 h-4 w-4 text-gray-500" />
-      </div>
-
+      {/* จังหวัด */}
       <div>
-        <label className="mb-1 block text-sm">เลือกจังหวัด</label>
         <select
           value={province}
           onChange={(e) => setProvince(e.target.value)}
           className="w-full rounded-full bg-white px-4 py-2 text-sm outline-none"
         >
-          <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
-          <option value="เชียงใหม่">เชียงใหม่</option>
-          <option value="ขอนแก่น">ขอนแก่น</option>
-          <option value="ชลบุรี">ชลบุรี</option>
-          {/* เพิ่มจังหวัดอื่น ๆ ได้ */}
+          <option value="">-- เลือกจังหวัด --</option>
+          {provinces.map((p) => (
+            <option key={p.ProvinceNo} value={p.ProvinceNameThai}>
+              {p.ProvinceNameThai}
+            </option>
+          ))}
         </select>
+        {province && (
+          <p className="text-sm text-gray-700">
+            จังหวัดที่เลือก: <strong>{province}</strong>
+          </p>
+        )}
       </div>
 
+      {/* วันที่ */}
       <div>
         <label className="mb-1 block text-sm">เลือกระยะเวลา</label>
         <div className="relative mb-2">
           <input
             type="date"
-            value={startDate}
+            value={start_date}
             onChange={(e) => setStartDate(e.target.value)}
             className="w-full rounded-full px-4 py-2 pl-10 text-sm outline-none"
           />
@@ -61,7 +111,7 @@ const Sidebar = () => {
         <div className="relative">
           <input
             type="date"
-            value={endDate}
+            value={end_date}
             onChange={(e) => setEndDate(e.target.value)}
             className="w-full rounded-full px-4 py-2 pl-10 text-sm outline-none"
           />
@@ -69,11 +119,21 @@ const Sidebar = () => {
         </div>
       </div>
 
+      {/* ปุ่มค้นหา */}
       <button
         onClick={handleSearch}
         className="rounded-full bg-pink-600 py-2 text-sm font-medium text-white hover:bg-pink-700"
       >
         ค้นหา
+      </button>
+      <button
+        onClick={() => {
+          setProvince("");
+          setIsProvinceLocked(false);
+        }}
+        className="rounded-full border bg-white py-2 text-sm text-gray-700"
+      >
+        รีเซ็ตจังหวัด
       </button>
 
       <button className="rounded-full border bg-white py-2 text-sm text-gray-700">

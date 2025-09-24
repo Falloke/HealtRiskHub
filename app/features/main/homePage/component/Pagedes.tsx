@@ -1,18 +1,12 @@
 "use client";
-
 import { Button } from "@/app/components/ui/button";
-
 import dynamic from "next/dynamic";
 
-// dynamic import ไม่ให้ SSR เพื่อหลีกเลี่ยง window is not defined
-const HomeMap = dynamic(
-  () => import("@/app/features/main/homePage/component/MapClient"),
-  {
-    ssr: false,
-  }
-);
+const HomeMapInner = dynamic(() => import("./HomeMapInner"), { ssr: false });
 
 const PageDescription = () => {
+  console.log("📌 Rerender description");
+
   return (
     <div>
       <h1 className="mb-4 text-2xl font-bold">
@@ -56,7 +50,8 @@ const PageDescription = () => {
         {/* ----- */}
         <div className="flex w-full flex-col">
           <h2 className="mb-4 text-2xl font-bold">แผนที่โรคระบาด</h2>
-          <HomeMap />
+          <HomeMapInner />
+          {/* <MapClient /> */}
         </div>
       </div>
     </div>
