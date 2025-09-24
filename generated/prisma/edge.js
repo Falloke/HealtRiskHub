@@ -216,7 +216,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "E:\\HealtRiskHub\\generated\\prisma",
+      "value": "/Users/pimonpan_dt/Documents/4/Project/HealtRiskHub/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -225,12 +225,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "E:\\HealtRiskHub\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/pimonpan_dt/Documents/4/Project/HealtRiskHub/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -244,7 +244,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
