@@ -4,9 +4,8 @@ import { useSearchParams } from "next/navigation";
 import DashboardHeader from "./component/DashBoardHeader";
 import TotalDeath from "./component/TotalDeath";
 import TotalPatient from "./component/TotalPatient";
-import GraphByProvince from "./component/GraphByProvince";
-import GraphByAge from "./component/GraphByAge";
-import GraphByGender from "./component/GraphByGender";
+import BarGraph from "./component/BarGraph";
+
 import LineGraphByGender from "./component/LineGraphByGender";
 import SourceInfo from "./component/SourceInfo";
 
@@ -59,9 +58,8 @@ function DashboardPage() {
           </>
         )}
       </div>
-      <GraphByProvince />
-      <GraphByAge />
-      <GraphByGender />
+      <BarGraph />
+
       <LineGraphByGender />
       <SourceInfo />
     </div>
