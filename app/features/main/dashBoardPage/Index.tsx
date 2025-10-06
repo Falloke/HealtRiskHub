@@ -1,14 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import DashboardHeader from "./component/DashBoardHeader";
-import TotalDeath from "./component/TotalDeath";
-import TotalPatient from "./component/TotalPatient";
-import GraphByProvince from "./component/GraphByProvince";
-import GraphByAge from "./component/GraphByAge";
-import GraphByGender from "./component/GraphByGender";
-import LineGraphByGender from "./component/LineGraphByGender";
-import SourceInfo from "./component/SourceInfo";
+import DashboardHeader from "app/components/header/DashBoardHeader";
+import TotalDeath from "app/components/header/TotalDeath";
+import TotalPatient from "app/components/header/TotalPatient";
+import BarGraph from "./component/BarGraph";
+import NarrativeSection from "./component/NarrativeSection";
+import SourceInfo from "app/features/main/dashBoardPage/component/SourceInfo";
 
 export const dynamic = "force-dynamic";
 export default DashboardPage;
@@ -16,7 +14,6 @@ type DataType = {
   totalPatients: number;
   avgPatientsPerDay: number;
   cumulativePatients: number;
-
   totalDeaths: number;
   avgDeathsPerDay: number;
   cumulativeDeaths: number;
@@ -50,19 +47,21 @@ function DashboardPage() {
 
   return (
     <div className="space-y-4 p-4">
-      <DashboardHeader />
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        {data && (
-          <>
-            <TotalPatient data={data} />
-            <TotalDeath data={data} />
-          </>
-        )}
+      <div className="flex-col-2 flex">
+        <DashboardHeader />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          {data && (
+            <>
+              <TotalPatient data={data} />
+              <TotalDeath data={data} />
+            </>
+          )}
+        </div>
       </div>
-      <GraphByProvince />
-      <GraphByAge />
-      <GraphByGender />
-      <LineGraphByGender />
+
+      <BarGraph />
+
+      <NarrativeSection />
       <SourceInfo />
     </div>
   );

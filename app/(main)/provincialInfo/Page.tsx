@@ -1,4 +1,9 @@
+import ProvincePage from "app/features/main/provincePage/Index";
 const ProvincPageRender = () => {
-  return <div>ProvincPageRender</div>;
+  return (
+    <div>
+      <ProvincePage />
+    </div>
+  );
 };
 export default ProvincPageRender;

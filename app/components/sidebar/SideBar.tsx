@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { CalendarIcon } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { useDashboardStore } from "@/store/useDashboardStore"; // ✅ import store
 
 interface Province {
   ProvinceNo: number;
@@ -12,27 +13,21 @@ interface Province {
 
 const Sidebar = () => {
   const [provinces, setProvinces] = useState<Province[]>([]);
-  const [province, setProvince] = useState("");
-  const [start_date, setStartDate] = useState<string>("");
-  const [end_date, setEndDate] = useState<string>("");
-  const [isProvinceLocked, setIsProvinceLocked] = useState(false);
+  const { province, start_date, end_date, setProvince, setDateRange } =
+    useDashboardStore(); // ✅ ใช้ Zustand store
 
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // 🧭 โหลดค่าเริ่มต้นจาก URL
+  // 🧭 โหลดค่าเริ่มต้นจาก URL → sync เข้ากับ store
   useEffect(() => {
     const p = searchParams.get("province") ?? "";
-    if (!isProvinceLocked) {
-      setProvince(p);
-    }
-
-    // ส่วนนี้ยังต้องอัปเดตตามปกติ
     const s = searchParams.get("start_date") ?? "";
     const e = searchParams.get("end_date") ?? "";
-    setStartDate(s);
-    setEndDate(e);
-  }, [searchParams, isProvinceLocked]);
+
+    if (p) setProvince(p);
+    if (s && e) setDateRange(s, e);
+  }, [searchParams, setProvince, setDateRange]);
 
   // 📍โหลดรายการจังหวัด
   useEffect(() => {
@@ -49,18 +44,6 @@ const Sidebar = () => {
 
     fetchProvinces();
   }, []);
-  useEffect(() => {
-    // ดึงค่าจาก URL เฉพาะเมื่อ province ยังไม่ถูก lock
-    const s = searchParams.get("start_date") ?? "";
-    const e = searchParams.get("end_date") ?? "";
-    setStartDate(s);
-    setEndDate(e);
-
-    if (!isProvinceLocked) {
-      const p = searchParams.get("province") ?? "";
-      setProvince(p);
-    }
-  }, [searchParams, isProvinceLocked]); // 🆕 เพิ่ม dependency `isProvinceLocked`
 
   // 📤 กดปุ่มค้นหาเพื่ออัปเดต URL
   const handleSearch = () => {
@@ -68,7 +51,6 @@ const Sidebar = () => {
     if (start_date) params.set("start_date", start_date);
     if (end_date) params.set("end_date", end_date);
     if (province) params.set("province", province);
-    setIsProvinceLocked(true); // 🆕 ล็อก province
 
     router.push(`?${params.toString()}`);
   };
@@ -103,7 +85,7 @@ const Sidebar = () => {
           <input
             type="date"
             value={start_date}
-            onChange={(e) => setStartDate(e.target.value)}
+            onChange={(e) => setDateRange(e.target.value, end_date)}
             className="w-full rounded-full px-4 py-2 pl-10 text-sm outline-none"
           />
           <CalendarIcon className="absolute top-2.5 left-3 h-4 w-4 text-gray-500" />
@@ -112,7 +94,7 @@ const Sidebar = () => {
           <input
             type="date"
             value={end_date}
-            onChange={(e) => setEndDate(e.target.value)}
+            onChange={(e) => setDateRange(start_date, e.target.value)}
             className="w-full rounded-full px-4 py-2 pl-10 text-sm outline-none"
           />
           <CalendarIcon className="absolute top-2.5 left-3 h-4 w-4 text-gray-500" />
@@ -129,15 +111,12 @@ const Sidebar = () => {
       <button
         onClick={() => {
           setProvince("");
-          setIsProvinceLocked(false);
+          setDateRange("", "");
+          router.push("?");
         }}
         className="rounded-full border bg-white py-2 text-sm text-gray-700"
       >
         รีเซ็ตจังหวัด
-      </button>
-
-      <button className="rounded-full border bg-white py-2 text-sm text-gray-700">
-        การค้นหาที่ได้บันทึกไว้
       </button>
     </aside>
   );
