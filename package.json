@@ -9,12 +9,14 @@
     "lint": "next lint",
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",
-    "format:check": "prettier . --check"
+    "format:check": "prettier . --check",
+    "seed": "prisma db seed"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",
     "@geist-ui/react": "^2.2.5",
     "@google/generative-ai": "^0.24.1",
+    "@hookform/resolvers": "^5.2.2",
     "@prisma/client": "^6.15.0",
     "@prisma/extension-accelerate": "^2.0.2",
     "@radix-ui/react-select": "^2.2.6",
@@ -78,5 +80,8 @@
   "bugs": {
     "url": "https://github.com/Falloke/healtriskhub/issues"
   },
-  "homepage": "https://github.com/Falloke/healtriskhub#readme"
+  "homepage": "https://github.com/Falloke/healtriskhub#readme",
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  }
 }
