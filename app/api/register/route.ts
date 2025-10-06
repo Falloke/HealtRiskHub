@@ -1,71 +1,50 @@
-import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient, Prisma } from "@/generated/prisma/client";
+// E:\HealtRiskHub\app\api\register\route.ts
+import { NextResponse } from "next/server";
+import prisma from "@/lib/connect-db";           // ✅ ใช้ singleton
 import bcrypt from "bcryptjs";
-import { registerSchema } from "@/schemas/registerSchema"; // ใช้ซ้ำ schema เดิม
+import { registerSchema } from "@/schemas/registerSchema";
+import { Prisma } from "@/generated/prisma/client";
+import { ZodError } from "zod";
 
-const prisma = new PrismaClient();
+export const dynamic = "force-dynamic"; // กัน cache route handler
 
-export async function POST(request: NextRequest) {
+export async function POST(req: Request) {
   try {
-    //  อ่าน body
-    const formData = await request.json();
+    const body = await req.json();
 
-    //  Validate ด้วย Zod
-    const parsedData = registerSchema.parse(formData);
+    // ✅ validate ด้วย Zod
+    const data = registerSchema.parse(body);
 
-    //  Hash password จาก password (ไม่ใช่ confirmPassword)
-    const hashedPassword = await bcrypt.hash(parsedData.password, 10);
+    // ✅ normalize
+    const email = data.email.trim().toLowerCase();
+    const brithDate = new Date(data.dob);        // ❌ ไม่ต้อง .toISOString()
+    const passwordHash = await bcrypt.hash(data.password, 10);
 
-    //  เตรียม object สำหรับสร้าง user
-    const user: Prisma.UserCreateInput = {
-      first_name: parsedData.firstName,
-      last_name: parsedData.lastName,
-      role: "User",
-      brith_date: new Date(parsedData.dob).toISOString(),
-      position: parsedData.position,
-      province: parsedData.province,
-      email: parsedData.email,
-      password: hashedPassword,
-    };
+    const created = await prisma.user.create({
+      data: {
+        first_name: data.firstName.trim(),
+        last_name: data.lastName.trim(),
+        role: "User",
+        brith_date: brithDate,                   // ✅ เป็น Date object
+        position: data.position.trim(),
+        province: data.province,                 // มาจาก select แล้ว
+        email,
+        password: passwordHash,
+      },
+      select: { id: true, email: true },
+    });
 
-    // ✅ สร้าง user
-    const createUser = await prisma.user.create({ data: user });
-
-    return NextResponse.json(
-      { id: createUser.id, email: createUser.email }, // ส่งกลับเฉพาะ field ที่จำเป็น
-      { status: 201, headers: { "Content-Type": "application/json" } }
-    );
-  } catch (error) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      if (error.code === "P2002") {
-        return NextResponse.json(
-          { error: "Duplicate field", details: error.meta },
-          { status: 409, headers: { "Content-Type": "application/json" } }
-        );
-      }
-      return NextResponse.json(
-        { error: "Known Prisma error", message: error.message },
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
+    return NextResponse.json({ id: created.id, email: created.email }, { status: 201 });
+  } catch (err: unknown) {
+    // ❗ Zod validation error
+    if (err instanceof ZodError) {
+      return NextResponse.json({ error: "VALIDATION", details: err.flatten() }, { status: 422 });
     }
-
-    if (error instanceof Prisma.PrismaClientValidationError) {
-      return NextResponse.json(
-        { error: "Validation error", message: error.message },
-        { status: 422, headers: { "Content-Type": "application/json" } }
-      );
+    // ❗ Prisma unique constraint (เช่น email ซ้ำ)
+    if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2002") {
+      return NextResponse.json({ error: "EMAIL_TAKEN" }, { status: 409 });
     }
-
-    if (error instanceof Error) {
-      return NextResponse.json(
-        { error: "Invalid request", message: error.message },
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
-
-    return NextResponse.json(
-      { error: "Unknown error", details: String(error) },
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+    console.error("REGISTER_API_ERROR:", err);
+    return NextResponse.json({ error: "INTERNAL_ERROR" }, { status: 500 });
   }
 }
