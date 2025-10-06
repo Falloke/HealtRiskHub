@@ -5,10 +5,11 @@ import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils"; // ฟังก์ชันรวม class
 
 export const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none",
+  "inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background",
   {
     variants: {
       variant: {
+        default: "bg-pink-500 text-white hover:bg-pink-600 focus:ring-pink-500",
         primary: "bg-pink-500 text-white hover:bg-pink-600 focus:ring-pink-500",
         secondary:
           "bg-yellow-500 text-white hover:bg-yellow-600 focus:ring-yellow-500",

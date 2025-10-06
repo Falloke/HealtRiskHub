@@ -4,12 +4,12 @@ import { useSearchParams } from "next/navigation";
 import DashboardHeader from "app/components/header/DashBoardHeader";
 import TotalDeath from "app/components/header/TotalDeath";
 import TotalPatient from "app/components/header/TotalPatient";
-import BarGraph from "./component/BarGraph";
-import NarrativeSection from "./component/NarrativeSection";
+import BarGraph from "app/features/main/dashBoardPage/component/BarGraph";
+import NarrativeSection from "app/features/main/dashBoardPage/component/NarrativeSection";
 import SourceInfo from "app/features/main/dashBoardPage/component/SourceInfo";
 
 export const dynamic = "force-dynamic";
-export default DashboardPage;
+export default ProvincePage;
 type DataType = {
   totalPatients: number;
   avgPatientsPerDay: number;
@@ -18,7 +18,7 @@ type DataType = {
   avgDeathsPerDay: number;
   cumulativeDeaths: number;
 };
-function DashboardPage() {
+function ProvincePage() {
   const [data, setData] = useState<DataType | null>(null);
   const searchParams = useSearchParams();
   const start_date = searchParams.get("start_date");

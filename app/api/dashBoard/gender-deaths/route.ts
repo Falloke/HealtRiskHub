@@ -1,3 +1,4 @@
+//app/api/dashBoard/gender-deaths/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import db from "@/lib/kysely/db";
 import { sql } from "kysely";

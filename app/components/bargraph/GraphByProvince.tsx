@@ -23,6 +23,8 @@ const GraphByProvince = () => {
   const [data, setData] = useState<RegionData[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const [region, setRegion] = useState<string>("");
+
   useEffect(() => {
     const fetchData = async () => {
       try {

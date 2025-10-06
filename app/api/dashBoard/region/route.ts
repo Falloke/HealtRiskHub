@@ -7,7 +7,7 @@ type ProvinceRegion = {
   ProvinceNameThai: string;
   Region_VaccineRollout_MOPH: string;
 };
-
+export const runtime = "nodejs";
 export async function GET(request: NextRequest) {
   try {
     const params = request.nextUrl.searchParams;

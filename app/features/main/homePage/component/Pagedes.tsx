@@ -1,6 +1,8 @@
 "use client";
 import { Button } from "@/app/components/ui/button";
 import dynamic from "next/dynamic";
+import SourceInfo from "app/features/main/dashBoardPage/component/SourceInfo";
+import GraphByProvince from "@/app/components/bargraph/GraphByProvince";
 
 const HomeMapInner = dynamic(() => import("./HomeMapInner"), { ssr: false });
 
@@ -23,34 +25,25 @@ const PageDescription = () => {
               นอกจากนี้ยังสามารถสร้างคำอธิบายกราฟอัตโนมัติด้วย AI
               เพื่อเพิ่มความเข้าใจแก่ผู้ใช้งานที่ไม่มีพื้นฐานด้านข้อมูล
             </p>
-            <p className="mt-4 font-bold text-blue-700">แหล่งที่มาของข้อมูล:</p>
-            <p>
-              กรมควบคุมโรค:{" "}
-              <a
-                href="https://ddcopendata.ddc.moph.go.th/opendata/file/663"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500 underline"
-              >
-                https://ddcopendata.ddc.moph.go.th/opendata/file/663
-              </a>
-              <Button>บันทึก</Button>
-              <Button variant="secondary" size="lg">
-                ย้อนกลับ
-              </Button>
-              <Button variant="danger" size="sm">
-                ลบ
-              </Button>
-              <Button variant="outline" size="full">
-                เปรียบเทียบข้อมูล
-              </Button>
-            </p>
+            <GraphByProvince />
+            <SourceInfo />
+            <Button>บันทึก</Button>
+            <Button variant="secondary" size="lg">
+              ย้อนกลับ
+            </Button>
+            <Button variant="danger" size="sm">
+              ลบ
+            </Button>
+            <Button variant="outline" size="full">
+              เปรียบเทียบข้อมูล
+            </Button>
           </div>
         </div>
         {/* ----- */}
         <div className="flex w-full flex-col">
           <h2 className="mb-4 text-2xl font-bold">แผนที่โรคระบาด</h2>
           <HomeMapInner />
+
           {/* <MapClient /> */}
         </div>
       </div>

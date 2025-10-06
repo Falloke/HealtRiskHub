@@ -1,3 +1,4 @@
+//app/api/dashBoard/gender-trend/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import db from "@/lib/kysely/db";
 import { sql } from "kysely";
@@ -14,19 +15,20 @@ export async function GET(request: NextRequest) {
     }
 
     // 📊 query นับผู้ป่วย grouped by เดือน + เพศ
+    const monthExpr = sql<string>`TO_CHAR(onset_date_parsed, 'YYYY-MM')`;
     const rows = await db
       .selectFrom("d01_influenza")
       .select([
-        sql<string>`TO_CHAR(onset_date_parsed, 'YYYY-MM')`.as("month"),
+        monthExpr.as("month"),
         "gender",
         sql<number>`COUNT(*)`.as("count"),
       ])
       .where("onset_date_parsed", ">=", new Date(start_date))
       .where("onset_date_parsed", "<=", new Date(end_date))
       .where("province", "=", province)
-      .groupBy("month")
+      .groupBy(monthExpr) // ✅
       .groupBy("gender")
-      .orderBy("month")
+      .orderBy(monthExpr)
       .execute();
 
     // 🛠️ แปลงเป็น { month, male, female }

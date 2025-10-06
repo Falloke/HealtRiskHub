@@ -1,5 +1,5 @@
 "use client";
-import GraphByProvince from "@/app/components/bargraph/GraphByProvince";
+
 import GraphPatientsByRegion from "@/app/components/bargraph/GraphPatientsByRegion";
 import GraphDeathsByRegion from "@/app/components/bargraph/GraphDeathsByRegion";
 import GraphPatientsByAge from "@/app/components/bargraph/GraphPatientsByAge";
@@ -18,7 +18,6 @@ const BarGraph = () => {
       <GraphByGenderPatients />
       <GraphByGenderDeaths />
       <GraphByGenderTrend />
-      <GraphByProvince />
     </div>
   );
 };

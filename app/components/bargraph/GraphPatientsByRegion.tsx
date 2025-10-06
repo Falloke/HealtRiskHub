@@ -11,7 +11,12 @@ import {
 } from "recharts";
 import { useDashboardStore } from "@/store/useDashboardStore";
 
-type DataRow = { province: string; patients: number; deaths: number };
+type DataRow = {
+  province: string;
+  patients: number;
+  deaths: number;
+  region?: string; // 👈 เพิ่ม field region
+};
 
 const GraphPatientsByRegion = () => {
   const { province, start_date, end_date } = useDashboardStore();
@@ -37,7 +42,10 @@ const GraphPatientsByRegion = () => {
 
   return (
     <div className="rounded bg-white p-4 shadow">
-      <h4 className="mb-2 font-bold">ผู้ป่วยสะสม ({province} → ตามภูมิภาค)</h4>
+      <h4 className="mb-2 font-bold">
+        ผู้ป่วยสะสม ({province} → ตามภูมิภาค
+        {data[0]?.region ? `: ${data[0].region}` : ""})
+      </h4>
       {loading ? (
         <p>⏳ กำลังโหลด...</p>
       ) : (
