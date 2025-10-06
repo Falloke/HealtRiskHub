@@ -1,77 +1,105 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, useWatch } from "react-hook-form";
+
 import { Button } from "@/app/components/ui/button";
 import { InputWithLabel } from "@/app/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/app/components/ui/select";
-import ConfirmDialog from "@/app/components/ui/dialog"; // ⬅️ ใช้การ์ดยืนยันที่สร้างไว้
-import { provinces } from "@/lib/thai-provinces";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useForm, useWatch } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import ConfirmDialog from "@/app/components/ui/dialog";
 import { registerSchema, RegisterForm } from "@/schemas/registerSchema";
-import { useState } from "react";
+
+type ProvinceItem = {
+  ProvinceNo: number;
+  ProvinceNameThai: string;
+  Region_VaccineRollout_MOPH?: string | null;
+};
 
 export default function RegisterPage() {
   const router = useRouter();
 
+  // ---------- โหลดรายชื่อจังหวัดจากไฟล์ใน public ----------
+  const [provinces, setProvinces] = useState<string[]>([]);
+  const [provLoading, setProvLoading] = useState(true);
+  const [provErr, setProvErr] = useState<string | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setProvLoading(true);
+        setProvErr(null);
+        const res = await fetch("/data/Thailand-ProvinceName.json", { cache: "force-cache" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data: ProvinceItem[] = await res.json();
+        const names = data.map(p => p.ProvinceNameThai).filter(Boolean);
+        if (names.length === 0) throw new Error("empty list");
+        setProvinces(names);
+      } catch (e) {
+        console.error(e);
+        setProvErr("โหลดรายชื่อจังหวัดไม่สำเร็จ");
+      } finally {
+        setProvLoading(false);
+      }
+    })();
+  }, []);
+  // ----------------------------------------------------------
+
   const {
     register,
     handleSubmit,
-    setValue,
     control,
     formState: { errors },
   } = useForm<RegisterForm>({
     resolver: zodResolver(registerSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      province: "",
+      dob: "",
+      position: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
   });
 
-  // ---------- state สำหรับ dialog ----------
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [pendingData, setPendingData] = useState<RegisterForm | null>(null);
   const [loading, setLoading] = useState(false);
 
-  // ใช้แสดงค่าปัจจุบันใน dialog
   const watchedProvince = useWatch({ control, name: "province" });
   const watchedDob = useWatch({ control, name: "dob" });
 
-  // กดปุ่ม "ลงทะเบียน" ครั้งแรก => เปิดยืนยัน
   const onSubmitPreview = (data: RegisterForm) => {
     setPendingData(data);
     setConfirmOpen(true);
   };
 
-  // ยิง API จริงหลังยืนยัน
   const doRegister = async () => {
     if (!pendingData) return;
     try {
       setLoading(true);
-      const response = await fetch("/api/register", {
+      const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(pendingData),
       });
 
-      if (response.status === 201) {
-        const resData = await response.json();
+      if (res.status === 201) {
+        const body = await res.json();
         const login = await signIn("credentials", {
           redirect: false,
-          email: resData.email,
+          email: body.email,
           password: pendingData.password,
         });
         if (!login?.error) router.push("/");
         else console.error("Login failed:", login.error);
       } else {
-        console.error("Register failed:", await response.json());
+        console.error("Register failed:", await res.json().catch(() => ({})));
       }
-    } catch (error) {
-      console.error("Error:", error);
     } finally {
       setLoading(false);
       setConfirmOpen(false);
@@ -81,24 +109,16 @@ export default function RegisterPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-pink-100">
       <div className="flex w-full max-w-6xl overflow-hidden rounded-xl bg-white">
-        {/* Left Side */}
         <div className="flex w-1/2 items-center justify-center bg-pink-100">
-          <Image
-            src="/images/register.png"
-            alt="Register"
-            width={400}
-            height={400}
-          />
+          <Image src="/images/register.png" alt="Register" width={400} height={400} />
         </div>
 
-        {/* Right Side */}
         <div className="w-1/2 p-10">
-          <h2 className="text-primary-pink mb-8 text-center text-3xl font-bold">
-            สมัครสมาชิก
-          </h2>
+          <h2 className="mb-8 text-center text-3xl font-bold text-pink-600">สมัครสมาชิก</h2>
 
           <form className="space-y-4" onSubmit={handleSubmit(onSubmitPreview)}>
-            <div className="grid grid-cols-2 gap-4">
+            {/* ชื่อ + นามสกุล */}
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <InputWithLabel
                 id="firstName"
                 label="ชื่อ"
@@ -106,7 +126,6 @@ export default function RegisterPage() {
                 error={errors.firstName?.message}
                 {...register("firstName")}
               />
-
               <InputWithLabel
                 id="lastName"
                 label="นามสกุล"
@@ -115,35 +134,27 @@ export default function RegisterPage() {
                 {...register("lastName")}
               />
 
-              {/* จังหวัด */}
+              {/* จังหวัด + วันเกิด (อยู่แถวเดียวกัน) */}
               <div>
-                <label className="text-sm font-medium text-gray-700">
-                  จังหวัด
-                </label>
-                <Select
-                  onValueChange={(value) =>
-                    setValue("province", value, { shouldValidate: true })
-                  }
+                <label className="text-sm font-medium text-gray-700">จังหวัด</label>
+                <select
+                  className="mt-1 w-full rounded-md border px-3 py-2 text-sm disabled:bg-gray-100"
+                  disabled={provLoading || !!provErr}
+                  {...register("province")}
                 >
-                  <SelectTrigger>
-                    <SelectValue placeholder="กรุณาเลือกจังหวัด" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {provinces.map((province) => (
-                      <SelectItem key={province} value={province}>
-                        {province}
-                      </SelectItem>
+                  <option value="">
+                    {provLoading ? "กำลังโหลดจังหวัด..." : provErr ?? "กรุณาเลือกจังหวัด"}
+                  </option>
+                  {!provLoading && !provErr &&
+                    provinces.map((p) => (
+                      <option key={p} value={p}>{p}</option>
                     ))}
-                  </SelectContent>
-                </Select>
+                </select>
                 {errors.province && (
-                  <p className="text-sm text-red-500">
-                    {errors.province.message}
-                  </p>
+                  <p className="mt-1 text-xs text-red-500">{errors.province.message}</p>
                 )}
               </div>
 
-              {/* วันเดือนปีเกิด */}
               <InputWithLabel
                 id="dob"
                 label="วันเดือนปีเกิด"
@@ -151,17 +162,19 @@ export default function RegisterPage() {
                 error={errors.dob?.message}
                 {...register("dob")}
               />
-
-              <InputWithLabel
-                id="position"
-                label="ตำแหน่ง"
-                placeholder="กรุณากรอกตำแหน่ง"
-                containerClassName="col-span-2"
-                error={errors.position?.message}
-                {...register("position")}
-              />
             </div>
 
+            {/* ตำแหน่ง */}
+            <InputWithLabel
+              id="position"
+              label="ตำแหน่ง"
+              placeholder="กรุณากรอกตำแหน่ง"
+              containerClassName="col-span-2"
+              error={errors.position?.message}
+              {...register("position")}
+            />
+
+            {/* Email / Password */}
             <InputWithLabel
               id="email"
               label="Email"
@@ -170,7 +183,6 @@ export default function RegisterPage() {
               error={errors.email?.message}
               {...register("email")}
             />
-
             <InputWithLabel
               id="password"
               label="Password"
@@ -179,7 +191,6 @@ export default function RegisterPage() {
               error={errors.password?.message}
               {...register("password")}
             />
-
             <InputWithLabel
               id="confirmPassword"
               label="ยืนยัน Password"
@@ -192,16 +203,17 @@ export default function RegisterPage() {
             <div className="pt-4 text-center">
               <Button
                 type="submit"
-                className="bg-primary-pink w-full text-white hover:bg-pink-500"
+                disabled={loading}
+                className="w-full bg-pink-500 text-white hover:bg-pink-600 disabled:opacity-60"
               >
-                ลงทะเบียน
+                {loading ? "กำลังดำเนินการ..." : "ลงทะเบียน"}
               </Button>
             </div>
           </form>
         </div>
       </div>
 
-      {/* Confirm Dialog */}
+      {/* Dialog แสดงข้อมูลก่อนยืนยัน */}
       <ConfirmDialog
         open={confirmOpen}
         onOpenChange={setConfirmOpen}

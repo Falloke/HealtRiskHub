@@ -1,16 +1,15 @@
 "use client";
 
-//import { usePathname } from "next/navigation";
 import AuthNavBar from "@/app/components/navbar/AuthNavBar";
 import NavBar from "@/app/components/navbar/NavBar";
-import { useSession } from "next-auth/react"
+import { useSession } from "next-auth/react";
 
 export default function NavbarSwitcher() {
-//  const pathname = usePathname();
-const { data: session} = useSession()
+  const { data: session, status } = useSession();
 
+  // ระหว่างโหลด session ให้โชว์ NavBar ปกติไปก่อน หรือจะใส่ skeleton ก็ได้
+  if (status === "loading") return <NavBar />;
 
-const isAuthPage = session?.user?.role === "admin" || session?.user?.role === "User";
-
-  return isAuthPage ? <AuthNavBar /> : <NavBar />;
+  const isLoggedIn = !!session?.user; // แค่มี session ก็ถือว่า auth แล้ว
+  return isLoggedIn ? <AuthNavBar /> : <NavBar />;
 }

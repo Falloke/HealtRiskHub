@@ -60,7 +60,7 @@ export default function LoginPage() {
             {error && <div className="text-red-500">{error}</div>}
             <div className="text-center">
               <Button className="hover:bg-primary-pink w-full bg-pink-500 text-white">
-                สมัครสมาชิก
+                เข้าสู่ระบบ
               </Button>
             </div>
           </form>

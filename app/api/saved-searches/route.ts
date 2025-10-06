@@ -1,35 +1,62 @@
+// E:\HealtRiskHub\app\api\saved-searches\route.ts
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/connect-db";
 import { auth } from "@/auth";
-import type { SavedSearch } from "@/generated/prisma"; // ใช้ type จาก client เดิม
+import { z } from "zod";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+// ---------- Schema สำหรับ validate body ----------
+const createSchema = z.object({
+  searchName: z.string().trim().min(1, "กรุณากรอกชื่อการค้นหา"),
+  disease: z.string().trim().min(1, "กรุณาระบุชื่อโรค"),
+  province: z.string().trim().optional().nullable(),
+  diseaseProvince: z.string().trim().optional().nullable(),
+  startDate: z.string().date("รูปแบบวันที่ไม่ถูกต้อง").optional().nullable(),
+  endDate: z.string().date("รูปแบบวันที่ไม่ถูกต้อง").optional().nullable(),
+  color: z
+    .string()
+    .regex(/^#[0-9a-fA-F]{6}$/, "สีต้องเป็น #RRGGBB")
+    .optional()
+    .nullable(),
+})
+.refine(
+  (v) => {
+    if (!v.startDate || !v.endDate) return true;
+    return new Date(v.startDate) <= new Date(v.endDate);
+  },
+  { message: "วันเริ่มต้นต้องไม่เกินวันสิ้นสุด", path: ["endDate"] }
+);
+
+// ---------- GET: รายการทั้งหมดหรือรายการเดียว (ผ่าน ?id=) ----------
 export async function GET(req: NextRequest) {
   try {
     const session = await auth();
-    if (!session?.user?.email) {
+    if (!session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const me = await prisma.user.findUnique({
-      where: { email: session.user.email },
-      select: { id: true },
-    });
-    if (!me) return NextResponse.json({ error: "User not found" }, { status: 404 });
+    // ใช้ id ตรง ๆ จาก session (ปลอดภัยกว่าอาศัย email)
+    const userId = Number(session.user.id);
+    if (!userId) {
+      return NextResponse.json({ error: "Invalid session userId" }, { status: 400 });
+    }
 
     const { searchParams } = new URL(req.url);
-    const id = searchParams.get("id");
+    const idParam = searchParams.get("id");
 
-    // ── ดึงรายการเดียว ────────────────────────────────────────────────
-    if (id) {
-      let bid: bigint;
+    // ดึงรายการเดียว
+    if (idParam) {
+      let idBig: bigint;
       try {
-        bid = BigInt(id);
+        idBig = BigInt(idParam);
       } catch {
         return NextResponse.json({ error: "Invalid id" }, { status: 400 });
       }
 
       const row = await prisma.savedSearch.findFirst({
-        where: { id: bid, userId: me.id },
+        where: { id: idBig, userId },
       });
       if (!row) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
@@ -45,18 +72,18 @@ export async function GET(req: NextRequest) {
           color: row.color ?? "",
           createdAt: row.createdAt.toISOString(),
         },
-        { status: 200, headers: { "Cache-Control": "no-store" } }
+        { headers: { "Cache-Control": "no-store" } }
       );
     }
 
-    // ── ดึงรายการทั้งหมด ───────────────────────────────────────────────
-    const rows: SavedSearch[] = await prisma.savedSearch.findMany({
-      where: { userId: me.id },
+    // ดึงทั้งหมดของผู้ใช้
+    const rows = await prisma.savedSearch.findMany({
+      where: { userId },
       orderBy: { createdAt: "desc" },
     });
 
     const data = rows.map((r) => ({
-      id: Number(r.id), // BigInt -> number
+      id: Number(r.id),
       searchName: r.searchName,
       diseaseName: r.diseaseName ?? "",
       province: r.province ?? "",
@@ -67,38 +94,38 @@ export async function GET(req: NextRequest) {
       createdAt: r.createdAt.toISOString(),
     }));
 
-    return NextResponse.json(data, { status: 200, headers: { "Cache-Control": "no-store" } });
+    return NextResponse.json(data, { headers: { "Cache-Control": "no-store" } });
   } catch (err) {
     console.error("GET /api/saved-searches error:", err);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
 
+// ---------- POST: สร้างรายการใหม่ ----------
 export async function POST(req: NextRequest) {
   try {
     const session = await auth();
-    if (!session?.user?.email) {
+    if (!session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+    const userId = Number(session.user.id);
+    if (!userId) {
+      return NextResponse.json({ error: "Invalid session userId" }, { status: 400 });
+    }
 
-    const me = await prisma.user.findUnique({
-      where: { email: session.user.email },
-      select: { id: true },
-    });
-    if (!me) return NextResponse.json({ error: "User not found" }, { status: 404 });
-
-    const body = await req.json();
+    const json = await req.json();
+    const body = createSchema.parse(json);
 
     const created = await prisma.savedSearch.create({
       data: {
-        userId: me.id,
-        searchName: (body.searchName ?? "").trim(),
-        diseaseName: body.disease ?? null,
-        province: body.province ?? null,
-        provinceAlt: body.diseaseProvince ?? null,
+        userId,
+        searchName: body.searchName,
+        diseaseName: body.disease,
+        province: body.province || null,
+        provinceAlt: body.diseaseProvince || null,
         startDate: body.startDate ? new Date(body.startDate) : null,
         endDate: body.endDate ? new Date(body.endDate) : null,
-        color: body.color ?? null,
+        color: body.color || null,
       },
     });
 
@@ -111,25 +138,26 @@ export async function POST(req: NextRequest) {
       },
       { status: 201 }
     );
-  } catch (err) {
+  } catch (err: any) {
+    if (err?.name === "ZodError") {
+      return NextResponse.json({ error: "Validation error", issues: err.issues }, { status: 422 });
+    }
     console.error("POST /api/saved-searches error:", err);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
 
-// ✅ เพิ่มลบรายการ
+// ---------- DELETE: ลบของฉันเท่านั้น (soft table นี้ไม่ต้อง soft-delete) ----------
 export async function DELETE(req: NextRequest) {
   try {
     const session = await auth();
-    if (!session?.user?.email) {
+    if (!session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-
-    const me = await prisma.user.findUnique({
-      where: { email: session.user.email },
-      select: { id: true },
-    });
-    if (!me) return NextResponse.json({ error: "User not found" }, { status: 404 });
+    const userId = Number(session.user.id);
+    if (!userId) {
+      return NextResponse.json({ error: "Invalid session userId" }, { status: 400 });
+    }
 
     const idStr = req.nextUrl.searchParams.get("id");
     if (!idStr) return NextResponse.json({ error: "Missing id" }, { status: 400 });
@@ -141,15 +169,14 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ error: "Invalid id" }, { status: 400 });
     }
 
-    // ลบเฉพาะของผู้ใช้คนนี้
     const result = await prisma.savedSearch.deleteMany({
-      where: { id: idBig, userId: me.id },
+      where: { id: idBig, userId },
     });
 
     if (result.count === 0) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
-    return NextResponse.json({ ok: true }, { status: 200 });
+    return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("DELETE /api/saved-searches error:", err);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });

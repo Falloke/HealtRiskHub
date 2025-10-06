@@ -17,14 +17,26 @@ type Row = {
   createdAt: string;
 };
 
+// แสดงวันที่แบบไทย (หรือใช้รูปแบบเดิมได้)
 function fmtMMDDYYYY(iso?: string | null) {
   if (!iso) return "-";
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return "-";
-  const mm = String(d.getMonth() + 1).padStart(2, "0");
-  const dd = String(d.getDate()).padStart(2, "0");
-  const yyyy = d.getFullYear();
-  return `${mm}/${dd}/${yyyy}`;
+  return d.toLocaleDateString("th-TH", { year: "numeric", month: "2-digit", day: "2-digit" });
+}
+
+// ป้องกันค่าสีไม่ถูกต้อง
+function rowsColorSafe(c?: string) {
+  return /^#[0-9A-Fa-f]{6}$/.test(c ?? "") ? (c as string) : "#9CA3AF";
+}
+
+// รวมจังหวัดหลัก/สำรอง พร้อม fallback
+function renderProvinces(p1?: string, p2?: string) {
+  const a = (p1 ?? "").trim();
+  const b = (p2 ?? "").trim();
+  if (!a && !b) return "-";
+  if (a && b) return `${a} - ${b}`;
+  return a || b;
 }
 
 export default function SearchPanel() {
@@ -103,9 +115,13 @@ export default function SearchPanel() {
       ) : rows.length === 0 ? (
         <div className="rounded-xl border bg-white p-6 text-gray-600">
           ยังไม่มีรายการ — เลือกจาก{" "}
-          <Link href="/history" className="text-pink-600 underline">ประวัติการค้นหา</Link>{" "}
+          <Link href="/history" className="text-pink-600 underline">
+            ประวัติการค้นหา
+          </Link>{" "}
           หรือไปที่{" "}
-          <Link href="/search-template" className="text-pink-600 underline">สร้างการค้นหา</Link>
+          <Link href="/search-template" className="text-pink-600 underline">
+            สร้างการค้นหา
+          </Link>
         </div>
       ) : (
         <div className="overflow-hidden rounded-xl border bg-white">
@@ -124,23 +140,31 @@ export default function SearchPanel() {
               {rows.map((r) => {
                 const highlight = createdId && r.id === createdId;
                 return (
-                  <tr key={r.id} className={`hover:bg-pink-50/40 ${highlight ? "bg-pink-50" : ""}`}>
-                    <td className="px-4 py-3 text-sm text-gray-700">{fmtMMDDYYYY(r.createdAt)}</td>
+                  <tr
+                    key={r.id}
+                    className={`hover:bg-pink-50/40 ${highlight ? "bg-pink-50" : ""}`}
+                  >
+                    <td className="px-4 py-3 text-sm text-gray-700">
+                      {fmtMMDDYYYY(r.createdAt)}
+                    </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
                         <span
                           className="inline-block h-3 w-3 rounded-full"
-                          style={{ backgroundColor: r.color || "#9CA3AF" }}
+                          style={{ backgroundColor: rowsColorSafe(r.color) }}
+                          aria-label={`สีของการค้นหา ${r.searchName}`}
                         />
-                        <span className="truncate font-medium text-gray-800">{r.searchName}</span>
+                        <span className="truncate font-medium text-gray-800">
+                          {r.searchName || "-"}
+                        </span>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-700">{r.diseaseName || "-"}</td>
+                    <td className="px-4 py-3 text-sm text-gray-700">
+                      {r.diseaseName || "-"}
+                    </td>
                     <td className="px-4 py-3 text-sm text-gray-700">
                       <span className="line-clamp-1">
-                        {r.province}
-                        {r.province && r.provinceAlt ? " - " : ""}
-                        {r.provinceAlt}
+                        {renderProvinces(r.province, r.provinceAlt)}
                       </span>
                     </td>
                     <td className="px-4 py-3 text-sm text-gray-700">
@@ -149,11 +173,11 @@ export default function SearchPanel() {
                     <td className="px-4 py-3 text-right">
                       <button
                         onClick={() => handleDelete(r.id)}
-                        className="inline-flex items-center justify-center rounded-full p-2 hover:bg-red-50"
+                        className="inline-flex items-center justify-center rounded-full p-2 hover:bg-red-50 text-gray-600 hover:text-red-600"
                         title="ลบรายการนี้"
                         aria-label="ลบ"
                       >
-                        <Icons name="Delete" size={18} colorClass="bg-gray-500 hover:bg-red-600" />
+                        <Icons name="Delete" size={18} />
                       </button>
                     </td>
                   </tr>
