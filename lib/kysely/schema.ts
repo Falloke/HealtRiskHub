@@ -1,4 +1,9 @@
-// lib/kysely/schema.ts
+import { d01_influenza } from "./../../generated/prisma/index.d";
+export interface Disease {
+  code: string;
+  name_th: string;
+  name_en: string;
+}
 export interface D01Influenza {
   id: number;
   disease_code: string;
@@ -19,5 +24,6 @@ export interface D01Influenza {
 }
 
 export interface DB {
+  diseases: Disease;
   d01_influenza: D01Influenza;
 }
