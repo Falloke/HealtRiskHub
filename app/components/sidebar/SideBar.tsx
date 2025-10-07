@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { CalendarIcon } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useDashboardStore } from "@/store/useDashboardStore"; // ✅ import store
+import { useDashboardStore } from "@/store/useDashboardStore";
 
 interface Province {
   ProvinceNo: number;
@@ -11,25 +11,31 @@ interface Province {
   Region_VaccineRollout_MOPH: string;
 }
 
+type Disease = {
+  code: string;
+  name_th: string;
+  name_en: string;
+};
+
 const Sidebar = () => {
   const [provinces, setProvinces] = useState<Province[]>([]);
-  const { province, start_date, end_date, setProvince, setDateRange } =
-    useDashboardStore(); // ✅ ใช้ Zustand store
+  const [diseases, setDiseases] = useState<Disease[]>([]);
+
+  const {
+    province,
+    start_date,
+    end_date,
+    setProvince,
+    setDateRange,
+    diseaseCode,
+    diseaseNameTh,
+    setDisease,
+  } = useDashboardStore();
 
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // 🧭 โหลดค่าเริ่มต้นจาก URL → sync เข้ากับ store
-  useEffect(() => {
-    const p = searchParams.get("province") ?? "";
-    const s = searchParams.get("start_date") ?? "";
-    const e = searchParams.get("end_date") ?? "";
-
-    if (p) setProvince(p);
-    if (s && e) setDateRange(s, e);
-  }, [searchParams, setProvince, setDateRange]);
-
-  // 📍โหลดรายการจังหวัด
+  // 📍โหลดรายการจังหวัด (เหมือนเดิม)
   useEffect(() => {
     const fetchProvinces = async () => {
       try {
@@ -41,22 +47,80 @@ const Sidebar = () => {
         console.error("Error loading provinces:", error);
       }
     };
-
     fetchProvinces();
   }, []);
 
-  // 📤 กดปุ่มค้นหาเพื่ออัปเดต URL
+  // 🦠 โหลดรายการโรคจากฐานข้อมูล (ผ่าน Kysely API)
+  useEffect(() => {
+    const fetchDiseases = async () => {
+      try {
+        const res = await fetch("/api/diseases", { cache: "no-store" });
+        if (!res.ok) throw new Error("Failed to load diseases");
+        const data = (await res.json()) as { diseases: Disease[] };
+        setDiseases(data.diseases || []);
+
+        // ตั้งค่า default ถ้ายังไม่มีค่าใน store: ใช้ D01 (ไข้หวัดใหญ่)
+        const qsDisease = searchParams.get("disease");
+        if (!diseaseCode && !qsDisease) {
+          const d01 = data.diseases.find((d) => d.code === "D01");
+          if (d01) setDisease(d01.code, d01.name_th);
+        }
+      } catch (error) {
+        console.error("Error loading diseases:", error);
+      }
+    };
+    fetchDiseases();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // 🔄 ซิงค์ค่าจาก URL -> store (รองรับเปิดลิงก์ที่มี ?disease=...)
+  useEffect(() => {
+    const qsDisease = searchParams.get("disease");
+    if (qsDisease && diseases.length > 0) {
+      const found = diseases.find((d) => d.code === qsDisease);
+      if (found) setDisease(found.code, found.name_th);
+    }
+  }, [searchParams, diseases, setDisease]);
+
+  // 📤 ปุ่มค้นหา อัปเดต URL รวม disease
   const handleSearch = () => {
     const params = new URLSearchParams();
     if (start_date) params.set("start_date", start_date);
     if (end_date) params.set("end_date", end_date);
     if (province) params.set("province", province);
+    if (diseaseCode) params.set("disease", diseaseCode);
 
     router.push(`?${params.toString()}`);
   };
 
   return (
     <aside className="flex w-full max-w-xs flex-col gap-4 bg-pink-100 px-4 py-6">
+      {/* 🦠 เลือกโรค */}
+      <div>
+        <label className="mb-1 block text-sm">เลือกโรค</label>
+        <select
+          value={diseaseCode}
+          onChange={(e) => {
+            const code = e.target.value;
+            const d = diseases.find((x) => x.code === code);
+            setDisease(code, d?.name_th ?? "");
+          }}
+          className="w-full rounded-full bg-white px-4 py-2 text-sm outline-none"
+        >
+          {diseases.length === 0 && <option value="">กำลังโหลด...</option>}
+          {diseases.map((d) => (
+            <option key={d.code} value={d.code}>
+              {d.code} — {d.name_th} ({d.name_en})
+            </option>
+          ))}
+        </select>
+        {diseaseNameTh && (
+          <p className="text-sm text-gray-700">
+            โรคที่เลือก: <strong>{diseaseNameTh}</strong>
+          </p>
+        )}
+      </div>
+
       {/* จังหวัด */}
       <div>
         <select
@@ -100,24 +164,6 @@ const Sidebar = () => {
           <CalendarIcon className="absolute top-2.5 left-3 h-4 w-4 text-gray-500" />
         </div>
       </div>
-
-      {/* ปุ่มค้นหา */}
-      <button
-        onClick={handleSearch}
-        className="rounded-full bg-pink-600 py-2 text-sm font-medium text-white hover:bg-pink-700"
-      >
-        ค้นหา
-      </button>
-      <button
-        onClick={() => {
-          setProvince("");
-          setDateRange("", "");
-          router.push("?");
-        }}
-        className="rounded-full border bg-white py-2 text-sm text-gray-700"
-      >
-        รีเซ็ตจังหวัด
-      </button>
     </aside>
   );
 };
