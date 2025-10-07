@@ -1,17 +1,18 @@
+// app/layout.tsx
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import NavbarSwitcher from "./components/navbar/NavbarSwitcher";
 import Sidebar from "./components/sidebar/SideBar";
 import { SessionProvider } from "next-auth/react";
 import "leaflet/dist/leaflet.css";
 
-const geistSans = Geist({
+const inter = Inter({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
+const robotoMono = Roboto_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
@@ -23,21 +24,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="th">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${inter.variable} ${robotoMono.variable} antialiased`}>
         <SessionProvider>
           <NavbarSwitcher />
-
-          {/* Container หลัก แบ่งซ้าย Sidebar ขวา Main Content */}
           <div className="flex min-h-[calc(100vh-64px)]">
-            {" "}
-            {/* สมมุติ Navbar สูง 64px */}
             <Sidebar />
             <main className="flex-1 bg-white p-6">{children}</main>
           </div>
