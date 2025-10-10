@@ -1,14 +1,15 @@
+// E:\HealtRiskHub\app\components\sidebar\SideBar.tsx
 "use client";
 
 import { useState, useEffect } from "react";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Plus } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useDashboardStore } from "@/store/useDashboardStore";
 
 interface Province {
   ProvinceNo: number;
   ProvinceNameThai: string;
-  Region_VaccineRollout_MOPH: string;
+  Region_VaccineRollout_MOPH?: string | null;
 }
 
 type Disease = {
@@ -17,9 +18,28 @@ type Disease = {
   name_en: string;
 };
 
+type SavedSearch = {
+  id: number;
+  searchName: string;
+  diseaseName: string;
+  province: string;
+  provinceAlt: string;
+  startDate: string;
+  endDate: string;
+  color: string;
+  createdAt: string;
+};
+
+const CREATE_SEARCH_PATH = "/search-template";
+
 const Sidebar = () => {
   const [provinces, setProvinces] = useState<Province[]>([]);
   const [diseases, setDiseases] = useState<Disease[]>([]);
+
+  // saved searches from DB
+  const [savedSearches, setSavedSearches] = useState<SavedSearch[]>([]);
+  const [savedLoading, setSavedLoading] = useState(true);
+  const [savedErr, setSavedErr] = useState<string | null>(null);
 
   const {
     province,
@@ -35,45 +55,42 @@ const Sidebar = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // 📍โหลดรายการจังหวัด (เหมือนเดิม)
+  // Provinces
   useEffect(() => {
-    const fetchProvinces = async () => {
+    (async () => {
       try {
         const res = await fetch("/data/Thailand-ProvinceName.json");
         if (!res.ok) throw new Error("Failed to load provinces");
         const data: Province[] = await res.json();
         setProvinces(data);
-      } catch (error) {
-        console.error("Error loading provinces:", error);
+      } catch (e) {
+        console.error("Error loading provinces:", e);
       }
-    };
-    fetchProvinces();
+    })();
   }, []);
 
-  // 🦠 โหลดรายการโรคจากฐานข้อมูล (ผ่าน Kysely API)
+  // Diseases
   useEffect(() => {
-    const fetchDiseases = async () => {
+    (async () => {
       try {
         const res = await fetch("/api/diseases", { cache: "no-store" });
         if (!res.ok) throw new Error("Failed to load diseases");
         const data = (await res.json()) as { diseases: Disease[] };
         setDiseases(data.diseases || []);
 
-        // ตั้งค่า default ถ้ายังไม่มีค่าใน store: ใช้ D01 (ไข้หวัดใหญ่)
         const qsDisease = searchParams.get("disease");
         if (!diseaseCode && !qsDisease) {
           const d01 = data.diseases.find((d) => d.code === "D01");
           if (d01) setDisease(d01.code, d01.name_th);
         }
-      } catch (error) {
-        console.error("Error loading diseases:", error);
+      } catch (e) {
+        console.error("Error loading diseases:", e);
       }
-    };
-    fetchDiseases();
+    })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // 🔄 ซิงค์ค่าจาก URL -> store (รองรับเปิดลิงก์ที่มี ?disease=...)
+  // Sync ?disease=...
   useEffect(() => {
     const qsDisease = searchParams.get("disease");
     if (qsDisease && diseases.length > 0) {
@@ -82,20 +99,39 @@ const Sidebar = () => {
     }
   }, [searchParams, diseases, setDisease]);
 
-  // 📤 ปุ่มค้นหา อัปเดต URL รวม disease
-  const handleSearch = () => {
-    const params = new URLSearchParams();
-    if (start_date) params.set("start_date", start_date);
-    if (end_date) params.set("end_date", end_date);
-    if (province) params.set("province", province);
-    if (diseaseCode) params.set("disease", diseaseCode);
+  // Load saved searches (DB)
+  useEffect(() => {
+    (async () => {
+      try {
+        setSavedLoading(true);
+        setSavedErr(null);
+        const res = await fetch("/api/saved-searches", { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const json = await res.json();
+        setSavedSearches(json as SavedSearch[]);
+      } catch (e) {
+        console.error("load saved searches error:", e);
+        setSavedErr("โหลดรายการค้นหาที่บันทึกไว้ไม่สำเร็จ");
+      } finally {
+        setSavedLoading(false);
+      }
+    })();
+  }, []);
 
-    router.push(`?${params.toString()}`);
+  const labelOf = (s: SavedSearch) => {
+    const parts = [s.searchName];
+    if (s.diseaseName) parts.push(s.diseaseName);
+    const pv = s.provinceAlt || s.province;
+    if (pv) parts.push(pv);
+    if (s.startDate && s.endDate) parts.push(`${s.startDate}→${s.endDate}`);
+    return parts.join(" • ");
   };
+
+  const goCreate = () => router.push(CREATE_SEARCH_PATH);
 
   return (
     <aside className="flex w-full max-w-xs flex-col gap-4 bg-pink-100 px-4 py-6">
-      {/* 🦠 เลือกโรค */}
+      {/* โรค */}
       <div>
         <label className="mb-1 block text-sm">เลือกโรค</label>
         <select
@@ -115,7 +151,7 @@ const Sidebar = () => {
           ))}
         </select>
         {diseaseNameTh && (
-          <p className="text-sm text-gray-700">
+          <p className="mt-1 text-sm text-gray-700">
             โรคที่เลือก: <strong>{diseaseNameTh}</strong>
           </p>
         )}
@@ -123,6 +159,7 @@ const Sidebar = () => {
 
       {/* จังหวัด */}
       <div>
+        <label className="mb-1 block text-sm">เลือกจังหวัด</label>
         <select
           value={province}
           onChange={(e) => setProvince(e.target.value)}
@@ -136,7 +173,7 @@ const Sidebar = () => {
           ))}
         </select>
         {province && (
-          <p className="text-sm text-gray-700">
+          <p className="mt-1 text-sm text-gray-700">
             จังหวัดที่เลือก: <strong>{province}</strong>
           </p>
         )}
@@ -150,7 +187,7 @@ const Sidebar = () => {
             type="date"
             value={start_date}
             onChange={(e) => setDateRange(e.target.value, end_date)}
-            className="w-full rounded-full px-4 py-2 pl-10 text-sm outline-none"
+            className="w-full rounded-full bg-white px-4 py-2 pl-10 text-sm outline-none"
           />
           <CalendarIcon className="absolute top-2.5 left-3 h-4 w-4 text-gray-500" />
         </div>
@@ -159,10 +196,65 @@ const Sidebar = () => {
             type="date"
             value={end_date}
             onChange={(e) => setDateRange(start_date, e.target.value)}
-            className="w-full rounded-full px-4 py-2 pl-10 text-sm outline-none"
+            className="w-full rounded-full bg-white px-4 py-2 pl-10 text-sm outline-none"
           />
           <CalendarIcon className="absolute top-2.5 left-3 h-4 w-4 text-gray-500" />
         </div>
+      </div>
+
+      {/* การค้นหาที่บันทึกไว้ (จาก DB) */}
+      <div className="border-t border-pink-200 pt-3">
+        <label className="mb-1 block text-sm">การค้นหาที่บันทึกไว้</label>
+
+        {savedLoading ? (
+          <div className="w-full rounded-full bg-white px-4 py-2 text-sm text-gray-500">
+            กำลังโหลด...
+          </div>
+        ) : savedErr ? (
+          <div className="rounded-md bg-red-50 p-3 text-sm text-red-600">
+            {savedErr}
+          </div>
+        ) : savedSearches.length > 0 ? (
+          // ✅ มีรายการ → แสดง select + ปุ่ม "+" ข้างๆ
+          <div className="flex items-center gap-2">
+            <select
+              defaultValue=""
+              onChange={(e) => {
+                const id = e.target.value;
+                if (id) router.push(`/search?id=${id}`);
+              }}
+              className="w-full flex-1 rounded-full bg-white px-4 py-2 text-sm outline-none"
+              aria-label="เลือกการค้นหาที่บันทึกไว้"
+            >
+              <option value="" disabled>
+                — เลือกการค้นหาที่บันทึก —
+              </option>
+              {savedSearches.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {labelOf(s)}
+                </option>
+              ))}
+            </select>
+
+            <button
+              type="button"
+              onClick={goCreate}
+              title="สร้างการค้นหาใหม่"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-pink-500 text-white shadow-sm transition hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-400"
+            >
+              <Plus className="h-4 w-4" />
+            </button>
+          </div>
+        ) : (
+          // ❌ ไม่มีรายการ → แสดงปุ่มใหญ่ให้ไปสร้าง
+          <button
+            onClick={goCreate}
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm text-pink-600 ring-1 ring-pink-300 transition hover:bg-pink-50"
+          >
+            <Plus className="h-4 w-4" />
+            สร้างการค้นหา
+          </button>
+        )}
       </div>
     </aside>
   );

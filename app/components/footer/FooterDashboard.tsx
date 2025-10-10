@@ -1,9 +1,8 @@
-// app/features/main/dashBoardPage/component/SourceInfo.tsx
 "use client";
 
 import { useEffect, useState } from "react";
 
-type DataSource = {
+type Item = {
   id: number;
   slug: string | null;
   name: string | null;
@@ -13,8 +12,8 @@ type DataSource = {
   description: string | null;
 };
 
-export default function SourceInfo() {
-  const [items, setItems] = useState<DataSource[]>([]);   // เริ่มต้นเป็น array ว่าง
+export default function FooterDashboardClient({ className = "" }: { className?: string }) {
+  const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState<string | null>(null);
 
@@ -25,20 +24,13 @@ export default function SourceInfo() {
       try {
         setLoading(true);
         setErr(null);
-
         const res = await fetch("/api/data-sources", { cache: "no-store" });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-        const json = await res.json();
-        // รองรับทั้ง { items: [...] } และ [...] ตรง ๆ
-        const rows: unknown = (json && "items" in json) ? json.items : json;
-
-        if (!cancelled) {
-          setItems(Array.isArray(rows) ? (rows as DataSource[]) : []);
-        }
+        const json = (await res.json()) as { items?: Item[] };
+        if (!cancelled) setItems(json.items ?? []);
       } catch (e) {
         if (!cancelled) setErr("ไม่สามารถโหลดแหล่งที่มาของข้อมูลได้");
-        console.error("[SourceInfo] fetch error:", e);
+        console.error("[FooterDashboardClient] fetch error:", e);
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -49,7 +41,7 @@ export default function SourceInfo() {
 
   if (loading) {
     return (
-      <footer className="mt-8 border-t pt-4 text-sm text-gray-600">
+      <footer className={`mt-8 border-t pt-4 text-sm text-gray-600 ${className}`}>
         <p className="text-gray-500">กำลังโหลดแหล่งที่มาของข้อมูล…</p>
       </footer>
     );
@@ -57,19 +49,16 @@ export default function SourceInfo() {
 
   if (err) {
     return (
-      <footer className="mt-8 border-t pt-4 text-sm">
+      <footer className={`mt-8 border-t pt-4 text-sm ${className}`}>
         <p className="text-red-600">{err}</p>
       </footer>
     );
   }
 
-  if (!items.length) {
-    // ไม่มีข้อมูลก็ไม่ต้องแสดงอะไร (หรือจะใส่ข้อความว่าไม่มีข้อมูลก็ได้)
-    return null;
-  }
+  if (!items.length) return null;
 
   return (
-    <footer className="mt-8 border-t pt-4 text-sm text-gray-600">
+    <footer className={`mt-8 border-t pt-4 text-sm text-gray-600 ${className}`}>
       <p className="mb-2 font-semibold">แหล่งที่มาของข้อมูล :</p>
       <ul className="space-y-3">
         {items.map((s) => (

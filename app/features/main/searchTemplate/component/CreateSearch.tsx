@@ -27,16 +27,23 @@ type ProvinceItem = {
   Region_VaccineRollout_MOPH?: string | null;
 };
 
+type Disease = {
+  code: string;       // D01
+  name_th: string;    // ไข้หวัดใหญ่
+  name_en: string;    // Influenza
+};
+
+// สีอัตโนมัติของโรค (อิงชื่อภาษาไทยที่ฐานข้อมูลมี)
 const DISEASE_COLOR: Record<string, string> = {
   "ไข้หวัดใหญ่": "#E89623",
-  "โควิด-19": "#EF4444",
-  "ฝีดาษลิง": "#8B5CF6",
+  "ไข้เลือดออก": "#EF4444",
+  "โรคฝีดาษลิง": "#8B5CF6",
 };
 
 const SearchCreate = () => {
   const router = useRouter();
 
-  // ----------------- Provinces from JSON -----------------
+  // ---------- Provinces from JSON ----------
   const [provinces, setProvinces] = useState<string[]>([]);
   const [provLoading, setProvLoading] = useState(true);
   const [provErr, setProvErr] = useState<string | null>(null);
@@ -46,9 +53,7 @@ const SearchCreate = () => {
       try {
         setProvLoading(true);
         setProvErr(null);
-        const res = await fetch("/data/Thailand-ProvinceName.json", {
-          cache: "force-cache",
-        });
+        const res = await fetch("/data/Thailand-ProvinceName.json", { cache: "force-cache" });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data: ProvinceItem[] = await res.json();
         const names = data.map((p) => p.ProvinceNameThai).filter(Boolean);
@@ -62,17 +67,54 @@ const SearchCreate = () => {
       }
     })();
   }, []);
-  // -------------------------------------------------------
+  // ----------------------------------------
+
+  // ---------- Diseases from DB ----------
+  const [diseases, setDiseases] = useState<Disease[]>([]);
+  const [dzLoading, setDzLoading] = useState(true);
+  const [dzErr, setDzErr] = useState<string | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setDzLoading(true);
+        setDzErr(null);
+        const res = await fetch("/api/diseases", { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const json = (await res.json()) as { diseases: Disease[] } | Disease[];
+        // รองรับทั้งรูป `{ diseases: [...] }` และ `[...]`
+        const rows = Array.isArray(json) ? json : json?.diseases || [];
+        setDiseases(rows);
+
+        // ตั้งค่า default ถ้ายังไม่มี (เลือกตัวแรก ถ้ามี D01 ก็จะเป็น D01)
+        if (rows.length > 0) {
+          const first = rows.find((d) => d.code === "D01") ?? rows[0];
+          setFormData((p) => ({
+            ...p,
+            disease: first.name_th,
+            color: DISEASE_COLOR[first.name_th] ?? p.color,
+          }));
+        }
+      } catch (e) {
+        console.error("โหลดโรคจากฐานข้อมูลล้มเหลว:", e);
+        setDzErr("โหลดรายชื่อโรคไม่สำเร็จ");
+      } finally {
+        setDzLoading(false);
+      }
+    })();
+  }, []);
+  // ---------------------------------------
 
   const [formData, setFormData] = useState({
     searchName: "",
     province: "", // optional
     startDate: "",
     endDate: "",
-    disease: "ไข้หวัดใหญ่",
+    // จะถูกเซ็ตหลังโหลดรายการโรค
+    disease: "", // เก็บเป็น "ชื่อไทย" เพื่อให้ schema เดิมผ่าน
     diseaseOther: "",
     diseaseProvince: "", // optional
-    color: DISEASE_COLOR["ไข้หวัดใหญ่"],
+    color: "#E89623",
   });
   const [errors, setErrors] = useState<Errors>({});
   const [submitting, setSubmitting] = useState(false);
@@ -85,19 +127,20 @@ const SearchCreate = () => {
     const { id, value } = e.target;
 
     if (id === "disease") {
-      const newDisease = value;
-      if (newDisease === "อื่น ๆ") {
+      const newDiseaseNameTh = value; // เก็บ "ชื่อไทย"
+      if (newDiseaseNameTh === "อื่น ๆ") {
         setFormData((prev) => ({
           ...prev,
-          disease: newDisease,
-          color: "#E89623",
+          disease: newDiseaseNameTh,
+          color: "#E89623", // ค่าตั้งต้นสำหรับเลือกสีเอง
+          diseaseOther: "",
         }));
       } else {
         setFormData((prev) => ({
           ...prev,
-          disease: newDisease,
+          disease: newDiseaseNameTh,
           diseaseOther: "",
-          color: DISEASE_COLOR[newDisease] ?? prev.color,
+          color: DISEASE_COLOR[newDiseaseNameTh] ?? prev.color,
         }));
       }
       return;
@@ -106,14 +149,13 @@ const SearchCreate = () => {
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
-  // แปลง ZodError -> state errors (ใช้ issues แทน errors + type-safe)
+  // แปลง ZodError -> state errors
   const zodToErrors = (err: z.ZodError<unknown>) => {
     const out: Errors = {};
     err.issues.forEach((issue) => {
       const path0 = issue.path?.[0];
       if (typeof path0 === "string") {
-        const key = path0 as keyof Errors;
-        out[key] = issue.message;
+        out[path0 as keyof Errors] = issue.message;
       }
     });
     return out;
@@ -145,7 +187,7 @@ const SearchCreate = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           searchName: formData.searchName.trim(),
-          disease: diseaseName,
+          disease: diseaseName, // ยังส่งเป็นชื่อไทย เพื่อให้ backend/schema เดิมรับได้
           province: formData.province.trim(), // optional
           diseaseProvince: formData.diseaseProvince.trim(), // optional
           startDate: formData.startDate,
@@ -211,9 +253,7 @@ const SearchCreate = () => {
               className="mt-1 w-full rounded-md border p-2 disabled:bg-gray-100"
             >
               <option value="">
-                {provLoading
-                  ? "กำลังโหลดจังหวัด..."
-                  : provErr ?? "กรุณาเลือกจังหวัด"}
+                {provLoading ? "กำลังโหลดจังหวัด..." : provErr ?? "กรุณาเลือกจังหวัด"}
               </option>
               {!provLoading &&
                 !provErr &&
@@ -244,9 +284,7 @@ const SearchCreate = () => {
                   }`}
                 />
                 {errors.startDate && (
-                  <p className="mt-1 text-xs text-red-600">
-                    {errors.startDate}
-                  </p>
+                  <p className="mt-1 text-xs text-red-600">{errors.startDate}</p>
                 )}
               </label>
 
@@ -291,9 +329,19 @@ const SearchCreate = () => {
                 errors.disease ? "border-red-500" : ""
               }`}
             >
-              <option value="ไข้หวัดใหญ่">ไข้หวัดใหญ่</option>
-              <option value="โควิด-19">โควิด-19</option>
-              <option value="ฝีดาษลิง">ฝีดาษลิง</option>
+              <option value="">
+                {dzLoading ? "กำลังโหลดโรค..." : dzErr ?? "กรุณาเลือกโรค"}
+              </option>
+
+              {!dzLoading &&
+                !dzErr &&
+                diseases.map((d) => (
+                  // value เก็บ "ชื่อไทย" เพื่อให้ schema เดิมทำงานได้
+                  <option key={d.code} value={d.name_th}>
+                    {`${d.code} — ${d.name_th} (${d.name_en})`}
+                  </option>
+                ))}
+
               <option value="อื่น ๆ">อื่น ๆ (กำหนดเอง)</option>
             </select>
             {errors.disease && (
@@ -316,9 +364,7 @@ const SearchCreate = () => {
                 }`}
               />
               {errors.diseaseOther && (
-                <p className="mt-1 text-xs text-red-600">
-                  {errors.diseaseOther}
-                </p>
+                <p className="mt-1 text-xs text-red-600">{errors.diseaseOther}</p>
               )}
             </label>
           )}
@@ -334,9 +380,7 @@ const SearchCreate = () => {
               className="mt-1 w-full rounded-md border p-2 disabled:bg-gray-100"
             >
               <option value="">
-                {provLoading
-                  ? "กำลังโหลดจังหวัด..."
-                  : provErr ?? "กรุณาเลือกจังหวัด"}
+                {provLoading ? "กำลังโหลดจังหวัด..." : provErr ?? "กรุณาเลือกจังหวัด"}
               </option>
               {!provLoading &&
                 !provErr &&
@@ -347,9 +391,7 @@ const SearchCreate = () => {
                 ))}
             </select>
             {errors.diseaseProvince && (
-              <p className="mt-1 text-xs text-red-600">
-                {errors.diseaseProvince}
-              </p>
+              <p className="mt-1 text-xs text-red-600">{errors.diseaseProvince}</p>
             )}
           </label>
 
@@ -369,9 +411,7 @@ const SearchCreate = () => {
                 </p>
                 <HexColorPicker
                   color={formData.color}
-                  onChange={(color) =>
-                    setFormData((p) => ({ ...p, color }))
-                  }
+                  onChange={(color) => setFormData((p) => ({ ...p, color }))}
                   className="mt-3"
                 />
               </>
