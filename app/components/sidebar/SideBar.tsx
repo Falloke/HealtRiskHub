@@ -1,9 +1,9 @@
 // E:\HealtRiskHub\app\components\sidebar\SideBar.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { CalendarIcon, Plus } from "lucide-react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useDashboardStore } from "@/store/useDashboardStore";
 
 interface Province {
@@ -30,16 +30,36 @@ type SavedSearch = {
   createdAt: string;
 };
 
-const CREATE_SEARCH_PATH = "/search-template";
+// ---------- ตัวนอก: เช็ค path แล้วค่อย render ตัวใน ----------
+export default function Sidebar() {
+  const pathname = usePathname();
 
-const Sidebar = () => {
+  // ✅ ระบุหน้าที่ไม่ต้องการให้แสดง Sidebar
+  const HIDE_PREFIXES = [
+    "/login",
+    "/register",
+    "/profile",
+    "/editprofile",
+    "/history",
+    "/search-template",
+    "/search",
+  ];
+  const p = pathname || "";
+  const shouldHide = HIDE_PREFIXES.some((prefix) => p.startsWith(prefix));
+
+  if (shouldHide) return null;
+  return <SidebarInner />;
+}
+
+// ---------- ตัวใน: รวม hook ทั้งหมดไว้ที่นี่ ----------
+function SidebarInner() {
   const [provinces, setProvinces] = useState<Province[]>([]);
   const [diseases, setDiseases] = useState<Disease[]>([]);
 
-  // saved searches from DB
   const [savedSearches, setSavedSearches] = useState<SavedSearch[]>([]);
   const [savedLoading, setSavedLoading] = useState(true);
   const [savedErr, setSavedErr] = useState<string | null>(null);
+  const [canSeeSaved, setCanSeeSaved] = useState(true); // ✅ ซ่อนบล็อกสำหรับผู้ไม่ได้ล็อกอิน
 
   const {
     province,
@@ -55,11 +75,39 @@ const Sidebar = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Provinces
+  const labelOf = useCallback((s: SavedSearch) => {
+    const parts: string[] = [s.searchName];
+    if (s.diseaseName) parts.push(s.diseaseName);
+    const pv = (s.provinceAlt || s.province || "").trim();
+    if (pv) parts.push(pv);
+    if (s.startDate && s.endDate) parts.push(`${s.startDate}→${s.endDate}`);
+    return parts.join(" • ");
+  }, []);
+
+  const applySavedSearch = useCallback(
+    (s: SavedSearch) => {
+      const found = diseases.find(
+        (d) => d.name_th === s.diseaseName || d.code === s.diseaseName
+      );
+      if (found) setDisease(found.code, found.name_th);
+      else if (s.diseaseName) setDisease("", s.diseaseName);
+
+      const pv = (s.provinceAlt || s.province || "").trim();
+      if (pv) setProvince(pv);
+
+      setDateRange(s.startDate || "", s.endDate || "");
+      router.push("/dashBoard");
+    },
+    [diseases, router, setDateRange, setDisease, setProvince]
+  );
+
+  // ---- โหลดจังหวัด ----
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch("/data/Thailand-ProvinceName.json");
+        const res = await fetch("/data/Thailand-ProvinceName.json", {
+          cache: "no-store",
+        });
         if (!res.ok) throw new Error("Failed to load provinces");
         const data: Province[] = await res.json();
         setProvinces(data);
@@ -69,7 +117,7 @@ const Sidebar = () => {
     })();
   }, []);
 
-  // Diseases
+  // ---- โหลดโรค ----
   useEffect(() => {
     (async () => {
       try {
@@ -90,7 +138,7 @@ const Sidebar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Sync ?disease=...
+  // ---- sync ?disease=... จาก URL ----
   useEffect(() => {
     const qsDisease = searchParams.get("disease");
     if (qsDisease && diseases.length > 0) {
@@ -99,18 +147,28 @@ const Sidebar = () => {
     }
   }, [searchParams, diseases, setDisease]);
 
-  // Load saved searches (DB)
+  // ---- โหลด saved searches จาก DB ----
   useEffect(() => {
     (async () => {
       try {
         setSavedLoading(true);
         setSavedErr(null);
         const res = await fetch("/api/saved-searches", { cache: "no-store" });
+
+        // ⛔️ ถ้า 401 แปลว่ายังไม่ล็อกอิน → ซ่อนบล็อก และไม่ตั้งค่า error
+        if (res.status === 401) {
+          setCanSeeSaved(false);
+          setSavedLoading(false);
+          return;
+        }
+
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
         const json = await res.json();
         setSavedSearches(json as SavedSearch[]);
       } catch (e) {
         console.error("load saved searches error:", e);
+        // ✅ แสดง error เฉพาะกรณีที่ดูได้ (ล็อกอินแล้ว)
         setSavedErr("โหลดรายการค้นหาที่บันทึกไว้ไม่สำเร็จ");
       } finally {
         setSavedLoading(false);
@@ -118,19 +176,12 @@ const Sidebar = () => {
     })();
   }, []);
 
-  const labelOf = (s: SavedSearch) => {
-    const parts = [s.searchName];
-    if (s.diseaseName) parts.push(s.diseaseName);
-    const pv = s.provinceAlt || s.province;
-    if (pv) parts.push(pv);
-    if (s.startDate && s.endDate) parts.push(`${s.startDate}→${s.endDate}`);
-    return parts.join(" • ");
-  };
-
-  const goCreate = () => router.push(CREATE_SEARCH_PATH);
+  const goCreate = useCallback(() => {
+    router.push("/search-template");
+  }, [router]);
 
   return (
-    <aside className="flex w-full max-w-xs flex-col gap-4 bg-pink-100 px-4 py-6">
+    <aside className="flex w/full max-w-xs flex-col gap-4 bg-pink-100 px-4 py-6">
       {/* โรค */}
       <div>
         <label className="mb-1 block text-sm">เลือกโรค</label>
@@ -189,7 +240,7 @@ const Sidebar = () => {
             onChange={(e) => setDateRange(e.target.value, end_date)}
             className="w-full rounded-full bg-white px-4 py-2 pl-10 text-sm outline-none"
           />
-          <CalendarIcon className="absolute top-2.5 left-3 h-4 w-4 text-gray-500" />
+          <CalendarIcon className="absolute left-3 top-2.5 h-4 w-4 text-gray-500" />
         </div>
         <div className="relative">
           <input
@@ -198,66 +249,80 @@ const Sidebar = () => {
             onChange={(e) => setDateRange(start_date, e.target.value)}
             className="w-full rounded-full bg-white px-4 py-2 pl-10 text-sm outline-none"
           />
-          <CalendarIcon className="absolute top-2.5 left-3 h-4 w-4 text-gray-500" />
+          <CalendarIcon className="absolute left-3 top-2.5 h-4 w-4 text-gray-500" />
         </div>
       </div>
 
-      {/* การค้นหาที่บันทึกไว้ (จาก DB) */}
-      <div className="border-t border-pink-200 pt-3">
-        <label className="mb-1 block text-sm">การค้นหาที่บันทึกไว้</label>
+      {/* การค้นหาที่บันทึกไว้ */}
+      {canSeeSaved && (
+        <div className="border-t border-pink-200 pt-3">
+          <label className="mb-1 block text-sm">การค้นหาที่บันทึกไว้</label>
 
-        {savedLoading ? (
-          <div className="w-full rounded-full bg-white px-4 py-2 text-sm text-gray-500">
-            กำลังโหลด...
-          </div>
-        ) : savedErr ? (
-          <div className="rounded-md bg-red-50 p-3 text-sm text-red-600">
-            {savedErr}
-          </div>
-        ) : savedSearches.length > 0 ? (
-          // ✅ มีรายการ → แสดง select + ปุ่ม "+" ข้างๆ
-          <div className="flex items-center gap-2">
-            <select
-              defaultValue=""
-              onChange={(e) => {
-                const id = e.target.value;
-                if (id) router.push(`/search?id=${id}`);
-              }}
-              className="w-full flex-1 rounded-full bg-white px-4 py-2 text-sm outline-none"
-              aria-label="เลือกการค้นหาที่บันทึกไว้"
-            >
-              <option value="" disabled>
-                — เลือกการค้นหาที่บันทึก —
-              </option>
-              {savedSearches.map((s) => (
-                <option key={s.id} value={s.id}>
-                  {labelOf(s)}
+          {savedLoading ? (
+            <div className="w-full rounded-full bg-white px-4 py-2 text-sm text-gray-500">
+              กำลังโหลด...
+            </div>
+          ) : savedErr ? (
+            // ❗ แสดงเฉพาะเมื่อเข้าถึงได้ (ล็อกอินแล้ว)
+            <div className="rounded-md bg-red-50 p-3 text-sm text-red-600">
+              {savedErr}
+            </div>
+          ) : savedSearches.length > 0 ? (
+            <div className="flex items-center gap-2">
+              <select
+                defaultValue=""
+                onChange={(e) => {
+                  const id = Number(e.target.value);
+                  if (!id) return;
+                  const s = savedSearches.find((x) => x.id === id);
+                  if (!s) return;
+                  applySavedSearch(s);
+                }}
+                className="w-full flex-1 rounded-full bg-white px-4 py-2 text-sm outline-none"
+                aria-label="เลือกการค้นหาที่บันทึกไว้"
+              >
+                <option value="" disabled>
+                  — เลือกการค้นหาที่บันทึก —
                 </option>
-              ))}
-            </select>
+                {savedSearches.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {labelOf(s)}
+                  </option>
+                ))}
+              </select>
 
+              <button
+                type="button"
+                onClick={goCreate}
+                title="สร้างการค้นหาใหม่"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-pink-500 text-white shadow-sm transition hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-400"
+              >
+                <Plus className="h-4 w-4" />
+              </button>
+            </div>
+          ) : (
             <button
-              type="button"
               onClick={goCreate}
-              title="สร้างการค้นหาใหม่"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-pink-500 text-white shadow-sm transition hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-400"
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm text-pink-600 ring-1 ring-pink-300 transition hover:bg-pink-50"
             >
               <Plus className="h-4 w-4" />
+              สร้างการค้นหา
             </button>
-          </div>
-        ) : (
-          // ❌ ไม่มีรายการ → แสดงปุ่มใหญ่ให้ไปสร้าง
+          )}
+        </div>
+      )}
+
+      {/* ถ้าต้องการ CTA ชวนล็อกอินแทนการซ่อนทั้งบล็อก ให้ใช้โค้ดด้านล่างแทน */}
+      {/* {!canSeeSaved && (
+        <div className="border-t border-pink-200 pt-3">
           <button
-            onClick={goCreate}
-            className="flex w-full items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm text-pink-600 ring-1 ring-pink-300 transition hover:bg-pink-50"
+            onClick={() => router.push("/login")}
+            className="w-full rounded-full bg-white px-4 py-2 text-sm text-pink-600 ring-1 ring-pink-300 transition hover:bg-pink-50"
           >
-            <Plus className="h-4 w-4" />
-            สร้างการค้นหา
+            เข้าสู่ระบบเพื่อดูการค้นหาที่บันทึกไว้
           </button>
-        )}
-      </div>
+        </div>
+      )} */}
     </aside>
   );
-};
-
-export default Sidebar;
+}

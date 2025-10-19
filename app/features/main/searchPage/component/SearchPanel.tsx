@@ -1,3 +1,4 @@
+// E:\HealtRiskHub\app\features\main\searchPage\component\SearchPanel.tsx
 "use client";
 
 import Link from "next/link";
@@ -17,7 +18,9 @@ type Row = {
   createdAt: string;
 };
 
-// แสดงวันที่แบบไทย (หรือใช้รูปแบบเดิมได้)
+type ApiErrorResponse = { error?: string };
+
+// แสดงวันที่แบบไทย
 function fmtMMDDYYYY(iso?: string | null) {
   if (!iso) return "-";
   const d = new Date(iso);
@@ -39,6 +42,21 @@ function renderProvinces(p1?: string, p2?: string) {
   return a || b;
 }
 
+// ---------- helpers สำหรับจัดการ error แบบ type-safe ----------
+function isAbortError(err: unknown): boolean {
+  if (typeof DOMException !== "undefined" && err instanceof DOMException) {
+    return err.name === "AbortError";
+  }
+  return typeof err === "object" && err !== null && "name" in err && (err as { name?: unknown }).name === "AbortError";
+}
+
+function toErrorMessage(err: unknown): string {
+  if (err instanceof Error) return err.message;
+  if (typeof err === "string") return err;
+  return "unknown";
+}
+// -------------------------------------------------------------
+
 export default function SearchPanel() {
   const sp = useSearchParams();
   const createdId = useMemo(() => Number(sp.get("id") ?? ""), [sp]);
@@ -49,27 +67,44 @@ export default function SearchPanel() {
 
   useEffect(() => {
     const ac = new AbortController();
+
     (async () => {
       try {
         setLoading(true);
         setErr(null);
+
         const res = await fetch("/api/saved-searches", {
           method: "GET",
           cache: "no-store",
           signal: ac.signal,
         });
-        if (!res.ok) {
-          const e = await res.json().catch(() => ({}));
-          throw new Error(e?.error || "load failed");
+
+        // 401: ยังไม่ล็อกอิน
+        if (res.status === 401) {
+          setErr("Unauthorized");
+          setRows([]);
+          return;
         }
-        const data: Row[] = await res.json();
+
+        if (!res.ok) {
+          let apiErr: ApiErrorResponse | null = null;
+          try {
+            apiErr = (await res.json()) as ApiErrorResponse;
+          } catch {
+            /* ignore body parse error */
+          }
+          throw new Error(apiErr?.error ?? `HTTP ${res.status}`);
+        }
+
+        const data = (await res.json()) as Row[];
         setRows(data);
-      } catch (e: any) {
-        if (e?.name !== "AbortError") setErr(e?.message || "โหลดข้อมูลล้มเหลว");
+      } catch (e: unknown) {
+        if (!isAbortError(e)) setErr(toErrorMessage(e) || "โหลดข้อมูลล้มเหลว");
       } finally {
         setLoading(false);
       }
     })();
+
     return () => ac.abort();
   }, []);
 
@@ -83,12 +118,17 @@ export default function SearchPanel() {
     try {
       const res = await fetch(`/api/saved-searches?id=${id}`, { method: "DELETE" });
       if (!res.ok) {
-        // rollback ถ้าลบไม่สำเร็จ
-        setRows(prev);
-        const j = await res.json().catch(() => ({}));
+        setRows(prev); // rollback
+        let j: ApiErrorResponse | null = null;
+        try {
+          j = (await res.json()) as ApiErrorResponse;
+        } catch {
+          /* ignore */
+        }
         alert(j?.error || "ลบไม่สำเร็จ");
       }
     } catch {
+      // ✅ ไม่ประกาศตัวแปร error เพื่อไม่ให้ ESLint ฟ้อง no-unused-vars
       setRows(prev);
       alert("ลบไม่สำเร็จ");
     }

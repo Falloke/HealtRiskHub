@@ -1,11 +1,19 @@
 // E:\HealtRiskHub\app\components\navbar\AuthNavBar.tsx
 "use client";
+
 import { useState } from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import {
-  ChevronDown, LogOut, Search, Settings, User,
-  Shield, LayoutDashboard, Users as UsersIcon, Stethoscope
+  ChevronDown,
+  LogOut,
+  Search,
+  Settings,
+  User,
+  Shield,
+  LayoutDashboard,
+  Users as UsersIcon,
+  Stethoscope,
 } from "lucide-react";
 
 const AuthNavBar = () => {
@@ -32,11 +40,14 @@ const AuthNavBar = () => {
           <Link href="/provincialInfo">ข้อมูลรายจังหวัด</Link>
           <Link href="/compareInfo">เปรียบเทียบข้อมูล</Link>
 
-          {/* ⬇️ เมนูเฉพาะแอดมิน บนแถบซ้าย (ถ้าอยากแสดง) */}
+          {/* เมนูเฉพาะแอดมิน บนแถบซ้าย */}
           {isAdmin && (
             <>
               <span className="mx-2 text-neutral-400">|</span>
-              <Link href="/admin" className="inline-flex items-center gap-2">
+              <Link
+                href="/admin/admindashboard"
+                className="inline-flex items-center gap-2"
+              >
                 <Shield className="h-4 w-4" />
                 หน้าผู้ดูแล
               </Link>
@@ -49,7 +60,7 @@ const AuthNavBar = () => {
       <div className="relative z-50">
         <button
           onClick={() => setOpen((v) => !v)}
-          className="flex items-center gap-2 rounded-md border bg-white px-4 py-2 cursor-pointer"
+          className="flex items-center gap-2 cursor-pointer rounded-md border bg-white px-4 py-2"
         >
           <span className="text-sm font-medium">
             {isAdmin ? "System Admin" : fullName.trim() || "บัญชีของฉัน"}
@@ -63,18 +74,21 @@ const AuthNavBar = () => {
             <Link
               href="/profile"
               className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-pink-100"
+              onClick={() => setOpen(false)}
             >
               <User className="h-4 w-4" /> โปรไฟล์ของฉัน
             </Link>
             <Link
               href="/history"
               className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-pink-100"
+              onClick={() => setOpen(false)}
             >
               <Search className="h-4 w-4" /> ประวัติการค้นหา
             </Link>
             <Link
               href="/search-template"
               className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-pink-100"
+              onClick={() => setOpen(false)}
             >
               <Settings className="h-4 w-4" /> สร้างรูปแบบการค้นหา
             </Link>
@@ -87,20 +101,23 @@ const AuthNavBar = () => {
                   สำหรับแอดมิน
                 </div>
                 <Link
-                  href="/admin"
+                  href="/admin/admindashboard"
                   className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-pink-100"
+                  onClick={() => setOpen(false)}
                 >
                   <LayoutDashboard className="h-4 w-4" /> แดชบอร์ดแอดมิน
                 </Link>
                 <Link
                   href="/admin/users"
                   className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-pink-100"
+                  onClick={() => setOpen(false)}
                 >
                   <UsersIcon className="h-4 w-4" /> จัดการผู้ใช้งาน
                 </Link>
                 <Link
                   href="/admin/diseases"
                   className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-pink-100"
+                  onClick={() => setOpen(false)}
                 >
                   <Stethoscope className="h-4 w-4" /> จัดการข้อมูลโรค
                 </Link>
@@ -111,7 +128,10 @@ const AuthNavBar = () => {
             <button
               type="button"
               className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-red-600 hover:bg-pink-100"
-              onClick={() => signOut()}
+              onClick={() => {
+                setOpen(false);
+                signOut();
+              }}
             >
               <LogOut className="h-4 w-4" /> ออกจากระบบ
             </button>

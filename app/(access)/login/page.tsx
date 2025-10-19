@@ -1,34 +1,42 @@
+// app/(access)/login/page.tsx
 "use client";
 
 import Image from "next/image";
-import { Input } from "@/app/components/ui/input";
 import { Button } from "@/app/components/ui/button";
-import { useAuthStore } from "@/store/useAuthStore"; // Assuming you have an auth store to manage user state
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  // const { setUser } = useAuthStore();
-  // setUser({ name: "Pimonpan Doungtip", email: "pimonpandt@gmail.com" });
-
-  const [error, setError] = useState<string>();
+  const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const onLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+    setError(null);
+    setLoading(true);
+
+    const form = new FormData(e.currentTarget);
+    const email = String(form.get("email") || "");
+    const password = String(form.get("password") || "");
 
     const res = await signIn("credentials", {
-      redirect: false,
-      email: formData.get("email"),
-      password: formData.get("password"),
+      redirect: false,          // เราจะนำทางเอง
+      email,
+      password,
+      callbackUrl: "/",         // เผื่อใช้ res.url
     });
-    
-    if (res?.error) {
+
+    setLoading(false);
+
+    if (!res || res.error) {
       setError("Invalid username or password");
-    } else {
-      redirect("/");
+      return;
     }
+
+    // สำเร็จ → นำทางไปหน้าหลัก
+    router.replace(res.url ?? "/");
   };
 
   return (
@@ -37,30 +45,38 @@ export default function LoginPage() {
         <div className="flex w-1/2 items-center justify-center bg-pink-100">
           <Image src="/images/login.png" alt="Login" width={400} height={400} />
         </div>
+
         <div className="w-1/2 p-10">
-          <h2 className="text-primary-pink mb-8 text-center text-3xl font-bold">
+          <h2 className="mb-8 text-center text-3xl font-bold text-pink-700">
             เข้าสู่ระบบ
           </h2>
-          <form className="space-y-6" onSubmit={onLogin}>
-            {/* <Input placeholder="Email" type="email" />
-            <Input placeholder="Password" type="password" value={formData.email} onChange={(e) => setFormData({...formData, email:e.currentTarget.value})}/> */}
 
+          <form className="space-y-6" onSubmit={onLogin}>
             <input
-              className="border-input focus-visible:ring-primary-pink flex h-10 w-full rounded-md border bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-400 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+              className="border-input focus-visible:ring-primary-pink flex h-10 w-full rounded-md border bg-white px-3 py-2 text-sm placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
               type="email"
               placeholder="Email"
               name="email"
+              required
+              autoComplete="email"
             />
             <input
-              className="border-input focus-visible:ring-primary-pink flex h-10 w-full rounded-md border bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-400 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+              className="border-input focus-visible:ring-primary-pink flex h-10 w-full rounded-md border bg-white px-3 py-2 text-sm placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
               type="password"
               name="password"
               placeholder="Password"
+              required
+              autoComplete="current-password"
             />
-            {error && <div className="text-red-500">{error}</div>}
+
+            {error && <div className="text-sm text-red-600">{error}</div>}
+
             <div className="text-center">
-              <Button className="hover:bg-primary-pink w-full bg-pink-500 text-white">
-                เข้าสู่ระบบ
+              <Button
+                className="w-full bg-pink-500 text-white hover:bg-pink-600"
+                disabled={loading}
+              >
+                {loading ? "กำลังเข้าสู่ระบบ…" : "เข้าสู่ระบบ"}
               </Button>
             </div>
           </form>
