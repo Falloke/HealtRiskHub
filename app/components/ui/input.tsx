@@ -1,3 +1,4 @@
+// app/components/ui/input.tsx
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
@@ -23,10 +24,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
-
 Input.displayName = "Input";
 
-// InputWithLabel อยู่ในไฟล์เดียวกัน ไม่ใช้ Label component จากข้างนอก
+// ใช้ named export อย่างเดียวสำหรับตัวนี้
 export const InputWithLabel = React.forwardRef<HTMLInputElement, InputProps>(
   ({ id, label, error, containerClassName, className, ...props }, ref) => {
     return (
@@ -39,7 +39,11 @@ export const InputWithLabel = React.forwardRef<HTMLInputElement, InputProps>(
         <input
           id={id}
           ref={ref}
-          className={cn("border-input focus-visible:ring-primary-pink flex h-10 w-full rounded-md border bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-400 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",error && "border-red-500", className)}
+          className={cn(
+            "border-input focus-visible:ring-primary-pink flex h-10 w-full rounded-md border bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-400 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+            error && "border-red-500",
+            className
+          )}
           {...props}
         />
         {error && <p className="text-sm text-red-500">{error}</p>}
@@ -47,7 +51,7 @@ export const InputWithLabel = React.forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
-
 InputWithLabel.displayName = "InputWithLabel";
 
-export { Input, InputWithLabel };
+// ✅ export แบบไม่ซ้ำ
+export default Input;

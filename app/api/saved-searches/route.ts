@@ -7,27 +7,36 @@ import { z } from "zod";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-// ---------- Schema สำหรับ validate body ----------
-const createSchema = z.object({
-  searchName: z.string().trim().min(1, "กรุณากรอกชื่อการค้นหา"),
-  disease: z.string().trim().min(1, "กรุณาระบุชื่อโรค"),
-  province: z.string().trim().optional().nullable(),
-  diseaseProvince: z.string().trim().optional().nullable(),
-  startDate: z.string().date("รูปแบบวันที่ไม่ถูกต้อง").optional().nullable(),
-  endDate: z.string().date("รูปแบบวันที่ไม่ถูกต้อง").optional().nullable(),
-  color: z
-    .string()
-    .regex(/^#[0-9a-fA-F]{6}$/, "สีต้องเป็น #RRGGBB")
-    .optional()
-    .nullable(),
-})
-.refine(
-  (v) => {
-    if (!v.startDate || !v.endDate) return true;
-    return new Date(v.startDate) <= new Date(v.endDate);
-  },
-  { message: "วันเริ่มต้นต้องไม่เกินวันสิ้นสุด", path: ["endDate"] }
-);
+/** helper: แปลง "", null, undefined -> undefined (ให้ zod จัดการง่าย) */
+const emptyToUndef = (v: unknown) =>
+  v === "" || v === null || v === undefined ? undefined : v;
+
+/** วันที่แบบสตริง YYYY-MM-DD */
+const dateStr = z
+  .string()
+  .regex(/^\d{4}-\d{2}-\d{2}$/, "รูปแบบวันที่ต้องเป็น YYYY-MM-DD");
+
+const createSchema = z
+  .object({
+    searchName: z.string().trim().min(1, "กรุณากรอกชื่อการค้นหา"),
+    disease: z.string().trim().min(1, "กรุณาระบุชื่อโรค"),
+
+    province: z.preprocess(emptyToUndef, z.string().trim().optional()),
+    diseaseProvince: z.preprocess(emptyToUndef, z.string().trim().optional()),
+
+    startDate: z.preprocess(emptyToUndef, dateStr.optional()),
+    endDate: z.preprocess(emptyToUndef, dateStr.optional()),
+
+    color: z
+      .preprocess(emptyToUndef, z.string().regex(/^#[0-9a-fA-F]{6}$/, "สีต้องเป็น #RRGGBB").optional()),
+  })
+  .refine(
+    (v) => {
+      if (!v.startDate || !v.endDate) return true;
+      return new Date(v.startDate) <= new Date(v.endDate);
+    },
+    { message: "วันเริ่มต้นต้องไม่เกินวันสิ้นสุด", path: ["endDate"] }
+  );
 
 // ---------- GET: รายการทั้งหมดหรือรายการเดียว (ผ่าน ?id=) ----------
 export async function GET(req: NextRequest) {
@@ -37,9 +46,8 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // ใช้ id ตรง ๆ จาก session (ปลอดภัยกว่าอาศัย email)
-    const userId = Number(session.user.id);
-    if (!userId) {
+    const userIdNum = Number(session.user.id);
+    if (!userIdNum) {
       return NextResponse.json({ error: "Invalid session userId" }, { status: 400 });
     }
 
@@ -56,7 +64,7 @@ export async function GET(req: NextRequest) {
       }
 
       const row = await prisma.savedSearch.findFirst({
-        where: { id: idBig, userId },
+        where: { id: idBig, userId: userIdNum },
       });
       if (!row) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
@@ -67,8 +75,8 @@ export async function GET(req: NextRequest) {
           diseaseName: row.diseaseName ?? "",
           province: row.province ?? "",
           provinceAlt: row.provinceAlt ?? "",
-          startDate: row.startDate ? row.startDate.toISOString().split("T")[0] : "",
-          endDate: row.endDate ? row.endDate.toISOString().split("T")[0] : "",
+          startDate: row.startDate ? row.startDate.toISOString().slice(0, 10) : "",
+          endDate: row.endDate ? row.endDate.toISOString().slice(0, 10) : "",
           color: row.color ?? "",
           createdAt: row.createdAt.toISOString(),
         },
@@ -78,8 +86,9 @@ export async function GET(req: NextRequest) {
 
     // ดึงทั้งหมดของผู้ใช้
     const rows = await prisma.savedSearch.findMany({
-      where: { userId },
+      where: { userId: userIdNum },
       orderBy: { createdAt: "desc" },
+      take: 200,
     });
 
     const data = rows.map((r) => ({
@@ -88,8 +97,8 @@ export async function GET(req: NextRequest) {
       diseaseName: r.diseaseName ?? "",
       province: r.province ?? "",
       provinceAlt: r.provinceAlt ?? "",
-      startDate: r.startDate ? r.startDate.toISOString().split("T")[0] : "",
-      endDate: r.endDate ? r.endDate.toISOString().split("T")[0] : "",
+      startDate: r.startDate ? r.startDate.toISOString().slice(0, 10) : "",
+      endDate: r.endDate ? r.endDate.toISOString().slice(0, 10) : "",
       color: r.color ?? "",
       createdAt: r.createdAt.toISOString(),
     }));
@@ -108,8 +117,9 @@ export async function POST(req: NextRequest) {
     if (!session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    const userId = Number(session.user.id);
-    if (!userId) {
+
+    const userIdNum = Number(session.user.id);
+    if (!userIdNum) {
       return NextResponse.json({ error: "Invalid session userId" }, { status: 400 });
     }
 
@@ -118,14 +128,14 @@ export async function POST(req: NextRequest) {
 
     const created = await prisma.savedSearch.create({
       data: {
-        userId,
+        userId: userIdNum,
         searchName: body.searchName,
         diseaseName: body.disease,
-        province: body.province || null,
-        provinceAlt: body.diseaseProvince || null,
+        province: body.province ?? null,
+        provinceAlt: body.diseaseProvince ?? null,
         startDate: body.startDate ? new Date(body.startDate) : null,
         endDate: body.endDate ? new Date(body.endDate) : null,
-        color: body.color || null,
+        color: body.color ?? null,
       },
     });
 
@@ -133,29 +143,34 @@ export async function POST(req: NextRequest) {
       {
         id: Number(created.id),
         searchName: created.searchName,
-        startDate: created.startDate?.toISOString().split("T")[0] ?? "",
-        endDate: created.endDate?.toISOString().split("T")[0] ?? "",
+        startDate: created.startDate?.toISOString().slice(0, 10) ?? "",
+        endDate: created.endDate?.toISOString().slice(0, 10) ?? "",
       },
       { status: 201 }
     );
-  } catch (err: any) {
-    if (err?.name === "ZodError") {
-      return NextResponse.json({ error: "Validation error", issues: err.issues }, { status: 422 });
+  } catch (err: unknown) {
+    if (err && typeof err === "object" && (err as any).name === "ZodError") {
+      const zerr = err as z.ZodError;
+      return NextResponse.json(
+        { error: "Validation error", issues: zerr.issues },
+        { status: 422 }
+      );
     }
     console.error("POST /api/saved-searches error:", err);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
 
-// ---------- DELETE: ลบของฉันเท่านั้น (soft table นี้ไม่ต้อง soft-delete) ----------
+// ---------- DELETE: ลบเฉพาะของผู้ใช้คนนั้น ----------
 export async function DELETE(req: NextRequest) {
   try {
     const session = await auth();
     if (!session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    const userId = Number(session.user.id);
-    if (!userId) {
+
+    const userIdNum = Number(session.user.id);
+    if (!userIdNum) {
       return NextResponse.json({ error: "Invalid session userId" }, { status: 400 });
     }
 
@@ -170,7 +185,7 @@ export async function DELETE(req: NextRequest) {
     }
 
     const result = await prisma.savedSearch.deleteMany({
-      where: { id: idBig, userId },
+      where: { id: idBig, userId: userIdNum },
     });
 
     if (result.count === 0) {

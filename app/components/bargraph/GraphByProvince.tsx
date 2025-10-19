@@ -1,3 +1,4 @@
+// E:\HealtRiskHub\app\components\bargraph\GraphByProvince.tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -7,10 +8,10 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  Legend,
   ResponsiveContainer,
+  LabelList,
 } from "recharts";
-import { useDashboardStore } from "@/store/useDashboardStore"; // ✅ import store
+import { useDashboardStore } from "@/store/useDashboardStore";
 
 type RegionData = {
   region: string;
@@ -18,52 +19,89 @@ type RegionData = {
   deaths: number;
 };
 
-const GraphByProvince = () => {
-  const { province, start_date, end_date } = useDashboardStore(); // ✅ ดึงค่าจาก store
+export default function GraphByProvince() {
+  const { province, start_date, end_date } = useDashboardStore();
   const [data, setData] = useState<RegionData[]>([]);
   const [loading, setLoading] = useState(true);
-
-  const [region, setRegion] = useState<string>("");
+  const [err, setErr] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    let aborted = false;
+    (async () => {
       try {
-        const url = `/api/dashBoard/region?start_date=${start_date}&end_date=${end_date}&province=${province}`;
-        const res = await fetch(url);
-
-        if (!res.ok) throw new Error("ไม่สามารถโหลดข้อมูลได้");
-
-        const json = await res.json();
-        setData(json);
-      } catch (err) {
-        console.error("❌ Fetch error:", err);
+        setLoading(true);
+        setErr(null);
+        const url = `/api/dashBoard/region?start_date=${encodeURIComponent(
+          start_date
+        )}&end_date=${encodeURIComponent(end_date)}&province=${encodeURIComponent(
+          province || ""
+        )}`;
+        const res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const json = (await res.json()) as RegionData[];
+        if (!aborted) setData(json ?? []);
+      } catch (e) {
+        if (!aborted) setErr("ไม่สามารถโหลดข้อมูลได้");
+        console.error("[GraphByProvince] fetch error:", e);
       } finally {
-        setLoading(false);
+        if (!aborted) setLoading(false);
       }
+    })();
+    return () => {
+      aborted = true;
     };
+  }, [province, start_date, end_date]);
 
-    fetchData();
-  }, [province, start_date, end_date]); // ✅ ตอนนี้ตัวแปรถูกประกาศแล้ว
+  const ChartCard = ({
+    title,
+    dataKey,
+    color,
+    height = 320,
+  }: {
+    title: string;
+    dataKey: keyof RegionData;
+    color: string;
+    height?: number;
+  }) => (
+    <section className="rounded-lg border bg-white p-4 shadow-sm">
+      <h4 className="mb-3 font-bold">{title}</h4>
+      <ResponsiveContainer width="100%" height={height}>
+        <BarChart data={data} layout="vertical" margin={{ top: 4, right: 24, bottom: 0, left: 8 }}>
+          <XAxis type="number" />
+          <YAxis type="category" dataKey="region" width={90} />
+          <Tooltip />
+          <Bar dataKey={dataKey} fill={color} radius={[4, 4, 4, 4]}>
+            {/* ตัวเลขที่ปลายแท่ง (อ่านง่าย ไม่เกะกะ) */}
+            <LabelList dataKey={dataKey} position="right" offset={6} fontSize={12} />
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+      <div className="mt-2 flex items-center gap-2 text-sm text-gray-600">
+        <span className="inline-block h-3 w-3 rounded" style={{ background: color }} />
+        <span>{title}</span>
+      </div>
+    </section>
+  );
 
   return (
-    <div className="rounded-md bg-white p-4 shadow-md">
-      <h4 className="mb-2 font-bold">ผู้ป่วยสะสม รายภูมิภาค</h4>
+    <div className="space-y-6">
       {loading ? (
-        <p>⏳ กำลังโหลดข้อมูล...</p>
+        <div className="rounded-lg border bg-white p-4 text-gray-600">⏳ กำลังโหลดข้อมูล...</div>
+      ) : err ? (
+        <div className="rounded-lg border bg-white p-4 text-red-600">{err}</div>
+      ) : data.length === 0 ? (
+        <div className="rounded-lg border bg-white p-4 text-gray-600">
+          ไม่มีข้อมูลสำหรับช่วงเวลาที่เลือก
+        </div>
       ) : (
-        <ResponsiveContainer width="100%" height={400}>
-          <BarChart data={data} layout="vertical">
-            <XAxis type="number" />
-            <YAxis type="category" dataKey="region" />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="patients" fill="#FF7043" name="ผู้ป่วยสะสม" />
-            <Bar dataKey="deaths" fill="#9C27B0" name="ผู้เสียชีวิตสะสม" />
-          </BarChart>
-        </ResponsiveContainer>
+        <>
+          {/* กราฟบน: ผู้ป่วยสะสม */}
+          <ChartCard title="ผู้ป่วยสะสม รายภูมิภาค" dataKey="patients" color="#FF7043" />
+
+          {/* กราฟล่าง: ผู้เสียชีวิตสะสม */}
+          <ChartCard title="ผู้เสียชีวิตสะสม รายภูมิภาค" dataKey="deaths" color="#9C27B0" />
+        </>
       )}
     </div>
   );
-};
-
-export default GraphByProvince;
+}

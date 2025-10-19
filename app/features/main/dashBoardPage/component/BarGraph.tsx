@@ -8,6 +8,7 @@ import GraphByGenderPatients from "@/app/components/bargraph/GraphByGenderPatien
 import GraphByGenderDeaths from "@/app/components/bargraph/GraphByGenderDeaths";
 import GraphByGenderTrend from "@/app/components/linegraph/GraphByGenderTrend";
 
+
 const BarGraph = () => {
   return (
     <div className="grid grid-cols-2 gap-4">
