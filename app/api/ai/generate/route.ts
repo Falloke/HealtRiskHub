@@ -90,7 +90,6 @@ export async function POST(req: Request) {
 
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
     const model = genAI.getGenerativeModel({ model: MODEL_ID });
-
     const basePrompt = `System:\n${SYS_PROMPT}\n\nUser:\n${makeUserPrompt(payload)}`;
 
     // เรียกครั้งที่ 1
