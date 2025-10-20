@@ -23,22 +23,22 @@ const AuthNavBar = () => {
   const fullName =
     (session?.user?.first_name ?? "") + " " + (session?.user?.last_name ?? "");
 
-  const role = session?.user?.role?.toLowerCase(); // "admin" | "user" | undefined
+  const role = session?.user?.role?.toLowerCase();
   const isAdmin = role === "admin";
 
   return (
-    <nav className="flex items-center justify-between bg-pink-200 px-6 py-4 shadow-md">
+    <nav className="sticky top-0 inset-x-0 z-50 flex items-center justify-between bg-pink-200/95 px-6 py-4 shadow-md backdrop-blur supports-[backdrop-filter]:bg-pink-200/80">
       {/* ซ้าย: โลโก้ + เมนูหลัก */}
       <div className="flex items-center gap-8">
-        <Link href="/" className="text-2xl font-bold text-pink-700">
+        <Link href="/" className="text-2xl font-bold text-pink-700 hover:opacity-90">
           HealtRiskHub
         </Link>
 
         <div className="hidden gap-6 text-sm font-medium text-gray-800 md:flex">
-          <Link href="/">หน้าแรก</Link>
-          <Link href="/dashBoard">ข้อมูลภาพรวม</Link>
-          <Link href="/provincialInfo">ข้อมูลรายจังหวัด</Link>
-          <Link href="/compareInfo">เปรียบเทียบข้อมูล</Link>
+          <Link href="/" className="hover:opacity-90">หน้าแรก</Link>
+          <Link href="/dashBoard" className="hover:opacity-90">ข้อมูลภาพรวม</Link>
+          <Link href="/provincialInfo" className="hover:opacity-90">ข้อมูลรายจังหวัด</Link>
+          <Link href="/compareInfo" className="hover:opacity-90">เปรียบเทียบข้อมูล</Link>
 
           {/* เมนูเฉพาะแอดมิน บนแถบซ้าย */}
           {isAdmin && (
@@ -46,7 +46,7 @@ const AuthNavBar = () => {
               <span className="mx-2 text-neutral-400">|</span>
               <Link
                 href="/admin/admindashboard"
-                className="inline-flex items-center gap-2"
+                className="inline-flex items-center gap-2 hover:opacity-90"
               >
                 <Shield className="h-4 w-4" />
                 หน้าผู้ดูแล
@@ -60,7 +60,7 @@ const AuthNavBar = () => {
       <div className="relative z-50">
         <button
           onClick={() => setOpen((v) => !v)}
-          className="flex items-center gap-2 cursor-pointer rounded-md border bg-white px-4 py-2"
+          className="flex cursor-pointer items-center gap-2 rounded-md border bg-white px-4 py-2"
         >
           <span className="text-sm font-medium">
             {isAdmin ? "System Admin" : fullName.trim() || "บัญชีของฉัน"}
@@ -69,7 +69,7 @@ const AuthNavBar = () => {
         </button>
 
         {open && (
-          <div className="absolute right-0 z-50 mt-2 w-64 rounded border bg-white shadow-lg">
+          <div className="absolute right-0 mt-2 w-64 rounded border bg-white shadow-lg">
             {/* เมนูทั่วไป */}
             <Link
               href="/profile"

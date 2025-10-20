@@ -1,53 +1,69 @@
+// E:\HealtRiskHub\app\features\main\homePage\component\Pagedes.tsx
 "use client";
-import { Button } from "@/app/components/ui/button";
+
 import dynamic from "next/dynamic";
 import SourceInfo from "app/features/main/dashBoardPage/component/SourceInfo";
 import GraphByProvince from "@/app/components/bargraph/GraphByProvince";
 
 const HomeMapInner = dynamic(() => import("./HomeMapInner"), { ssr: false });
 
-const PageDescription = () => {
-  console.log("📌 Rerender description");
-
+export default function PageDescription() {
   return (
-    <div>
-      <h1 className="mb-4 text-2xl font-bold">
-        ระบบวิเคราะห์โรคระบาดระดับจังหวัดในประเทศไทย
-      </h1>
-      <div className="m-4 flex gap-4">
-        <div className="flex-col-2 flex">
-          <div className="max-w-2xl text-lg text-black">
-            <p className="mb-3">
-              ระบบวิเคราะห์โรคระบาดระดับจังหวัดคือระบบเว็บแอปพลิเคชันที่ออกแบบมาเพื่อรวบรวม
-              วิเคราะห์ และนำเสนอข้อมูลโรคระบาดในระดับจังหวัดของประเทศไทย
-              ผู้ใช้งานสามารถค้นหาเชื้อโรคเพื่อศึกษาลักษณะโรค วิธีป้องกัน
-              และดูแนวโน้มการระบาดในแต่ละพื้นที่
-              นอกจากนี้ยังสามารถสร้างคำอธิบายกราฟอัตโนมัติด้วย AI
-              เพื่อเพิ่มความเข้าใจแก่ผู้ใช้งานที่ไม่มีพื้นฐานด้านข้อมูล
-            </p>
-            <GraphByProvince />
-            <SourceInfo />
-            <Button>บันทึก</Button>
-            <Button variant="secondary" size="lg">
-              ย้อนกลับ
-            </Button>
-            <Button variant="danger" size="sm">
-              ลบ
-            </Button>
-            <Button variant="outline" size="full">
-              เปรียบเทียบข้อมูล
-            </Button>
-          </div>
-        </div>
-        {/* ----- */}
-        <div className="flex w-full flex-col">
-          <h2 className="mb-4 text-2xl font-bold">แผนที่โรคระบาด</h2>
-          <HomeMapInner />
+    <div className="mx-auto w-full max-w-[1600px] space-y-5 px-3 md:px-4">
+      {/* Hero: ไม่มีเส้น + ไล่สีบาง ๆ */}
+      <header className="rounded-xl bg-gradient-to-r from-pink-50 to-white p-5 md:p-6">
+        <h1 className="text-xl font-bold text-neutral-900 md:text-2xl">
+          ระบบวิเคราะห์โรคระบาดระดับจังหวัดในประเทศไทย
+        </h1>
+        <p className="mt-2 max-w-4xl text-sm leading-6 text-neutral-700">
+          ระบบเว็บแอปพลิเคชันสำหรับรวบรวม วิเคราะห์ และนำเสนอข้อมูลโรคระบาดในระดับจังหวัด …
+        </p>
+      </header>
 
-          {/* <MapClient /> */}
-        </div>
+      {/* Main grid */}
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[3fr_2fr]">
+        {/* Left */}
+        <section className="space-y-5">
+          <div className="card p-4 md:p-5">
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="text-base font-semibold text-neutral-900">
+                ผู้ป่วยสะสมรายภูมิภาค
+              </h2>
+            </div>
+            <GraphByProvince />
+          </div>
+
+          <div className="card p-4 md:p-5">
+            <h2 className="mb-3 text-base font-semibold text-neutral-900">
+              แหล่งข้อมูลอ้างอิง
+            </h2>
+            <SourceInfo />
+          </div>
+        </section>
+
+        {/* Right — แผนที่ */}
+        <aside className="card p-4 md:p-5">
+          <h2 className="mb-3 text-base font-semibold text-neutral-900">
+            แผนที่โรคระบาด
+          </h2>
+          <HomeMapInner />
+        </aside>
       </div>
+
+      {/* scoped styles: กรอบเรียบ ๆ ไม่มีเอฟเฟกต์สีตอน hover */}
+      <style jsx>{`
+        .card {
+          position: relative;
+          border-radius: 12px;        /* rounded-xl */
+          background: #fff;
+          border: 1px solid #e5e7eb;  /* neutral-200 */
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+          transition: box-shadow 0.2s ease; /* แค่เงาเบาๆ */
+        }
+        .card:hover {
+          box-shadow: 0 6px 14px rgba(0, 0, 0, 0.07);
+        }
+      `}</style>
     </div>
   );
-};
-export default PageDescription;
+}
