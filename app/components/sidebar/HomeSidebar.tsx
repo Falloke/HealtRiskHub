@@ -1,28 +1,21 @@
-// E:\HealtRiskHub\app\components\sidebar\SideBar.tsx
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
 import { CalendarIcon, Plus } from "lucide-react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useDashboardStore } from "@/store/useDashboardStore";
 
-interface Province {
-  ProvinceNo: number;
-  ProvinceNameThai: string;
-  Region_VaccineRollout_MOPH?: string | null;
-}
-
 type Disease = {
-  code: string;
-  name_th: string;
-  name_en: string;
+  code: string;       // เช่น D01
+  name_th: string;    // ชื่อไทย
+  name_en: string;    // อังกฤษ
 };
 
 type SavedSearch = {
   id: number;
   searchName: string;
-  diseaseName: string;
-  province: string;
+  diseaseName: string;  // ชื่อโรค (ไทย) หรือ code เดิม
+  province: string;     // (มีมาก็เก็บไว้เฉยๆ ไม่แสดงใน HomeSidebar)
   provinceAlt: string;
   startDate: string;
   endDate: string;
@@ -30,96 +23,57 @@ type SavedSearch = {
   createdAt: string;
 };
 
-// ---------- ตัวนอก: เช็ค path แล้วค่อย render ตัวใน ----------
-export default function Sidebar() {
-  const pathname = usePathname() || "";
-
-  // ✅ หน้าที่ "ไม่ให้แสดง Sidebar หลัก"
-  const HIDE_PREFIXES = [
-    "/login",
-    "/register",
-    "/profile",
-    "/editprofile",
-    "/history",
-    "/search-template",
-    "/search",
-    "/home", // route ชื่อ /home
-  ];
-  const HIDE_EXACT = ["/"]; // ✅ หน้าแรก (root) ซ่อนด้วย
-
-  const shouldHide =
-    HIDE_EXACT.includes(pathname) ||
-    HIDE_PREFIXES.some((prefix) => pathname.startsWith(prefix));
-
-  if (shouldHide) return null;
-  return <SidebarInner />;
-}
-
-// ---------- ตัวใน: รวม hook ทั้งหมดไว้ที่นี่ ----------
-function SidebarInner() {
-  const [provinces, setProvinces] = useState<Province[]>([]);
-  const [diseases, setDiseases] = useState<Disease[]>([]);
-
-  const [savedSearches, setSavedSearches] = useState<SavedSearch[]>([]);
-  const [savedLoading, setSavedLoading] = useState(true);
-  const [savedErr, setSavedErr] = useState<string | null>(null);
-  const [canSeeSaved, setCanSeeSaved] = useState(true); // ✅ ซ่อนบล็อกสำหรับผู้ไม่ได้ล็อกอิน
-
+export default function HomeSidebar() {
+  // --- store จากหน้า dashboard ---
   const {
-    province,
     start_date,
     end_date,
-    setProvince,
     setDateRange,
     diseaseCode,
     diseaseNameTh,
     setDisease,
+    setProvince, // เผื่อ apply จาก saved-search (มี province ติดมา)
   } = useDashboardStore();
 
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  // --- states ---
+  const [diseases, setDiseases] = useState<Disease[]>([]);
+  const [savedSearches, setSavedSearches] = useState<SavedSearch[]>([]);
+  const [savedLoading, setSavedLoading] = useState(true);
+  const [savedErr, setSavedErr] = useState<string | null>(null);
+  const [canSeeSaved, setCanSeeSaved] = useState(true); // ถ้า 401 จะ false
+
+  // --- helper ---
   const labelOf = useCallback((s: SavedSearch) => {
     const parts: string[] = [s.searchName];
     if (s.diseaseName) parts.push(s.diseaseName);
-    const pv = (s.provinceAlt || s.province || "").trim();
-    if (pv) parts.push(pv);
     if (s.startDate && s.endDate) parts.push(`${s.startDate}→${s.endDate}`);
     return parts.join(" • ");
   }, []);
 
   const applySavedSearch = useCallback(
     (s: SavedSearch) => {
+      // 1) โรค: map จากชื่อไทย/หรือ code ที่เซฟมา
       const found = diseases.find(
         (d) => d.name_th === s.diseaseName || d.code === s.diseaseName
       );
       if (found) setDisease(found.code, found.name_th);
       else if (s.diseaseName) setDisease("", s.diseaseName);
 
+      // 2) จังหวัด (ถ้ามี ไม่แสดงใน UI แต่ยังตั้งค่าไว้ให้หน้าอื่นใช้งาน)
       const pv = (s.provinceAlt || s.province || "").trim();
       if (pv) setProvince(pv);
 
+      // 3) ช่วงวันที่
       setDateRange(s.startDate || "", s.endDate || "");
+
+      // 4) ไปหน้า Overview
       router.push("/dashBoard");
     },
     [diseases, router, setDateRange, setDisease, setProvince]
   );
-
-  // ---- โหลดจังหวัด ----
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetch("/data/Thailand-ProvinceName.json", {
-          cache: "no-store",
-        });
-        if (!res.ok) throw new Error("Failed to load provinces");
-        const data: Province[] = await res.json();
-        setProvinces(data);
-      } catch (e) {
-        console.error("Error loading provinces:", e);
-      }
-    })();
-  }, []);
 
   // ---- โหลดโรค ----
   useEffect(() => {
@@ -127,13 +81,15 @@ function SidebarInner() {
       try {
         const res = await fetch("/api/diseases", { cache: "no-store" });
         if (!res.ok) throw new Error("Failed to load diseases");
-        const data = (await res.json()) as { diseases: Disease[] };
-        setDiseases(data.diseases || []);
+        const data = (await res.json()) as { diseases: Disease[] } | Disease[];
+        const rows = Array.isArray(data) ? data : data?.diseases || [];
+        setDiseases(rows);
 
+        // ตั้ง default ถ้าไม่มีใน store และ URL ไม่ได้ระบุ
         const qsDisease = searchParams.get("disease");
-        if (!diseaseCode && !qsDisease) {
-          const d01 = data.diseases.find((d) => d.code === "D01");
-          if (d01) setDisease(d01.code, d01.name_th);
+        if (!diseaseCode && !qsDisease && rows.length) {
+          const d01 = rows.find((d) => d.code === "D01") ?? rows[0];
+          setDisease(d01.code, d01.name_th);
         }
       } catch (e) {
         console.error("Error loading diseases:", e);
@@ -151,7 +107,7 @@ function SidebarInner() {
     }
   }, [searchParams, diseases, setDisease]);
 
-  // ---- โหลด saved searches จาก DB ----
+  // ---- โหลด saved searches (ซ่อนถ้า 401) ----
   useEffect(() => {
     (async () => {
       try {
@@ -159,20 +115,17 @@ function SidebarInner() {
         setSavedErr(null);
         const res = await fetch("/api/saved-searches", { cache: "no-store" });
 
-        // ⛔️ ถ้า 401 แปลว่ายังไม่ล็อกอิน → ซ่อนบล็อก และไม่ตั้งค่า error
         if (res.status === 401) {
           setCanSeeSaved(false);
-          setSavedLoading(false);
           return;
         }
-
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-        const json = await res.json();
-        setSavedSearches(json as SavedSearch[]);
+        const json = (await res.json()) as SavedSearch[];
+        setSavedSearches(json);
       } catch (e) {
         console.error("load saved searches error:", e);
-        // ✅ แสดง error เฉพาะกรณีที่ดูได้ (ล็อกอินแล้ว)
+        // แสดง error เฉพาะผู้ที่ดูได้ (ล็อกอินแล้ว)
         setSavedErr("โหลดรายการค้นหาที่บันทึกไว้ไม่สำเร็จ");
       } finally {
         setSavedLoading(false);
@@ -180,13 +133,11 @@ function SidebarInner() {
     })();
   }, []);
 
-  const goCreate = useCallback(() => {
-    router.push("/search-template");
-  }, [router]);
+  const goCreate = () => router.push("/search-template");
 
   return (
     <aside className="flex w-full max-w-xs flex-col gap-4 bg-pink-100 px-4 py-6">
-      {/* โรค */}
+      {/* เลือกโรค */}
       <div>
         <label className="mb-1 block text-sm">เลือกโรค</label>
         <select
@@ -212,29 +163,7 @@ function SidebarInner() {
         )}
       </div>
 
-      {/* จังหวัด */}
-      <div>
-        <label className="mb-1 block text-sm">เลือกจังหวัด</label>
-        <select
-          value={province}
-          onChange={(e) => setProvince(e.target.value)}
-          className="w-full rounded-full bg-white px-4 py-2 text-sm outline-none"
-        >
-          <option value="">-- เลือกจังหวัด --</option>
-          {provinces.map((p) => (
-            <option key={p.ProvinceNo} value={p.ProvinceNameThai}>
-              {p.ProvinceNameThai}
-            </option>
-          ))}
-        </select>
-        {province && (
-          <p className="mt-1 text-sm text-gray-700">
-            จังหวัดที่เลือก: <strong>{province}</strong>
-          </p>
-        )}
-      </div>
-
-      {/* วันที่ */}
+      {/* ระยะเวลา */}
       <div>
         <label className="mb-1 block text-sm">เลือกระยะเวลา</label>
         <div className="relative mb-2">
@@ -257,7 +186,7 @@ function SidebarInner() {
         </div>
       </div>
 
-      {/* การค้นหาที่บันทึกไว้ */}
+      {/* การค้นหาที่บันทึกไว้ (ซ่อนถ้าไม่ได้ล็อกอิน) */}
       {canSeeSaved && (
         <div className="border-t border-pink-200 pt-3">
           <label className="mb-1 block text-sm">การค้นหาที่บันทึกไว้</label>

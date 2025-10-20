@@ -17,32 +17,27 @@ interface ProvinceInfo {
   name: string;
   disease: string;
   patients: number | null;
-  riskLevel: "สูงมาก" | "สูง" | "ปานกลาง" | "ต่ำ"; // ✅ 4 ระดับ
+  riskLevel: "สูงมาก" | "สูง" | "ปานกลาง" | "ต่ำ";
 }
 
-/** สีตามเกณฑ์ 4 สี */
 const RISK_META: Record<ProvinceInfo["riskLevel"], { bg: string; text: string }> = {
-  สูงมาก:   { bg: "bg-red-600",     text: "text-white" },   // แดง
-  สูง:      { bg: "bg-orange-500",  text: "text-white" },   // ส้ม
-  ปานกลาง: { bg: "bg-amber-500",   text: "text-white" },   // เหลือง
-  ต่ำ:      { bg: "bg-emerald-500", text: "text-white" },   // เขียว
+  สูงมาก:   { bg: "bg-red-600",     text: "text-white" },
+  สูง:      { bg: "bg-orange-500",  text: "text-white" },
+  ปานกลาง: { bg: "bg-amber-500",   text: "text-white" },
+  ต่ำ:      { bg: "bg-emerald-500", text: "text-white" },
 };
 
-const BASE_STYLE: L.PathOptions  = { color: "#999",  weight: 1, fillColor: "#4F46E5", fillOpacity: 0.4 };
-const HOVER_STYLE: L.PathOptions = { color: "#333",  weight: 1,                     fillOpacity: 0.7 };
+const BASE_STYLE: L.PathOptions  = { color: "#999", weight: 1, fillColor: "#4F46E5", fillOpacity: 0.4 };
+const HOVER_STYLE: L.PathOptions = { color: "#333", weight: 1, fillOpacity: 0.7 };
 
-/** ล้างอักขระควบคุม + normalize */
 const sanitize = (s: string) =>
   s.replace(/[\u0000-\u001F\u007F\u00A0\u200B-\u200D\uFEFF]/g, "").normalize("NFC").trim();
-
 const normalizeThai = (s: string) =>
   sanitize(s).replace(/^จังหวัด/, "").replace(/\(.*?\)/g, "").replace(/\s+/g, "")
     .replace(/[^\u0E00-\u0E7F]/g, "").trim();
-
 const hasThai = (s: string) => /[\u0E00-\u0E7F]/.test(s);
 const normalizeEng = (s: string) => s.toLowerCase().trim();
 
-/** เกณฑ์ชั่วคราวจาก “จำนวนผู้ป่วยรวม” (ปรับตามเกณฑ์จริงได้) */
 function riskFromCount(n: number): ProvinceInfo["riskLevel"] {
   if (n >= 8000) return "สูงมาก";
   if (n >= 4000) return "สูง";
@@ -67,7 +62,6 @@ export default function HomeMapInner() {
   const countsCache = useRef<Map<string, number>>(new Map());
   useEffect(() => { countsCache.current.clear(); }, [start_date, end_date, diseaseCode]);
 
-  // โหลด geojson
   useEffect(() => {
     (async () => {
       try {
@@ -80,7 +74,6 @@ export default function HomeMapInner() {
     })();
   }, []);
 
-  // โหลดรายชื่อจังหวัด
   useEffect(() => {
     (async () => {
       try {
@@ -133,7 +126,7 @@ export default function HomeMapInner() {
   }, [thaiMap, engMap]);
 
   const fetchPatientsForProvince = useCallback(async (provinceName: string): Promise<number> => {
-    if (diseaseCode !== "D01") return 0; // ปัจจุบันมีจริงเฉพาะ D01
+    if (diseaseCode !== "D01") return 0;
     const key = `${provinceName}|${start_date}|${end_date}|${diseaseCode}`;
     if (countsCache.current.has(key)) return countsCache.current.get(key)!;
 
@@ -155,7 +148,6 @@ export default function HomeMapInner() {
   useEffect(() => {
     if (!ready || !mapRef.current) return;
 
-    // reset
     if (mapInstanceRef.current) {
       mapInstanceRef.current.remove();
       mapInstanceRef.current = null;
@@ -182,12 +174,11 @@ export default function HomeMapInner() {
       style: () => BASE_STYLE,
       onEachFeature: (feature: Feature, layer: L.Layer) => {
         const nameTH = getThaiOfficialName(feature);
-
         const info: ProvinceInfo = {
           name: nameTH,
           disease: diseaseNameTh || "—",
           patients: null,
-          riskLevel: "ปานกลาง", // ค่าตั้งต้น (จะอัปเดตหลังดึงผู้ป่วย)
+          riskLevel: "ปานกลาง",
         };
 
         layer.on({
@@ -203,7 +194,7 @@ export default function HomeMapInner() {
             setHoveredProvince(info);
             try {
               const p = await fetchPatientsForProvince(nameTH);
-              const level = riskFromCount(p); // ✅ แปลงเป็น 4 ระดับ
+              const level = riskFromCount(p);
               setHoveredProvince((prev) =>
                 prev && prev.name === nameTH ? { ...prev, patients: p, riskLevel: level } : prev
               );
@@ -247,16 +238,26 @@ export default function HomeMapInner() {
 
   return (
     <div className="relative z-0 w-full">
-      {/* แผนที่ */}
-      <div className="h-[600px] w-full" ref={mapRef} />
+      {/* Map – สูงขึ้นเยอะ */}
+      <div
+        ref={mapRef}
+        className="h-[480px] w-full rounded-md border bg-neutral-50 md:h-[640px] lg:h-[720px]"
+      />
 
-      {/* กล่อง hover จังหวัด */}
+      {/* Hover info */}
       {hoveredProvince && (
-        <div className="pointer-events-none absolute top-4 right-4 z-[300] w-80 rounded-lg bg-white p-4 shadow-md">
-          <h2 className="text-xl font-semibold">{hoveredProvince.name}</h2>
-          <p>โรคระบาด: {hoveredProvince.disease}</p>
-          <p>จำนวนผู้ป่วย: {hoveredProvince.patients === null ? "กำลังโหลด…" : hoveredProvince.patients}</p>
-          <div className="mt-1 flex items-center gap-2">
+        <div className="pointer-events-none absolute top-3 right-3 z-[300] w-72 rounded-md border bg-white/95 p-3 text-sm shadow">
+          <h3 className="text-base font-semibold">{hoveredProvince.name}</h3>
+          <p className="mt-1 text-neutral-700">
+            โรคระบาด: <span className="font-medium">{hoveredProvince.disease}</span>
+          </p>
+          <p className="mt-1 text-neutral-700">
+            จำนวนผู้ป่วย:{" "}
+            <span className="font-medium">
+              {hoveredProvince.patients === null ? "กำลังโหลด…" : hoveredProvince.patients}
+            </span>
+          </p>
+          <div className="mt-2 flex items-center gap-2">
             <span>ระดับความเสี่ยง:</span>
             <span
               className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium
@@ -265,12 +266,12 @@ export default function HomeMapInner() {
               {hoveredProvince.riskLevel}
             </span>
           </div>
-          {provErr && <p className="mt-1 text-xs text-red-600">{provErr}</p>}
+          {provErr && <p className="mt-2 text-xs text-red-600">{provErr}</p>}
         </div>
       )}
 
-      {/* Legend 4 สี */}
-      <div className="pointer-events-none absolute bottom-4 left-4 z-[300] space-y-1 rounded-md bg-white/90 p-2 text-xs shadow">
+      {/* Legend */}
+      <div className="pointer-events-none absolute bottom-3 left-3 z-[300] space-y-1 rounded-md border bg-white/90 p-2 text-xs shadow">
         <div className="font-medium">ระดับความเสี่ยง</div>
         <div className="flex items-center gap-2"><span className={`h-3 w-3 rounded ${RISK_META["สูงมาก"].bg}`} /><span>สูงมาก</span></div>
         <div className="flex items-center gap-2"><span className={`h-3 w-3 rounded ${RISK_META["สูง"].bg}`} /><span>สูง</span></div>
