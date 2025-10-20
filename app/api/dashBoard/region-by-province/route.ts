@@ -19,7 +19,6 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "ต้องระบุ province" }, { status: 400 });
     }
 
-    // 📍 หา region ของ province ที่เลือก
     const provinceList = provinces as ProvinceRegion[];
     const region = provinceList.find(
       (p) => p.ProvinceNameThai === selectedProvince
@@ -32,12 +31,11 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // 📍 เอาจังหวัดใน region เดียวกัน
     const provincesInRegion = provinceList
       .filter((p) => p.Region_VaccineRollout_MOPH === region)
       .map((p) => p.ProvinceNameThai);
 
-    // 🩺 Query: ผู้ป่วย + ผู้เสียชีวิต grouped by province
+    // นับผู้ป่วย/เสียชีวิตในภาคเดียวกัน (รวมจังหวัดที่เลือก)
     const rows = await db
       .selectFrom("d01_influenza")
       .select([
@@ -55,27 +53,27 @@ export async function GET(request: NextRequest) {
       province: r.province,
       patients: Number(r.patients),
       deaths: Number(r.deaths),
+      region,
     }));
 
-    // 🔄 Top 6 ผู้ป่วย
-    const topPatients = [...normalized]
-      .sort((a, b) => b.patients - a.patients)
-      .slice(0, 6);
+    // ข้อมูลของจังหวัดที่เลือก (ถ้าไม่มีใน rows ให้เป็นศูนย์)
+    const selectedRow = normalized.find(
+      (x) => x.province === selectedProvince
+    ) ?? { province: selectedProvince, patients: 0, deaths: 0, region };
 
-    // 🔄 Top 6 ผู้เสียชีวิต
-    const topDeaths = [...normalized]
+    // Top 5 ของภาค (ตัดจังหวัดที่เลือกออกก่อน)
+    const others = normalized.filter((x) => x.province !== selectedProvince);
+
+    const topPatients = [...others]
+      .sort((a, b) => b.patients - a.patients)
+      .slice(0, 5);
+    const topDeaths = [...others]
       .sort((a, b) => b.deaths - a.deaths)
-      .slice(0, 6);
+      .slice(0, 5);
 
     return NextResponse.json(
-      {
-        topPatients,
-        topDeaths,
-      },
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }
+      { region, selected: selectedRow, topPatients, topDeaths },
+      { status: 200, headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {
     console.error("❌ API ERROR (region-by-province):", error);

@@ -1,12 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { useDashboardStore } from "@/store/useDashboardStore";
+import { useProvincialInfoStore } from "@/store/useProvincialInfoStore";
 import DashboardHeader from "app/components/header/DashBoardHeader";
 import TotalDeath from "app/components/header/TotalDeath";
 import TotalPatient from "app/components/header/TotalPatient";
 import BarGraph from "app/features/main/dashBoardPage/component/BarGraph";
 import NarrativeSection from "app/features/main/dashBoardPage/component/NarrativeSection";
 import SourceInfo from "app/features/main/dashBoardPage/component/SourceInfo";
+import DiseaseInfo from "@/app/features/main/provincePage/component/DiseaseInfo";
 
 export const dynamic = "force-dynamic";
 export default ProvincePage;
@@ -44,6 +47,13 @@ function ProvincePage() {
 
     fetchData();
   }, [start_date, end_date, province]);
+  const { diseaseCode: dCodeDash, diseaseNameTh: dNameDash } =
+    useDashboardStore();
+  const setDiseaseProv = useProvincialInfoStore((s) => s.setDisease);
+
+  useEffect(() => {
+    if (dCodeDash) setDiseaseProv(dCodeDash, dNameDash ?? null);
+  }, [dCodeDash, dNameDash, setDiseaseProv]);
 
   return (
     <div className="space-y-4 p-4">
@@ -58,9 +68,9 @@ function ProvincePage() {
           )}
         </div>
       </div>
-
       <BarGraph />
 
+      <DiseaseInfo />
       <NarrativeSection />
       <SourceInfo />
     </div>
