@@ -7,12 +7,12 @@ import GraphByProvince from "@/app/components/bargraph/GraphByProvince";
 
 const HomeMapInner = dynamic(() => import("./HomeMapInner"), { ssr: false });
 
-// เก็บคำอธิบายเป็น string (กัน <p> ซ้อน <p>)
+// เก็บคำอธิบายเป็นข้อความดิบ (กัน <p> ซ้อน <p>)
 const DESC_FULL_TEXT =
   "ระบบเว็บแอปพลิเคชันติดตามแบบเชิงรอบ วิเคราะห์ และนำเสนอข้อมูลโรคระบาดในระดับจังหวัดของประเทศไทย ผู้ใช้งานสามารถค้นหาเชื้อโรคเพื่อศึกษาลักษณะโรค วิธีป้องกัน และดูแนวโน้มการระบาดในแต่ละพื้นที่ นอกจากนี้ยังสามารถสร้างคำอธิบายกราฟอัตโนมัติด้วย AI เพื่อช่วยให้ผู้ใช้งานที่ไม่มีพื้นฐานด้านข้อมูลเข้าใจได้ง่ายขึ้น";
 
 export default function PageDescription() {
-  // เว้นพื้นที่ให้ไม่ชน navbar/footer
+  // เว้นพื้นที่จาก navbar/footer ให้คอนเทนต์ด้านในพอดี
   const INNER_OFFSET_PX = 220;
 
   return (
@@ -20,43 +20,30 @@ export default function PageDescription() {
       className="mx-auto flex w-full max-w-[1320px] flex-col overflow-hidden"
       style={{ height: `calc(100vh - ${INNER_OFFSET_PX}px)` }}
     >
-      {/* ===== Header: ไม่มีกรอบ/พื้นหลัง — ข้อความล้วน ===== */}
-      <header className="mb-3 flex-none p-0 pt-2 md:mb-4">
-        <h1
-          className="
-            text-lg md:text-xl font-extrabold tracking-tight
-            bg-gradient-to-r from-pink-600 via-fuchsia-600 to-violet-600
-            bg-clip-text text-transparent
-          "
-        >
+      {/* Header (ไม่มีกรอบ/เงา — เป็นแถบไล่สีโล่ง ๆ) */}
+      <header className="flex-none rounded-xl bg-gradient-to-r from-pink-100 via-pink-50 to-white px-5 py-4 md:px-6 md:py-5">
+        <h1 className="text-[18px] font-extrabold tracking-tight text-pink-700 md:text-[20px]">
           ระบบวิเคราะห์โรคระบาดระดับจังหวัดในประเทศไทย
         </h1>
-<<<<<<< HEAD
-        <p className="mt-2 max-w-4xl text-sm leading-6 text-neutral-700">
-          ระบบเว็บแอปพลิเคชันติดตามแบบเชิงรอบ วิเคราะห์ และนำเสนอข้อมูลโรคระบาดในระดับจังหวัดของประเทศไทย
-          ผู้ใช้งานสามารถค้นหาเชื้อโรคเพื่อศึกษาลักษณะโรค วิธีป้องกัน และดูแนวโน้มการระบาดในแต่ละพื้นที่
-          นอกจากนี้ยังสามารถสร้างคำอธิบายกราฟอัตโนมัติด้วย AI เพื่อช่วยให้ผู้ใช้งานที่ไม่มีพื้นฐานด้านข้อมูลเข้าใจได้ง่ายขึ้น
-=======
-        <p className="mt-2 max-w-5xl text-[15px] leading-7 text-gray-700 md:text-[16px]">
+        <div className="mt-1 max-w-5xl text-[15px] leading-7 text-neutral-800 md:text-[16px]">
           {DESC_FULL_TEXT}
->>>>>>> feature/Edit
-        </p>
+        </div>
       </header>
 
-      {/* ===== Main: ใช้การ์ด (มีกรอบ/เงาบาง) เหมือนเดิม ===== */}
-      <div className="grid min-h-0 flex-1 grid-cols-1 gap-3 lg:grid-cols-[7fr_5fr]">
-        {/* ซ้าย: กราฟ (3) + แหล่งข้อมูล (1) */}
+      {/* เนื้อหาหลัก */}
+      <div className="mt-3 grid min-h-0 flex-1 grid-cols-1 gap-3 lg:grid-cols-[7fr_5fr]">
+        {/* ซ้าย: กราฟ + แหล่งข้อมูล (3 : 1) */}
         <section className="grid min-h-0 grid-rows-[3fr_1fr] gap-3">
+          {/* การ์ดกราฟ (มีกรอบ/เงา) */}
           <div className="card min-h-0 p-3.5 md:p-4">
-            <div className="h-[calc(100%-1.75rem)] min-h-0">
+            <div className="h-[calc(100%-0rem)] min-h-0">
               <GraphByProvince compact />
             </div>
           </div>
 
-          <div className="card min-h-0 p-3.5 md:p-4">
-            <h2 className="mb-2 text-base font-semibold text-neutral-900">
-            </h2>
-            <div className="h-[calc(100%-1.5rem)] min-h-0 overflow-auto text-[14px] leading-6">
+          {/* การ์ดแหล่งที่มาข้อมูล (ตัด columns-* ออก กันแตกบรรทัด) */}
+          <div className="card min-h-0 p-3 md:p-3.5">
+            <div className="h-full min-h-0 overflow-auto text-[14px] leading-6">
               <SourceInfo />
             </div>
           </div>
