@@ -1,0 +1,387 @@
+[
+  {
+    "ProvinceNo": 1,
+    "ProvinceNameThai": "กรุงเทพมหานคร",
+    "Region_VaccineRollout_MOPH": "กรุงเทพมหานครและปริมณฑล"
+  },
+  {
+    "ProvinceNo": 2,
+    "ProvinceNameThai": "กระบี่",
+    "Region_VaccineRollout_MOPH": "ภาคใต้"
+  },
+  {
+    "ProvinceNo": 3,
+    "ProvinceNameThai": "กาญจนบุรี",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันตก"
+  },
+  {
+    "ProvinceNo": 4,
+    "ProvinceNameThai": "กาฬสินธุ์",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  },
+  {
+    "ProvinceNo": 5,
+    "ProvinceNameThai": "กำแพงเพชร",
+    "Region_VaccineRollout_MOPH": "ภาคกลาง"
+  },
+  {
+    "ProvinceNo": 6,
+    "ProvinceNameThai": "ขอนแก่น",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  },
+  {
+    "ProvinceNo": 7,
+    "ProvinceNameThai": "จันทบุรี",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออก"
+  },
+  {
+    "ProvinceNo": 8,
+    "ProvinceNameThai": "ฉะเชิงเทรา",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออก"
+  },
+  {
+    "ProvinceNo": 9,
+    "ProvinceNameThai": "ชลบุรี",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออก"
+  },
+  {
+    "ProvinceNo": 10,
+    "ProvinceNameThai": "ชัยนาท",
+    "Region_VaccineRollout_MOPH": "ภาคกลาง"
+  },
+  {
+    "ProvinceNo": 11,
+    "ProvinceNameThai": "ชัยภูมิ",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  },
+  {
+    "ProvinceNo": 12,
+    "ProvinceNameThai": "ชุมพร",
+    "Region_VaccineRollout_MOPH": "ภาคใต้"
+  },
+  {
+    "ProvinceNo": 13,
+    "ProvinceNameThai": "เชียงราย",
+    "Region_VaccineRollout_MOPH": "ภาคเหนือ"
+  },
+  {
+    "ProvinceNo": 14,
+    "ProvinceNameThai": "เชียงใหม่",
+    "Region_VaccineRollout_MOPH": "ภาคเหนือ"
+  },
+  {
+    "ProvinceNo": 15,
+    "ProvinceNameThai": "ตรัง",
+    "Region_VaccineRollout_MOPH": "ภาคใต้"
+  },
+  {
+    "ProvinceNo": 16,
+    "ProvinceNameThai": "ตราด",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออก"
+  },
+  {
+    "ProvinceNo": 17,
+    "ProvinceNameThai": "ตาก",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันตก"
+  },
+  {
+    "ProvinceNo": 18,
+    "ProvinceNameThai": "นครนายก",
+    "Region_VaccineRollout_MOPH": "ภาคกลาง"
+  },
+  {
+    "ProvinceNo": 19,
+    "ProvinceNameThai": "นครปฐม",
+    "Region_VaccineRollout_MOPH": "กรุงเทพมหานครและปริมณฑล"
+  },
+  {
+    "ProvinceNo": 20,
+    "ProvinceNameThai": "นครพนม",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  },
+  {
+    "ProvinceNo": 21,
+    "ProvinceNameThai": "นครราชสีมา",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  },
+  {
+    "ProvinceNo": 22,
+    "ProvinceNameThai": "นครศรีธรรมราช",
+    "Region_VaccineRollout_MOPH": "ภาคใต้"
+  },
+  {
+    "ProvinceNo": 23,
+    "ProvinceNameThai": "นครสวรรค์",
+    "Region_VaccineRollout_MOPH": "ภาคกลาง"
+  },
+  {
+    "ProvinceNo": 24,
+    "ProvinceNameThai": "นนทบุรี",
+    "Region_VaccineRollout_MOPH": "กรุงเทพมหานครและปริมณฑล"
+  },
+  {
+    "ProvinceNo": 25,
+    "ProvinceNameThai": "นราธิวาส",
+    "Region_VaccineRollout_MOPH": "ภาคใต้"
+  },
+  {
+    "ProvinceNo": 26,
+    "ProvinceNameThai": "น่าน",
+    "Region_VaccineRollout_MOPH": "ภาคเหนือ"
+  },
+  {
+    "ProvinceNo": 27,
+    "ProvinceNameThai": "บึงกาฬ",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  },
+  {
+    "ProvinceNo": 28,
+    "ProvinceNameThai": "บุรีรัมย์",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  },
+  {
+    "ProvinceNo": 29,
+    "ProvinceNameThai": "ปทุมธานี",
+    "Region_VaccineRollout_MOPH": "กรุงเทพมหานครและปริมณฑล"
+  },
+  {
+    "ProvinceNo": 30,
+    "ProvinceNameThai": "ประจวบคีรีขันธ์",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันตก"
+  },
+  {
+    "ProvinceNo": 31,
+    "ProvinceNameThai": "ปราจีนบุรี",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออก"
+  },
+  {
+    "ProvinceNo": 32,
+    "ProvinceNameThai": "ปัตตานี",
+    "Region_VaccineRollout_MOPH": "ภาคใต้"
+  },
+  {
+    "ProvinceNo": 33,
+    "ProvinceNameThai": "พระนครศรีอยุธยา",
+    "Region_VaccineRollout_MOPH": "ภาคกลาง"
+  },
+  {
+    "ProvinceNo": 34,
+    "ProvinceNameThai": "พะเยา",
+    "Region_VaccineRollout_MOPH": "ภาคเหนือ"
+  },
+  {
+    "ProvinceNo": 35,
+    "ProvinceNameThai": "พังงา",
+    "Region_VaccineRollout_MOPH": "ภาคใต้"
+  },
+  {
+    "ProvinceNo": 36,
+    "ProvinceNameThai": "พัทลุง",
+    "Region_VaccineRollout_MOPH": "ภาคใต้"
+  },
+  {
+    "ProvinceNo": 37,
+    "ProvinceNameThai": "พิจิตร",
+    "Region_VaccineRollout_MOPH": "ภาคกลาง"
+  },
+  {
+    "ProvinceNo": 38,
+    "ProvinceNameThai": "พิษณุโลก",
+    "Region_VaccineRollout_MOPH": "ภาคกลาง"
+  },
+  {
+    "ProvinceNo": 39,
+    "ProvinceNameThai": "เพชรบุรี",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันตก"
+  },
+  {
+    "ProvinceNo": 40,
+    "ProvinceNameThai": "เพชรบูรณ์",
+    "Region_VaccineRollout_MOPH": "ภาคกลาง"
+  },
+  {
+    "ProvinceNo": 41,
+    "ProvinceNameThai": "แพร่",
+    "Region_VaccineRollout_MOPH": "ภาคเหนือ"
+  },
+  {
+    "ProvinceNo": 42,
+    "ProvinceNameThai": "ภูเก็ต",
+    "Region_VaccineRollout_MOPH": "ภาคใต้"
+  },
+  {
+    "ProvinceNo": 43,
+    "ProvinceNameThai": "มหาสารคาม",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  },
+  {
+    "ProvinceNo": 44,
+    "ProvinceNameThai": "มุกดาหาร",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  },
+  {
+    "ProvinceNo": 45,
+    "ProvinceNameThai": "แม่ฮ่องสอน",
+    "Region_VaccineRollout_MOPH": "ภาคเหนือ"
+  },
+  {
+    "ProvinceNo": 46,
+    "ProvinceNameThai": "ยโสธร",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  },
+  {
+    "ProvinceNo": 47,
+    "ProvinceNameThai": "ยะลา",
+    "Region_VaccineRollout_MOPH": "ภาคใต้"
+  },
+  {
+    "ProvinceNo": 48,
+    "ProvinceNameThai": "ร้อยเอ็ด",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  },
+  {
+    "ProvinceNo": 49,
+    "ProvinceNameThai": "ระนอง",
+    "Region_VaccineRollout_MOPH": "ภาคใต้"
+  },
+  {
+    "ProvinceNo": 50,
+    "ProvinceNameThai": "ระยอง",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออก"
+  },
+  {
+    "ProvinceNo": 51,
+    "ProvinceNameThai": "ราชบุรี",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันตก"
+  },
+  {
+    "ProvinceNo": 52,
+    "ProvinceNameThai": "ลพบุรี",
+    "Region_VaccineRollout_MOPH": "ภาคกลาง"
+  },
+  {
+    "ProvinceNo": 53,
+    "ProvinceNameThai": "ลำปาง",
+    "Region_VaccineRollout_MOPH": "ภาคเหนือ"
+  },
+  {
+    "ProvinceNo": 54,
+    "ProvinceNameThai": "ลำพูน",
+    "Region_VaccineRollout_MOPH": "ภาคเหนือ"
+  },
+  {
+    "ProvinceNo": 55,
+    "ProvinceNameThai": "เลย",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  },
+  {
+    "ProvinceNo": 56,
+    "ProvinceNameThai": "ศรีสะเกษ",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  },
+  {
+    "ProvinceNo": 57,
+    "ProvinceNameThai": "สกลนคร",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  },
+  {
+    "ProvinceNo": 58,
+    "ProvinceNameThai": "สงขลา",
+    "Region_VaccineRollout_MOPH": "ภาคใต้"
+  },
+  {
+    "ProvinceNo": 59,
+    "ProvinceNameThai": "สตูล",
+    "Region_VaccineRollout_MOPH": "ภาคใต้"
+  },
+  {
+    "ProvinceNo": 60,
+    "ProvinceNameThai": "สมุทรปราการ",
+    "Region_VaccineRollout_MOPH": "กรุงเทพมหานครและปริมณฑล"
+  },
+  {
+    "ProvinceNo": 61,
+    "ProvinceNameThai": "สมุทรสงคราม",
+    "Region_VaccineRollout_MOPH": "ภาคกลาง"
+  },
+  {
+    "ProvinceNo": 62,
+    "ProvinceNameThai": "สมุทรสาคร",
+    "Region_VaccineRollout_MOPH": "กรุงเทพมหานครและปริมณฑล"
+  },
+  {
+    "ProvinceNo": 63,
+    "ProvinceNameThai": "สระแก้ว",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออก"
+  },
+  {
+    "ProvinceNo": 64,
+    "ProvinceNameThai": "สระบุรี",
+    "Region_VaccineRollout_MOPH": "ภาคกลาง"
+  },
+  {
+    "ProvinceNo": 65,
+    "ProvinceNameThai": "สิงห์บุรี",
+    "Region_VaccineRollout_MOPH": "ภาคกลาง"
+  },
+  {
+    "ProvinceNo": 66,
+    "ProvinceNameThai": "สุโขทัย",
+    "Region_VaccineRollout_MOPH": "ภาคกลาง"
+  },
+  {
+    "ProvinceNo": 67,
+    "ProvinceNameThai": "สุพรรณบุรี",
+    "Region_VaccineRollout_MOPH": "ภาคกลาง"
+  },
+  {
+    "ProvinceNo": 68,
+    "ProvinceNameThai": "สุราษฎร์ธานี",
+    "Region_VaccineRollout_MOPH": "ภาคใต้"
+  },
+  {
+    "ProvinceNo": 69,
+    "ProvinceNameThai": "สุรินทร์",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  },
+  {
+    "ProvinceNo": 70,
+    "ProvinceNameThai": "หนองคาย",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  },
+  {
+    "ProvinceNo": 71,
+    "ProvinceNameThai": "หนองบัวลำภู",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  },
+  {
+    "ProvinceNo": 72,
+    "ProvinceNameThai": "อ่างทอง",
+    "Region_VaccineRollout_MOPH": "ภาคกลาง"
+  },
+  {
+    "ProvinceNo": 73,
+    "ProvinceNameThai": "อำนาจเจริญ",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  },
+  {
+    "ProvinceNo": 74,
+    "ProvinceNameThai": "อุดรธานี",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  },
+  {
+    "ProvinceNo": 75,
+    "ProvinceNameThai": "อุตรดิตถ์",
+    "Region_VaccineRollout_MOPH": "ภาคเหนือ"
+  },
+  {
+    "ProvinceNo": 76,
+    "ProvinceNameThai": "อุทัยธานี",
+    "Region_VaccineRollout_MOPH": "ภาคกลาง"
+  },
+  {
+    "ProvinceNo": 77,
+    "ProvinceNameThai": "อุบลราชธานี",
+    "Region_VaccineRollout_MOPH": "ภาคตะวันออกเฉียงเหนือ"
+  }
+]

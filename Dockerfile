@@ -1,21 +1,34 @@
-# Stage 1: Build
-FROM node:24-alpine3.22 AS builder
-
+FROM node:24.3.0-alpine AS builder
 WORKDIR /app
 
-COPY package*.json ./
+# Copy package.json เข้าไปใน Container เพื่อติดตั้ง Package ต่างๆ
+COPY ./package.json ./
+
+# ติดตั้ง Package ต่างๆที่ต้องใช้
 RUN npm install
 
-COPY . .
+# Copy code ส่วนที่เหลือเช้าไปใน Container
+COPY ./ .
+
+# Build Next application
 RUN npm run build
 
-# Stage 2: Run
-FROM node:24-alpine3.22
-
+# เราควรจะใช้ Base Image ตัวเดียวกับ Builder ตัวก่อนหน้าเพื่อไม่ให้มีปัญหาเรื่อง Version
+FROM node:24.3.0-alpine AS runner
 WORKDIR /app
 
-COPY --from=builder /app ./
+# ติดตั้ง Next CLI
+RUN npm install -g next
+
+# กำหนด Environment เป็น Production
+ENV NODE_ENV=production
+
+# Copy output และ dependencies จาก Builder
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/public ./public
 
 EXPOSE 3000
-
-CMD ["npm", "start"]
+# Start Next application
+CMD ["npm", "run", "start"]
