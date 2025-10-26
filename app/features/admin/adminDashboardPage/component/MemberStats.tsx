@@ -83,12 +83,12 @@ export default function MemberStats() {
             {loading ? "…" : data?.byRole?.User ?? 0}
           </div>
         </div>
-        <div className="rounded-lg border bg-white p-5">
+        {/* <div className="rounded-lg border bg-white p-5">
           <div className="text-sm text-gray-500">อื่น ๆ</div>
           <div className="mt-1 text-2xl font-semibold">
             {loading ? "…" : data?.byRole?.Other ?? 0}
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* ผู้ใช้ที่ลงทะเบียนล่าสุด 5 รายการ */}
