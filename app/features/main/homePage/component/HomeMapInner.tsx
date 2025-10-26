@@ -45,7 +45,8 @@ function riskFromCount(n: number): ProvinceInfo["riskLevel"] {
   return "ต่ำ";
 }
 
-export default function HomeMapInner() {
+export default function HomeMapInner({ className = "" }: { className?: string }) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
 
@@ -68,9 +69,7 @@ export default function HomeMapInner() {
         const res = await fetch(`/data/thailand-province-simple.json?v=${Date.now()}`, { cache: "no-store" });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         setGeoData(await res.json());
-      } catch (e) {
-        console.error("load geojson failed:", e);
-      }
+      } catch (e) { console.error("load geojson failed:", e); }
     })();
   }, []);
 
@@ -157,6 +156,7 @@ export default function HomeMapInner() {
 
     const map = L.map(mapRef.current).setView([13.5, 100.5], 6);
 
+    // จัด z-index ให้ชั้นของ Leaflet ต่ำกว่า overlay ของเรา
     const panes = map.getPanes();
     panes.mapPane.style.zIndex = "0";
     panes.tilePane.style.zIndex = "100";
@@ -220,15 +220,14 @@ export default function HomeMapInner() {
     geoJsonRef.current = geoJsonLayer;
     mapInstanceRef.current = map;
 
-    map.on("mouseout", () => {
-      if (activeLayerRef.current && geoJsonRef.current) {
-        geoJsonRef.current.resetStyle(activeLayerRef.current);
-        activeLayerRef.current = null;
-      }
-      setHoveredProvince(null);
+    // ทำให้ map รีขนาดตามกรอบ
+    const ro = new ResizeObserver(() => {
+      setTimeout(() => map.invalidateSize(), 0);
     });
+    if (wrapperRef.current) ro.observe(wrapperRef.current);
 
     return () => {
+      ro.disconnect();
       map.remove();
       mapInstanceRef.current = null;
       activeLayerRef.current = null;
@@ -237,16 +236,13 @@ export default function HomeMapInner() {
   }, [ready, geoData, diseaseNameTh, getThaiOfficialName, fetchPatientsForProvince]);
 
   return (
-    <div className="relative z-0 w-full">
-      {/* Map – สูงขึ้นเยอะ */}
-      <div
-        ref={mapRef}
-        className="h-[480px] w-full rounded-md border bg-neutral-50 md:h-[640px] lg:h-[720px]"
-      />
+    <div ref={wrapperRef} className={`relative z-0 w-full ${className}`}>
+      {/* แผนที่กินความสูงทั้งหมดจากภายนอก */}
+      <div ref={mapRef} className="h-full w-full rounded-md border bg-neutral-50" />
 
-      {/* Hover info */}
+      {/* Hover info (ยก z-index ให้สูงกว่าชั้น Leaflet ทุกชั้น) */}
       {hoveredProvince && (
-        <div className="pointer-events-none absolute top-3 right-3 z-[300] w-72 rounded-md border bg-white/95 p-3 text-sm shadow">
+        <div className="pointer-events-none absolute top-3 right-3 z-[1000] w-72 rounded-md border bg-white/95 p-3 text-sm shadow">
           <h3 className="text-base font-semibold">{hoveredProvince.name}</h3>
           <p className="mt-1 text-neutral-700">
             โรคระบาด: <span className="font-medium">{hoveredProvince.disease}</span>
@@ -270,8 +266,8 @@ export default function HomeMapInner() {
         </div>
       )}
 
-      {/* Legend */}
-      <div className="pointer-events-none absolute bottom-3 left-3 z-[300] space-y-1 rounded-md border bg-white/90 p-2 text-xs shadow">
+      {/* Legend (ยก z-index เช่นกัน) */}
+      <div className="pointer-events-none absolute bottom-3 left-3 z-[1000] space-y-1 rounded-md border bg-white/90 p-2 text-xs shadow">
         <div className="font-medium">ระดับความเสี่ยง</div>
         <div className="flex items-center gap-2"><span className={`h-3 w-3 rounded ${RISK_META["สูงมาก"].bg}`} /><span>สูงมาก</span></div>
         <div className="flex items-center gap-2"><span className={`h-3 w-3 rounded ${RISK_META["สูง"].bg}`} /><span>สูง</span></div>
