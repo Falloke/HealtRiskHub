@@ -23,12 +23,12 @@ export async function middleware(request: NextRequest) {
 
   // ✅ อนุญาตไฟล์/static ทั้งหมดให้ผ่าน
   if (
-    pathname.startsWith("/_next") ||                 // ไฟล์ build
-    pathname.startsWith("/images") ||                // รูปใน /public/images
-    pathname.startsWith("/data") ||                  // JSON ใน /public/data
-    pathname.startsWith("/fonts") ||                 // เผื่อมีฟอนต์
-    pathname.startsWith("/api") ||                   // API routes
-    pathname === "/favicon.ico" ||                   // favicon
+    pathname.startsWith("/_next") || // ไฟล์ build
+    pathname.startsWith("/images") || // รูปใน /public/images
+    pathname.startsWith("/data") || // JSON ใน /public/data
+    pathname.startsWith("/fonts") || // เผื่อมีฟอนต์
+    pathname.startsWith("/api") || // API routes
+    pathname === "/favicon.ico" || // favicon
     /\.(?:png|jpg|jpeg|gif|svg|ico|webp|css|js|map|json)$/.test(pathname) // ไฟล์ static อื่น ๆ
   ) {
     return NextResponse.next();

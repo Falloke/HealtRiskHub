@@ -46,23 +46,26 @@ function DashboardPage() {
   }, [start_date, end_date, province]);
 
   return (
-    <div className="space-y-4 p-4">
-      <div className="flex-col-2 flex">
-        <DashboardHeader />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+    <main className="min-h-screen w-full bg-white">
+      <div className="mx-auto w-full max-w-[1920px] space-y-6 px-4 md:px-6 lg:px-8">
+        <div className="grid grid-cols-2 gap-4 md:gap-8">
+          <DashboardHeader />
+
           {data && (
             <>
-              <TotalPatient data={data} />
-              <TotalDeath data={data} />
+              <div className="flex-col-2 flex gap-2">
+                <TotalPatient data={data} />
+                <TotalDeath data={data} />
+              </div>
             </>
           )}
         </div>
+
+        <BarGraph />
+
+        <NarrativeSection />
+        <SourceInfo />
       </div>
-
-      <BarGraph />
-
-      <NarrativeSection />
-      <SourceInfo />
-    </div>
+    </main>
   );
 }
