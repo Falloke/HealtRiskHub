@@ -62,15 +62,8 @@ export default function DiseaseInfo() {
   if (!data) return null;
 
   return (
-    <div className="grid gap-4 md:grid-cols-2">
-      <div className="col-span-1 md:col-span-2">
-        <h2 className="text-xl font-bold text-green-800">
-          {data.name_th || diseaseNameTh}{" "}
-          <span className="text-gray-500">({data.name_en})</span>
-        </h2>
-      </div>
+    <div className="grid w-full grid-cols-3 gap-4">
       <DiseaseDescription description={data.description_th} />
-      <GraphByGenderTrend />
       <DiseasePreventions items={data.preventions} />
       <DiseaseSymptoms items={data.symptoms} />
     </div>
