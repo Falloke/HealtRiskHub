@@ -8,6 +8,9 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  TooltipProps,
+  ValueType,
+  NameType,
   Legend,
   LabelList,
   ResponsiveContainer,
@@ -25,6 +28,41 @@ type PatientsData = {
   female: number;
   unknown?: number;
 };
+
+// ✅ อยู่นี่ ไม่ต้อง import TH_NUMBER ใหม่
+function LineStyleGenderTooltip({ active, label, payload }) {
+  if (!active || !payload || payload.length === 0) return null;
+
+  const maleItem = payload.find((p) => p.dataKey === "male");
+  const femaleItem = payload.find((p) => p.dataKey === "female");
+
+  const male = Number(maleItem?.value ?? 0);
+  const female = Number(femaleItem?.value ?? 0);
+
+  return (
+    <div className="rounded-xl bg-white px-4 py-3 shadow-lg ring-1 ring-gray-200">
+      <div className="mb-2 text-base font-bold text-gray-900">
+        {String(label)}
+      </div>
+
+      <div className="flex items-center gap-2 text-gray-800">
+        <span
+          className="inline-block h-2.5 w-2.5 rounded-full"
+          style={{ background: "#4FC3F7" }}
+        />
+        ชาย: <span className="font-extrabold">{TH_NUMBER(male)}</span> ราย
+      </div>
+
+      <div className="mt-1.5 flex items-center gap-2 text-gray-800">
+        <span
+          className="inline-block h-2.5 w-2.5 rounded-full"
+          style={{ background: "#F48FB1" }}
+        />
+        หญิง: <span className="font-extrabold">{TH_NUMBER(female)}</span> ราย
+      </div>
+    </div>
+  );
+}
 
 export default function GraphByGenderPatients() {
   const { province, start_date, end_date } = useDashboardStore();
@@ -96,18 +134,10 @@ export default function GraphByGenderPatients() {
             />
 
             <Tooltip
-              formatter={(value: any, name: any) => [
-                `${TH_NUMBER(Number(value))} ราย`,
-                name === "male"
-                  ? "ชาย"
-                  : name === "female"
-                    ? "หญิง"
-                    : "ไม่ระบุ",
-              ]}
-              labelFormatter={() => province}
+              content={<LineStyleGenderTooltip />}
+              cursor={{ fill: "rgba(0,0,0,0.04)" }} // เส้นไฮไลต์อ่อน ๆ แบบกราฟเส้น
               wrapperStyle={{ zIndex: 10 }}
-              contentStyle={{ borderRadius: 8, padding: 10 }}
-              offset={10}
+              offset={12}
             />
 
             <Legend

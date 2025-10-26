@@ -23,6 +23,10 @@ export const metadata: Metadata = {
   title: "HealtRiskHub",
   description:
     "ระบบเว็บแอปพลิเคชันติดตาม วิเคราะห์ และนำเสนอข้อมูลโรคระบาดในระดับจังหวัดของประเทศไทย",
+  icons: {
+    icon: "/images/HealthRiskHub.png",
+    apple: "/images/HealthRiskHub.png",
+  },
 };
 
 export default function RootLayout({

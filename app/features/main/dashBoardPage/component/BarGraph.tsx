@@ -10,11 +10,10 @@ import GraphProvincePatients from "@/app/components/bargraph/GraphProvinceByPati
 import GraphProvinceDeaths from "@/app/components/bargraph/GraphProvinceByDeaths";
 import GraphByGenderTrend from "@/app/components/linegraph/GraphByGenderTrend";
 
-
 const BarGraph = () => {
   return (
     <div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-2 md:gap-4">
         <GraphProvincePatients />
         <GraphProvinceDeaths />
         <GraphPatientsByRegion />

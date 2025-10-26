@@ -119,7 +119,8 @@ export default function GraphPatientsByRegion() {
 
             <Bar
               dataKey="patients"
-              fill="#FF7043"
+              fill="#004680
+"
               name="ผู้ป่วยสะสม"
               barSize={26}
               radius={[0, 6, 6, 0]}
