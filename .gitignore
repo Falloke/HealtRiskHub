@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+
+generated/
+.prisma/
 #pakage.lock
 package-lock.json
 
