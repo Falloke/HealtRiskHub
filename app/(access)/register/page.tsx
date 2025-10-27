@@ -121,14 +121,14 @@ export default function RegisterPage() {
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <InputWithLabel
                 id="firstName"
-                label="ชื่อ"
+                label="ชื่อ*"
                 placeholder="กรุณากรอกชื่อ"
                 error={errors.firstName?.message}
                 {...register("firstName")}
               />
               <InputWithLabel
                 id="lastName"
-                label="นามสกุล"
+                label="นามสกุล*"
                 placeholder="กรุณากรอกนามสกุล"
                 error={errors.lastName?.message}
                 {...register("lastName")}
@@ -136,7 +136,7 @@ export default function RegisterPage() {
 
               {/* จังหวัด + วันเกิด (อยู่แถวเดียวกัน) */}
               <div>
-                <label className="text-sm font-medium text-gray-700">จังหวัด</label>
+                <label className="text-sm font-medium text-gray-700">จังหวัด*</label>
                 <select
                   className="mt-1 w-full rounded-md border px-3 py-2 text-sm disabled:bg-gray-100"
                   disabled={provLoading || !!provErr}
@@ -157,7 +157,7 @@ export default function RegisterPage() {
 
               <InputWithLabel
                 id="dob"
-                label="วันเดือนปีเกิด"
+                label="วันเดือนปีเกิด*"
                 type="date"
                 error={errors.dob?.message}
                 {...register("dob")}
@@ -167,7 +167,7 @@ export default function RegisterPage() {
             {/* ตำแหน่ง */}
             <InputWithLabel
               id="position"
-              label="ตำแหน่ง"
+              label="ตำแหน่ง*"
               placeholder="กรุณากรอกตำแหน่ง"
               containerClassName="col-span-2"
               error={errors.position?.message}
@@ -177,7 +177,7 @@ export default function RegisterPage() {
             {/* Email / Password */}
             <InputWithLabel
               id="email"
-              label="Email"
+              label="Email*"
               placeholder="Email"
               type="email"
               error={errors.email?.message}
@@ -185,7 +185,7 @@ export default function RegisterPage() {
             />
             <InputWithLabel
               id="password"
-              label="Password"
+              label="Password*"
               placeholder="Password"
               type="password"
               error={errors.password?.message}
@@ -193,7 +193,7 @@ export default function RegisterPage() {
             />
             <InputWithLabel
               id="confirmPassword"
-              label="ยืนยัน Password"
+              label="ยืนยัน Password*"
               placeholder="ยืนยัน Password"
               type="password"
               error={errors.confirmPassword?.message}

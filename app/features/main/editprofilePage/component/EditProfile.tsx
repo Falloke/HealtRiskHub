@@ -182,7 +182,7 @@ const Editprofile = () => {
               <div>
                 <InputWithLabel
                   id="firstName"
-                  label="ชื่อ"
+                  label="ชื่อ*"
                   placeholder="กรุณากรอกชื่อ"
                   {...register("firstName")}
                 />
@@ -196,7 +196,7 @@ const Editprofile = () => {
               <div>
                 <InputWithLabel
                   id="lastName"
-                  label="นามสกุล"
+                  label="นามสกุล*"
                   placeholder="กรุณากรอกนามสกุล"
                   {...register("lastName")}
                 />
@@ -210,7 +210,7 @@ const Editprofile = () => {
               {/* จังหวัด + วันเกิด */}
               <div>
                 <label className="text-sm font-medium text-gray-700">
-                  จังหวัด
+                  จังหวัด*
                 </label>
                 <select
                   className="mt-1 w-full rounded-md border px-3 py-2 text-sm disabled:bg-gray-100"
@@ -240,7 +240,7 @@ const Editprofile = () => {
               <div>
                 <InputWithLabel
                   id="dob"
-                  label="วันเดือนปีเกิด"
+                  label="วันเดือนปีเกิด*"
                   type="date"
                   {...register("dob")}
                 />
@@ -256,7 +256,7 @@ const Editprofile = () => {
             <div>
               <InputWithLabel
                 id="position"
-                label="ตำแหน่ง"
+                label="ตำแหน่ง*"
                 placeholder="กรุณากรอกตำแหน่ง"
                 containerClassName="col-span-2"
                 {...register("position")}
@@ -272,7 +272,7 @@ const Editprofile = () => {
             <div>
               <InputWithLabel
                 id="email"
-                label="Email"
+                label="Email*"
                 type="email"
                 placeholder="Email"
                 {...register("email")}
@@ -289,7 +289,7 @@ const Editprofile = () => {
               <div>
                 <InputWithLabel
                   id="newPassword"
-                  label="รหัสผ่านใหม่ (ถ้าต้องการเปลี่ยน)"
+                  label="รหัสผ่านใหม่ (ถ้าต้องการเปลี่ยน)*"
                   type="password"
                   placeholder="กรอกรหัสผ่านใหม่"
                   {...register("newPassword")}
@@ -303,7 +303,7 @@ const Editprofile = () => {
               <div>
                 <InputWithLabel
                   id="confirmNewPassword"
-                  label="ยืนยันรหัสผ่านใหม่"
+                  label="ยืนยันรหัสผ่านใหม่*"
                   type="password"
                   placeholder="กรอกยืนยันรหัสผ่านใหม่"
                   {...register("confirmNewPassword")}

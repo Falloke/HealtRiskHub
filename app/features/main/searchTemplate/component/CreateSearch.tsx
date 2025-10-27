@@ -225,7 +225,7 @@ const SearchCreate = () => {
         {/* Left side */}
         <div className="flex flex-col gap-4">
           <label className="text-sm font-medium text-gray-700">
-            ชื่อการค้นหา
+            ชื่อการค้นหา*
             <input
               id="searchName"
               type="text"
@@ -244,7 +244,7 @@ const SearchCreate = () => {
 
           {/* เลือกจังหวัด (optional) */}
           <label className="text-sm font-medium text-gray-700">
-            เลือกจังหวัด
+            เลือกจังหวัด*
             <select
               id="province"
               value={formData.province}
@@ -270,7 +270,7 @@ const SearchCreate = () => {
 
           {/* ช่วงระยะเวลา */}
           <div className="text-sm font-medium text-gray-700">
-            ช่วงระยะเวลา
+            ช่วงระยะเวลา*
             <div className="mt-1 grid grid-cols-2 gap-2">
               <label className="text-xs text-gray-600">
                 วันเริ่มต้น
@@ -320,7 +320,7 @@ const SearchCreate = () => {
         <div className="flex flex-col gap-4">
           {/* เลือกโรค */}
           <label className="text-sm font-medium text-gray-700">
-            เลือกโรค
+            เลือกโรค*
             <select
               id="disease"
               value={formData.disease}
@@ -371,7 +371,7 @@ const SearchCreate = () => {
 
           {/* จังหวัดของโรค (optional) */}
           <label className="text-sm font-medium text-gray-700">
-            เลือกจังหวัดของโรค
+            จังหวัดที่ต้องการเปลี่ยบเที่ยบเลือกจังหวัดของโรค
             <select
               id="diseaseProvince"
               value={formData.diseaseProvince}
