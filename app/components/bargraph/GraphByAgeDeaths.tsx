@@ -121,7 +121,7 @@ export default function GraphByGenderDeaths() {
             <YAxis
               type="category"
               dataKey="ageRange"
-              width={56}
+              width={36}
               interval={0}
               tick={{ fontSize: 12, fill: "#6B7280" }}
             />
@@ -130,7 +130,7 @@ export default function GraphByGenderDeaths() {
 
             <Bar
               dataKey="deaths"
-              fill="#9C27B0"
+              fill="#6D7378"
               name="ผู้เสียชีวิตสะสม"
               barSize={26}
               radius={[0, 6, 6, 0]}

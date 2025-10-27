@@ -73,22 +73,23 @@ export default function GraphProvinceByDeaths() {
             <YAxis
               type="category"
               dataKey="label"
-              width={56}
+              width={36}
               tick={<VerticalProvinceTick />}
             >
-              <Label
+              {/* <Label
                 value="จังหวัด"
                 angle={-90}
                 position="insideLeft"
                 offset={10}
-              />
+              /> */}
             </YAxis>
             <Tooltip
               content={<ProvinceCountTooltip seriesName="ผู้เสียชีวิตสะสม" />}
             />
             <Bar
               dataKey="value"
-              fill="#9C27B0" // สีต่างจากผู้ป่วย แต่รูปแบบเหมือนกันทั้งหมด
+              fill="#8594A1
+              " // สีต่างจากผู้ป่วย แต่รูปแบบเหมือนกันทั้งหมด
               radius={[0, 6, 6, 0]}
               name="ผู้เสียชีวิตสะสม"
             >

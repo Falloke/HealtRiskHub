@@ -117,7 +117,7 @@ export default function GraphDeathsByRegion() {
 
             <Bar
               dataKey="deaths"
-              fill="#9C27B0"
+              fill="#6A7075"
               name="ผู้เสียชีวิตสะสม"
               barSize={26}
               radius={[0, 6, 6, 0]}
