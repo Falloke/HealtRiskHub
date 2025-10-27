@@ -31,7 +31,7 @@ const AuthNavBar = () => {
       {/* ซ้าย: โลโก้ + เมนูหลัก */}
       <div className="flex items-center gap-8">
         <Link href="/" className="text-2xl font-bold text-pink-700 hover:opacity-90">
-          HealtRiskHub
+          HealthRiskHub
         </Link>
 
         <div className="hidden gap-6 text-sm font-medium text-gray-800 md:flex">
