@@ -4,8 +4,6 @@ const HomePage = () => {
   return (
     <div>
       <PageDescription />
-
-      {/* You can add more components or content here */}
     </div>
   );
 };

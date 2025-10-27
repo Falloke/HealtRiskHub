@@ -38,19 +38,19 @@ const DashboardHeader = () => {
       : "";
 
   return (
-    <div className="gap-4">
-      <h2 className="text-2xl font-bold text-green-800 lg:text-4xl">
+    <div className="max-w-full gap-4 px-6 py-4 leading-tight">
+      <h2 className="text-lg font-bold text-green-800 lg:text-2xl">
         รายงานสถานการณ์
       </h2>
 
-      <h3 className="text-2xl font-bold text-green-900">
+      <h3 className="overflow-hidden text-lg font-bold text-ellipsis text-green-900">
         {diseaseNameTh || "โรคไข้หวัดใหญ่"}{" "}
         {province ? `ในจังหวัด ${province}` : "(ทั่วประเทศ)"}
       </h3>
 
       {(hasStart || hasEnd) && (
-        <p className="text-xl text-gray-700">
-          ช่วงวันที่: <strong>{rangeText}</strong>
+        <p className="text-md text-gray-700">
+          ช่วงวันที่ <strong>{rangeText}</strong>
         </p>
       )}
     </div>
