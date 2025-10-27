@@ -48,7 +48,7 @@ export default function MemberStats() {
     <section className="space-y-6">
       {/* แถวสถิติรวม */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {["สมาชิกทั้งหมด", "เพิ่มวันนี้", "เพิ่มใน 7 วัน"].map((label, i) => (
+        {["สมาชิกทั้งหมด", "เพิ่มวันนี้", "7 วันย้อนหลัง"].map((label, i) => (
           <div key={label} className="rounded-lg border bg-white p-5">
             <div className="text-sm text-gray-500">{label}</div>
             <div className="mt-1 text-3xl font-semibold">
@@ -78,17 +78,17 @@ export default function MemberStats() {
           </div>
         </div>
         <div className="rounded-lg border bg-white p-5">
-          <div className="text-sm text-gray-500">ผู้ใช้ทั่วไป (User)</div>
+          <div className="text-sm text-gray-500">สมาชิก (Member)</div>
           <div className="mt-1 text-2xl font-semibold">
             {loading ? "…" : data?.byRole?.User ?? 0}
           </div>
         </div>
-        <div className="rounded-lg border bg-white p-5">
+        {/* <div className="rounded-lg border bg-white p-5">
           <div className="text-sm text-gray-500">อื่น ๆ</div>
           <div className="mt-1 text-2xl font-semibold">
             {loading ? "…" : data?.byRole?.Other ?? 0}
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* ผู้ใช้ที่ลงทะเบียนล่าสุด 5 รายการ */}

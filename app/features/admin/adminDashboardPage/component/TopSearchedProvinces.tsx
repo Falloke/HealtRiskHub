@@ -47,7 +47,7 @@ export default function TopSearchedProvinces() {
 
   return (
     <div className="rounded-lg border bg-white p-4">
-      <div className="mb-2 font-semibold">Top 10 จังหวัดที่ถูกค้นหามากสุด</div>
+      <div className="mb-2 font-semibold">Top 10 จังหวัดที่ถูกบันทึกมากที่สุด</div>
 
       {loading ? (
         <div className="text-sm text-gray-500">กำลังโหลด…</div>
