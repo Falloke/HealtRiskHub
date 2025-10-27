@@ -185,7 +185,7 @@ function SidebarInner() {
   }, [router]);
 
   return (
-    <aside className="flex w-full max-w-xs flex-col gap-4 bg-pink-100 px-4 py-6">
+    <aside className="flex w-full max-w-xs flex-col gap-8 bg-pink-100 px-4 py-6">
       {/* โรค */}
       <div>
         <label className="mb-1 block text-sm">เลือกโรค</label>
@@ -205,11 +205,11 @@ function SidebarInner() {
             </option>
           ))}
         </select>
-        {diseaseNameTh && (
+        {/* {diseaseNameTh && (
           <p className="mt-1 text-sm text-gray-700">
             โรคที่เลือก: <strong>{diseaseNameTh}</strong>
           </p>
-        )}
+        )} */}
       </div>
 
       {/* จังหวัด */}
@@ -227,11 +227,11 @@ function SidebarInner() {
             </option>
           ))}
         </select>
-        {province && (
+        {/* {province && (
           <p className="mt-1 text-sm text-gray-700">
             จังหวัดที่เลือก: <strong>{province}</strong>
           </p>
-        )}
+        )} */}
       </div>
 
       {/* วันที่ */}
@@ -244,7 +244,7 @@ function SidebarInner() {
             onChange={(e) => setDateRange(e.target.value, end_date)}
             className="w-full rounded-full bg-white px-4 py-2 pl-10 text-sm outline-none"
           />
-          <CalendarIcon className="absolute left-3 top-2.5 h-4 w-4 text-gray-500" />
+          <CalendarIcon className="absolute top-2.5 left-3 h-4 w-4 text-gray-500" />
         </div>
         <div className="relative">
           <input
@@ -253,7 +253,7 @@ function SidebarInner() {
             onChange={(e) => setDateRange(start_date, e.target.value)}
             className="w-full rounded-full bg-white px-4 py-2 pl-10 text-sm outline-none"
           />
-          <CalendarIcon className="absolute left-3 top-2.5 h-4 w-4 text-gray-500" />
+          <CalendarIcon className="absolute top-2.5 left-3 h-4 w-4 text-gray-500" />
         </div>
       </div>
 
@@ -298,7 +298,7 @@ function SidebarInner() {
                 type="button"
                 onClick={goCreate}
                 title="สร้างการค้นหาใหม่"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-pink-500 text-white shadow-sm transition hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-pink-500 text-white shadow-sm transition hover:bg-pink-600 focus:ring-2 focus:ring-pink-400 focus:outline-none"
               >
                 <Plus className="h-4 w-4" />
               </button>

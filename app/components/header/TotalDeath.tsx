@@ -50,8 +50,8 @@ const TotalDeath = () => {
   }, [province, start_date, end_date]);
 
   return (
-    <div className="rounded bg-gray-100 p-4 shadow">
-      <h2 className="text-xl font-semibold">
+    <div className="rounded bg-gray-100 p-4 shadow-md">
+      <h2 className="text-lg font-bold">
         จำนวนผู้เสียชีวิต {province ? `(${province})` : ""}
       </h2>
 
@@ -61,18 +61,16 @@ const TotalDeath = () => {
         <p className="text-gray-700">ไม่พบข้อมูลผู้เสียชีวิตในช่วงเวลานี้</p>
       ) : (
         <>
-          <p className="text-3xl font-bold text-gray-800">
+          <p className="text-xl font-bold text-gray-800">
             {data.totalDeaths?.toLocaleString?.() ?? "-"} ราย
           </p>
           <p className="text-sm">
             เฉลี่ยวันละ {data.avgDeathsPerDay?.toLocaleString?.() ?? "-"} คน/วัน
           </p>
           <p className="text-sm">
-            สะสม{" "}
-            <span className="font-semibold">
-              {data.cumulativeDeaths?.toLocaleString?.() ?? "-"}
-            </span>{" "}
-            ราย
+            <span className="mt-1 font-semibold">
+              สะสม {data.cumulativeDeaths?.toLocaleString?.() ?? "-"} ราย
+            </span>
           </p>
         </>
       )}

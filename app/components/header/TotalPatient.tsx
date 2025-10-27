@@ -68,8 +68,10 @@ const TotalPatient = () => {
             เฉลี่ยวันละ {data.avgPatientsPerDay?.toLocaleString?.() ?? "-"}{" "}
             คน/วัน
           </p>
-          <p className="mt-1 font-semibold">
-            สะสม {data.cumulativePatients?.toLocaleString?.() ?? "-"} ราย
+          <p className="text-sm">
+            <span className="mt-1 font-semibold">
+              สะสม {data.cumulativePatients?.toLocaleString?.() ?? "-"} ราย
+            </span>
           </p>
         </>
       )}
