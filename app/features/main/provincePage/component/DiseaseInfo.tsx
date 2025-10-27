@@ -5,7 +5,6 @@ import { useProvincialInfoStore } from "@/store/useProvincialInfoStore";
 import DiseaseDescription from "@/app/components/disease-detail/DiseaseDescription";
 import DiseaseSymptoms from "@/app/components/disease-detail/DiseaseSymptoms";
 import DiseasePreventions from "@/app/components/disease-detail/DiseasePreventions";
-import GraphByGenderTrend from "@/app/components/linegraph/GraphByGenderTrend";
 
 type DiseaseFull = {
   code: string;
@@ -17,7 +16,7 @@ type DiseaseFull = {
 };
 
 export default function DiseaseInfo() {
-  const { diseaseCode, diseaseNameTh, setDisease } = useProvincialInfoStore();
+  const { diseaseCode, setDisease } = useProvincialInfoStore();
   const [data, setData] = useState<DiseaseFull | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
